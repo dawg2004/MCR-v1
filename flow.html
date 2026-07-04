@@ -66,7 +66,7 @@ a{color:inherit;text-decoration:none}
 .srcrow .tag.on{border-color:var(--cyan);color:var(--pearl)}
 
 /* ---------- stage grid ---------- */
-.stage{display:grid;grid-template-columns:52px 1fr 210px;gap:12px;padding:0 18px;align-items:start}
+.stage{display:grid;grid-template-columns:52px 1fr 260px;gap:12px;padding:0 18px}
 .mainCol{display:flex;flex-direction:column;gap:12px;min-width:0}
 .tools{display:flex;flex-direction:column;gap:9px;padding-top:6px}
 .tool{width:40px;height:40px;border:1px solid var(--line2);border-radius:8px;background:#0a0d1e;
@@ -175,6 +175,7 @@ a{color:inherit;text-decoration:none}
   .viewport.mini{min-height:0;aspect-ratio:16/5}
   .side{order:2;display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .side .toggles{grid-column:1/-1;flex-direction:row;flex-wrap:wrap;justify-content:space-between}
+  .side .params{grid-column:1/-1}
   .hdr .sig{min-width:130px}.hdr .sig canvas{width:130px}
 }
 </style>
@@ -242,6 +243,33 @@ a{color:inherit;text-decoration:none}
       <span>NODES <b id="nodesN">2500</b></span>
       <div class="flow"><span>FLOW</span><input type="range" id="rFlow" min="0" max="100" value="55"><b id="flowN">55</b><span class="live">LIVE</span></div>
       <span>VISITS <b id="visits">000001</b></span>
+    </div>
+
+    <p class="note">
+仕組みは象（決定論的な象徴生成）に属する。生年月日を32bitハッシュに畳み込み、その値から曲面の種別、パレット、曲面上を流れる速度場の係数、回転を一意に決める。ノードは曲面の上に束縛され、パラメータ空間を流れながら点として描かれる。だから流体のように拡散せず、その人固有の造形そのものが点群で立ち上がる。同じ生年月日は必ず同じ形になる。占いではなく、数式から生まれるかたち。
+    </p>
+  </div>
+
+  <div class="side">
+    <div class="panel">
+      <div class="ph">FLUX &middot; DRIFT DIR <i></i></div>
+      <canvas id="flux" width="380" height="112"></canvas>
+    </div>
+    <div class="panel core">
+      <div class="ph">CORE <i></i></div>
+      <div class="kv"><span>FIELD</span><b id="kField">SURFACE</b></div>
+      <div class="kv"><span>DIPOLE</span><b id="kDip">Y</b></div>
+      <div class="kv"><span>BANDS</span><b id="kBand">V</b></div>
+      <div class="kv"><span>SPEED</span><b id="kSpeed">0.55</b></div>
+      <div class="kv"><span>ROT</span><b id="kRot">0.19</b></div>
+    </div>
+    <div class="toggles">
+      <div class="tgroup">DIP
+        <button data-dip="X">X</button><button data-dip="Y" class="on">Y</button><button data-dip="Z">Z</button>
+      </div>
+      <div class="tgroup">BND
+        <button data-bnd="X">X</button><button data-bnd="Y">Y</button><button data-bnd="Z" class="on">Z</button>
+      </div>
     </div>
 
     <details class="params" open>
@@ -326,33 +354,6 @@ a{color:inherit;text-decoration:none}
         </div>
       </div>
     </details>
-
-    <p class="note">
-仕組みは象（決定論的な象徴生成）に属する。生年月日を32bitハッシュに畳み込み、その値から曲面の種別、パレット、曲面上を流れる速度場の係数、回転を一意に決める。ノードは曲面の上に束縛され、パラメータ空間を流れながら点として描かれる。だから流体のように拡散せず、その人固有の造形そのものが点群で立ち上がる。同じ生年月日は必ず同じ形になる。占いではなく、数式から生まれるかたち。
-    </p>
-  </div>
-
-  <div class="side">
-    <div class="panel">
-      <div class="ph">FLUX &middot; DRIFT DIR <i></i></div>
-      <canvas id="flux" width="380" height="112"></canvas>
-    </div>
-    <div class="panel core">
-      <div class="ph">CORE <i></i></div>
-      <div class="kv"><span>FIELD</span><b id="kField">SURFACE</b></div>
-      <div class="kv"><span>DIPOLE</span><b id="kDip">Y</b></div>
-      <div class="kv"><span>BANDS</span><b id="kBand">V</b></div>
-      <div class="kv"><span>SPEED</span><b id="kSpeed">0.55</b></div>
-      <div class="kv"><span>ROT</span><b id="kRot">0.19</b></div>
-    </div>
-    <div class="toggles">
-      <div class="tgroup">DIP
-        <button data-dip="X">X</button><button data-dip="Y" class="on">Y</button><button data-dip="Z">Z</button>
-      </div>
-      <div class="tgroup">BND
-        <button data-bnd="X">X</button><button data-bnd="Y">Y</button><button data-bnd="Z" class="on">Z</button>
-      </div>
-    </div>
   </div>
 </div>
 
