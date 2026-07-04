@@ -16,10 +16,10 @@
   --mono:"SFMono-Regular",Menlo,Consolas,"Courier New",monospace;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;background:#05070f}
+html{scroll-behavior:smooth;background:#05070f;overflow-x:clip}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{margin:0;background:var(--void);color:var(--pearl);font-family:var(--mono);
-  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  -webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 .mono{font-family:var(--mono)}
 
@@ -66,16 +66,19 @@ a{color:inherit;text-decoration:none}
 .srcrow .tag.on{border-color:var(--cyan);color:var(--pearl)}
 
 /* ---------- stage grid ---------- */
-.stage{display:grid;grid-template-columns:52px 1fr 210px;gap:12px;padding:0 18px}
+.stage{display:grid;grid-template-columns:52px 1fr 210px;gap:12px;padding:0 18px;align-items:start}
+.mainCol{display:flex;flex-direction:column;gap:12px;min-width:0}
 .tools{display:flex;flex-direction:column;gap:9px;padding-top:6px}
 .tool{width:40px;height:40px;border:1px solid var(--line2);border-radius:8px;background:#0a0d1e;
   color:var(--mute);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px}
 .tool.on{border-color:var(--cyan);color:var(--pearl);background:#0d1730}
 .tool:hover{color:var(--pearl)}
 
-.viewport{position:relative;border:1px solid var(--line);border-radius:4px;
+.viewport{position:sticky;top:8px;z-index:20;border:1px solid var(--line);border-radius:4px;
   background:radial-gradient(120% 120% at 50% 42%,#0c1020,#070a13 75%);overflow:hidden;
-  min-height:420px;aspect-ratio:1/1.06}
+  min-height:420px;aspect-ratio:1/1.06;transition:min-height .25s,aspect-ratio .25s;
+  box-shadow:0 18px 40px -18px rgba(0,0,0,.7)}
+.viewport.mini{min-height:0;aspect-ratio:16/6}
 #flow{position:absolute;inset:0;width:100%;height:100%;display:block}
 .vp-lab{position:absolute;top:10px;left:12px;font-size:11px;letter-spacing:.12em;color:var(--mute);z-index:4}
 .vp-lab b{color:var(--cyan);font-weight:400}
@@ -92,6 +95,10 @@ a{color:inherit;text-decoration:none}
   border:1px solid var(--line2);border-radius:5px;background:rgba(12,16,32,.85);
   color:var(--mute);font-size:10px;letter-spacing:.14em;padding:9px 14px;cursor:pointer}
 .nextgeo:hover{color:var(--pearl);border-color:var(--cyan)}
+.pinbtn{position:absolute;right:12px;top:10px;z-index:5;
+  border:1px solid var(--line2);border-radius:5px;background:rgba(12,16,32,.85);
+  color:var(--mute);font-size:9px;letter-spacing:.12em;padding:7px 10px;cursor:pointer}
+.pinbtn:hover{color:var(--pearl);border-color:var(--cyan)}
 
 .side{display:flex;flex-direction:column;gap:12px;padding-top:6px}
 .panel{border:1px solid var(--line);border-radius:4px;background:#080b17;padding:11px 12px}
@@ -104,7 +111,7 @@ a{color:inherit;text-decoration:none}
 .core .kv b{color:var(--pearl);font-weight:400}
 
 /* ---------- generate strip (always visible, esp. mobile) ---------- */
-.genbar{display:flex;gap:8px;align-items:center;margin:12px 18px 0;
+.genbar{display:flex;gap:8px;align-items:center;margin:0;
   border:1px solid var(--line2);border-radius:8px;background:linear-gradient(160deg,#10132a,#0a0d1e);padding:9px 11px}
 .genbar .gl{font-size:9px;letter-spacing:.2em;color:var(--faint);white-space:nowrap}
 .genbar input{flex:1;min-width:110px;background:#070a15;border:1px solid var(--line2);border-radius:6px;
@@ -117,7 +124,7 @@ a{color:inherit;text-decoration:none}
 .gbtn.ghost{background:#0a0d1e}
 
 /* ---------- bottom bar ---------- */
-.botbar{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin:12px 18px 0;
+.botbar{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin:0;
   padding:10px 4px;border-top:1px solid var(--line);font-size:10px;letter-spacing:.12em;color:var(--faint)}
 .botbar b{color:var(--pearl);font-weight:400}
 .botbar .flow{display:flex;align-items:center;gap:9px;flex:1;min-width:200px}
@@ -125,14 +132,14 @@ a{color:inherit;text-decoration:none}
 .botbar .flow input::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--cyan);cursor:pointer;box-shadow:0 0 8px var(--cyan)}
 .botbar .flow input::-moz-range-thumb{width:14px;height:14px;border:none;border-radius:50%;background:var(--cyan)}
 .botbar .live{color:var(--green)}
-.toggles{display:flex;gap:22px;justify-content:center;margin:14px 18px 0;flex-wrap:wrap}
+.toggles{display:flex;gap:22px;justify-content:center;margin:0;flex-wrap:wrap}
 .tgroup{display:flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.14em;color:var(--faint)}
 .tgroup button{width:30px;height:26px;border:1px solid var(--line2);border-radius:5px;background:#0a0d1e;
   color:var(--mute);font-size:11px;cursor:pointer}
 .tgroup button.on{border-color:var(--cyan);color:var(--pearl);background:#0d1730}
 
 /* ---------- params drawer ---------- */
-.params{margin:16px 18px 0;border:1px solid var(--line);border-radius:8px;background:#080b17;overflow:hidden}
+.params{margin:0;border:1px solid var(--line);border-radius:8px;background:#080b17;overflow:hidden}
 .params summary{cursor:pointer;list-style:none;padding:12px 14px;font-size:11px;letter-spacing:.18em;color:var(--mute);
   display:flex;justify-content:space-between;align-items:center}
 .params summary::-webkit-details-marker{display:none}
@@ -151,7 +158,7 @@ a{color:inherit;text-decoration:none}
 .ctrl input[type=range]::-moz-range-thumb{width:15px;height:15px;border:none;border-radius:50%;background:var(--violet)}
 .actions{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:9px;margin-top:4px}
 
-.note{color:var(--faint);font-size:11px;line-height:1.9;letter-spacing:.03em;margin:20px 18px 0;font-family:var(--sans)}
+.note{color:var(--faint);font-size:11px;line-height:1.9;letter-spacing:.03em;margin:8px 0 0;font-family:var(--sans)}
 .foot{border-top:1px solid var(--line);margin-top:26px;padding:24px 18px 50px;color:var(--faint);
   font-size:10px;letter-spacing:.14em;text-align:center}
 .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(16px);
@@ -162,7 +169,9 @@ a{color:inherit;text-decoration:none}
 @media(max-width:820px){
   .stage{grid-template-columns:1fr;gap:10px}
   .tools{flex-direction:row;order:3;padding-top:0}
-  .viewport{order:1;aspect-ratio:1/1;min-height:340px}
+  .mainCol{order:1}
+  .viewport{aspect-ratio:1/1;min-height:280px;top:4px}
+  .viewport.mini{min-height:0;aspect-ratio:16/5}
   .side{order:2;display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .hdr .sig{min-width:130px}.hdr .sig canvas{width:130px}
 }
@@ -207,13 +216,127 @@ a{color:inherit;text-decoration:none}
     <button class="tool" id="tNext" title="next geometry">&#9656;</button>
   </div>
 
-  <div class="viewport" id="viewport">
-    <canvas id="flow"></canvas>
-    <div class="vp-lab">SURFACE-FLOW // <b id="vpShape">torusKnot</b></div>
-    <span class="brk tl"></span><span class="brk tr"></span><span class="brk bl"></span><span class="brk br"></span>
-    <span class="retic" style="left:38%;top:52%"></span>
-    <span class="retic" style="left:56%;top:44%"></span>
-    <button class="nextgeo" id="nextgeo">NEXT PARAMETRIC GEO &#9656;</button>
+  <div class="mainCol">
+    <div class="viewport" id="viewport">
+      <canvas id="flow"></canvas>
+      <div class="vp-lab">SURFACE-FLOW // <b id="vpShape">torusKnot</b></div>
+      <button class="pinbtn" id="pinBtn">SHRINK PREVIEW</button>
+      <span class="brk tl"></span><span class="brk tr"></span><span class="brk bl"></span><span class="brk br"></span>
+      <span class="retic" style="left:38%;top:52%"></span>
+      <span class="retic" style="left:56%;top:44%"></span>
+      <button class="nextgeo" id="nextgeo">NEXT PARAMETRIC GEO &#9656;</button>
+    </div>
+
+    <div class="genbar">
+      <span class="gl">BIRTH<br>YYYYMMDD</span>
+      <input type="text" id="bd" inputmode="numeric" maxlength="8" placeholder="19840720" value="19840720">
+      <button class="gbtn" id="go">GENERATE</button>
+      <button class="gbtn ghost" id="rand">RND</button>
+    </div>
+
+    <div class="botbar">
+      <span>LOG DATA <b id="clock">--:--:--</b> // <span id="today">---</span></span>
+      <span>FRAMES <b id="frames">000000</b></span>
+      <span>NODES <b id="nodesN">2500</b></span>
+      <div class="flow"><span>FLOW</span><input type="range" id="rFlow" min="0" max="100" value="55"><b id="flowN">55</b><span class="live">LIVE</span></div>
+      <span>VISITS <b id="visits">000001</b></span>
+    </div>
+
+    <div class="toggles">
+      <div class="tgroup">DIP
+        <button data-dip="X">X</button><button data-dip="Y" class="on">Y</button><button data-dip="Z">Z</button>
+      </div>
+      <div class="tgroup">BND
+        <button data-bnd="X">X</button><button data-bnd="Y">Y</button><button data-bnd="Z" class="on">Z</button>
+      </div>
+    </div>
+
+    <details class="params" open>
+      <summary>PARAMETERS &amp; EXPORT</summary>
+      <div class="pbody">
+        <div class="ctrl" style="grid-column:1/-1">
+          <div class="ch"><span class="cl">GEOMETRY</span></div>
+          <div class="seg" id="segShape"></div>
+        </div>
+        <div class="ctrl" style="grid-column:1/-1">
+          <div class="ch"><span class="cl">PALETTE</span></div>
+          <div class="seg" id="segPal"></div>
+        </div>
+        <div class="ctrl">
+          <div class="ch"><span class="cl">NODES</span><span class="cv" id="vNode">2500</span></div>
+          <div class="seg" id="segNode">
+            <button data-n="1200">1200</button><button data-n="2500" class="on">2500</button><button data-n="4000">4000</button><button data-n="6000">6000</button>
+          </div>
+        </div>
+        <div class="ctrl">
+          <div class="ch"><span class="cl">GLOW (AFTERIMAGE)</span><span class="cv" id="vTrail">0.00</span></div>
+          <input type="range" id="rTrail" min="0" max="90" value="0">
+        </div>
+        <div class="ctrl">
+          <div class="ch"><span class="cl">SPIN</span><span class="cv" id="vSpin">0.19</span></div>
+          <input type="range" id="rSpin" min="0" max="60" value="19">
+        </div>
+        <div class="ctrl">
+          <div class="ch"><span class="cl">MELT</span><span class="cv" id="vMelt">0.05</span></div>
+          <input type="range" id="rMelt" min="0" max="40" value="5">
+        </div>
+        <div class="ctrl">
+          <div class="ch"><span class="cl">POINT SIZE</span><span class="cv" id="vLw">0.7</span></div>
+          <input type="range" id="rLw" min="3" max="26" value="7">
+        </div>
+        <div class="ctrl">
+          <div class="ch"><span class="cl">COLOR</span><span class="cv" id="vCol">PALETTE</span></div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <input type="color" id="colPick" value="#eef0fb" style="width:44px;height:34px;padding:0;border:1px solid var(--line2);border-radius:6px;background:#0a0d1e;cursor:pointer">
+            <button class="gbtn ghost" id="colReset">USE PALETTE</button>
+          </div>
+        </div>
+        <div class="ctrl" style="grid-column:1/-1">
+          <div class="ch"><span class="cl">BACKGROUND IMAGE</span><span class="cv" id="bgName">none</span></div>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+            <button class="gbtn ghost" id="bgPick">UPLOAD IMAGE</button>
+            <button class="gbtn ghost" id="bgClear">CLEAR</button>
+            <input type="file" accept="image/*" id="bgFile" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+          </div>
+          <div style="font-size:9px;color:var(--faint);margin-top:6px;letter-spacing:.05em;font-family:var(--sans)">JPG / PNG / WEBP / GIF ・ ビューポートに画像をドラッグ、または貼り付け（Cmd+V）でも設定できます</div>
+        </div>
+        <div class="ctrl">
+          <div class="ch"><span class="cl">BG OPACITY</span><span class="cv" id="vBgO">0.50</span></div>
+          <input type="range" id="rBgO" min="0" max="100" value="50">
+        </div>
+        <div class="ctrl">
+          <div class="ch"><span class="cl">BG SIZE</span><span class="cv" id="vBgS">1.00</span></div>
+          <input type="range" id="rBgS" min="20" max="300" value="100">
+        </div>
+        <div class="ctrl">
+          <div class="ch"><span class="cl">BG POS X</span><span class="cv" id="vBgX">0.00</span></div>
+          <input type="range" id="rBgX" min="-100" max="100" value="0">
+        </div>
+        <div class="ctrl">
+          <div class="ch"><span class="cl">BG POS Y</span><span class="cv" id="vBgY">0.00</span></div>
+          <input type="range" id="rBgY" min="-100" max="100" value="0">
+        </div>
+        <div class="ctrl" style="grid-column:1/-1">
+          <div class="ch"><span class="cl">VIDEO EXPORT</span><span class="cv" id="recState"></span></div>
+          <div class="seg" id="segDur">
+            <button data-s="5">5s</button><button data-s="10" class="on">10s</button><button data-s="15">15s</button><button data-s="30">30s</button>
+          </div>
+          <div class="seg" id="segFmt" style="margin-top:6px">
+            <button data-f="mp4" class="on">MP4</button><button data-f="mov">MOV</button><button data-f="webm">WEBM</button>
+          </div>
+          <button class="gbtn" id="expVid" style="margin-top:8px;width:100%">EXPORT VIDEO</button>
+        </div>
+        <div class="actions">
+          <button class="gbtn" id="savePng">Save PNG</button>
+          <button class="gbtn ghost" id="wall">Wallpaper 2560&times;1440</button>
+          <button class="gbtn ghost" id="share">Copy Share Link</button>
+        </div>
+      </div>
+    </details>
+
+    <p class="note">
+仕組みは象（決定論的な象徴生成）に属する。生年月日を32bitハッシュに畳み込み、その値から曲面の種別、パレット、曲面上を流れる速度場の係数、回転を一意に決める。ノードは曲面の上に束縛され、パラメータ空間を流れながら点として描かれる。だから流体のように拡散せず、その人固有の造形そのものが点群で立ち上がる。同じ生年月日は必ず同じ形になる。占いではなく、数式から生まれるかたち。
+    </p>
   </div>
 
   <div class="side">
@@ -232,116 +355,6 @@ a{color:inherit;text-decoration:none}
   </div>
 </div>
 
-<div class="genbar">
-  <span class="gl">BIRTH<br>YYYYMMDD</span>
-  <input type="text" id="bd" inputmode="numeric" maxlength="8" placeholder="19840720" value="19840720">
-  <button class="gbtn" id="go">GENERATE</button>
-  <button class="gbtn ghost" id="rand">RND</button>
-</div>
-
-<div class="botbar">
-  <span>LOG DATA <b id="clock">--:--:--</b> // <span id="today">---</span></span>
-  <span>FRAMES <b id="frames">000000</b></span>
-  <span>NODES <b id="nodesN">2500</b></span>
-  <div class="flow"><span>FLOW</span><input type="range" id="rFlow" min="0" max="100" value="55"><b id="flowN">55</b><span class="live">LIVE</span></div>
-  <span>VISITS <b id="visits">000001</b></span>
-</div>
-
-<div class="toggles">
-  <div class="tgroup">DIP
-    <button data-dip="X">X</button><button data-dip="Y" class="on">Y</button><button data-dip="Z">Z</button>
-  </div>
-  <div class="tgroup">BND
-    <button data-bnd="X">X</button><button data-bnd="Y">Y</button><button data-bnd="Z" class="on">Z</button>
-  </div>
-</div>
-
-<details class="params">
-  <summary>PARAMETERS &amp; EXPORT</summary>
-  <div class="pbody">
-    <div class="ctrl" style="grid-column:1/-1">
-      <div class="ch"><span class="cl">GEOMETRY</span></div>
-      <div class="seg" id="segShape"></div>
-    </div>
-    <div class="ctrl" style="grid-column:1/-1">
-      <div class="ch"><span class="cl">PALETTE</span></div>
-      <div class="seg" id="segPal"></div>
-    </div>
-    <div class="ctrl">
-      <div class="ch"><span class="cl">NODES</span><span class="cv" id="vNode">2500</span></div>
-      <div class="seg" id="segNode">
-        <button data-n="1200">1200</button><button data-n="2500" class="on">2500</button><button data-n="4000">4000</button><button data-n="6000">6000</button>
-      </div>
-    </div>
-    <div class="ctrl">
-      <div class="ch"><span class="cl">GLOW (AFTERIMAGE)</span><span class="cv" id="vTrail">0.00</span></div>
-      <input type="range" id="rTrail" min="0" max="90" value="0">
-    </div>
-    <div class="ctrl">
-      <div class="ch"><span class="cl">SPIN</span><span class="cv" id="vSpin">0.19</span></div>
-      <input type="range" id="rSpin" min="0" max="60" value="19">
-    </div>
-    <div class="ctrl">
-      <div class="ch"><span class="cl">MELT</span><span class="cv" id="vMelt">0.05</span></div>
-      <input type="range" id="rMelt" min="0" max="40" value="5">
-    </div>
-    <div class="ctrl">
-      <div class="ch"><span class="cl">POINT SIZE</span><span class="cv" id="vLw">0.7</span></div>
-      <input type="range" id="rLw" min="3" max="26" value="7">
-    </div>
-    <div class="ctrl">
-      <div class="ch"><span class="cl">COLOR</span><span class="cv" id="vCol">PALETTE</span></div>
-      <div style="display:flex;gap:8px;align-items:center">
-        <input type="color" id="colPick" value="#eef0fb" style="width:44px;height:34px;padding:0;border:1px solid var(--line2);border-radius:6px;background:#0a0d1e;cursor:pointer">
-        <button class="gbtn ghost" id="colReset">USE PALETTE</button>
-      </div>
-    </div>
-    <div class="ctrl" style="grid-column:1/-1">
-      <div class="ch"><span class="cl">BACKGROUND IMAGE</span><span class="cv" id="bgName">none</span></div>
-      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-        <button class="gbtn ghost" id="bgPick">UPLOAD IMAGE</button>
-        <button class="gbtn ghost" id="bgClear">CLEAR</button>
-        <input type="file" accept="image/*" id="bgFile" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-      </div>
-      <div style="font-size:9px;color:var(--faint);margin-top:6px;letter-spacing:.05em;font-family:var(--sans)">JPG / PNG / WEBP / GIF ・ ビューポートに画像をドラッグ、または貼り付け（Cmd+V）でも設定できます</div>
-    </div>
-    <div class="ctrl">
-      <div class="ch"><span class="cl">BG OPACITY</span><span class="cv" id="vBgO">0.50</span></div>
-      <input type="range" id="rBgO" min="0" max="100" value="50">
-    </div>
-    <div class="ctrl">
-      <div class="ch"><span class="cl">BG SIZE</span><span class="cv" id="vBgS">1.00</span></div>
-      <input type="range" id="rBgS" min="20" max="300" value="100">
-    </div>
-    <div class="ctrl">
-      <div class="ch"><span class="cl">BG POS X</span><span class="cv" id="vBgX">0.00</span></div>
-      <input type="range" id="rBgX" min="-100" max="100" value="0">
-    </div>
-    <div class="ctrl">
-      <div class="ch"><span class="cl">BG POS Y</span><span class="cv" id="vBgY">0.00</span></div>
-      <input type="range" id="rBgY" min="-100" max="100" value="0">
-    </div>
-    <div class="ctrl" style="grid-column:1/-1">
-      <div class="ch"><span class="cl">VIDEO EXPORT</span><span class="cv" id="recState"></span></div>
-      <div class="seg" id="segDur">
-        <button data-s="5">5s</button><button data-s="10" class="on">10s</button><button data-s="15">15s</button><button data-s="30">30s</button>
-      </div>
-      <div class="seg" id="segFmt" style="margin-top:6px">
-        <button data-f="mp4" class="on">MP4</button><button data-f="mov">MOV</button><button data-f="webm">WEBM</button>
-      </div>
-      <button class="gbtn" id="expVid" style="margin-top:8px;width:100%">EXPORT VIDEO</button>
-    </div>
-    <div class="actions">
-      <button class="gbtn" id="savePng">Save PNG</button>
-      <button class="gbtn ghost" id="wall">Wallpaper 2560&times;1440</button>
-      <button class="gbtn ghost" id="share">Copy Share Link</button>
-    </div>
-  </div>
-</details>
-
-<p class="note">
-仕組みは象（決定論的な象徴生成）に属する。生年月日を32bitハッシュに畳み込み、その値から曲面の種別、パレット、曲面上を流れる速度場の係数、回転を一意に決める。ノードは曲面の上に束縛され、パラメータ空間を流れながら点として描かれる。だから流体のように拡散せず、その人固有の造形そのものが点群で立ち上がる。同じ生年月日は必ず同じ形になる。占いではなく、数式から生まれるかたち。
-</p>
 
 <div class="foot">MY CORE RESONANCE &mdash; SURFACE FLOW</div>
 <div class="toast" id="toast"></div>
@@ -686,6 +699,18 @@ el("tNext").onclick=function(){cycleGeo();};
 el("nextgeo").onclick=function(){cycleGeo();};
 el("tShot").onclick=function(){el("savePng").click();};
 function cycleGeo(){S.geo=(S.geo+1)%GEOS.length;S.cal=calibrate(GEOS[S.geo].P);remapBuild();toast("Geometry: "+GEOS[S.geo].key);}
+
+/* ---------- pin / shrink preview (stay visible while toggling controls) ---------- */
+(function(){
+  var vp=el("viewport"),btn=el("pinBtn"),mini=false;
+  btn.onclick=function(){
+    mini=!mini;
+    vp.classList.toggle("mini",mini);
+    btn.textContent=mini?"EXPAND PREVIEW":"SHRINK PREVIEW";
+    resize();
+    if(reduced())staticRender();
+  };
+})();
 
 /* ---------- export ---------- */
 function burn(c){var g=c.getContext("2d");
