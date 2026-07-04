@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>About / MY CORE RESONANCE</title>
+<style>
+:root{
+  --void:#080a16;
+  --abyss:#11142b;
+  --abyss2:#181c3a;
+  --line:#2c3160;
+  --line2:#3a4180;
+  --pearl:#ece9f7;
+  --mute:#9a9ec8;
+  --faint:#6a6f9c;
+  --violet:#8b6fe8;
+  --cyan:#4fd0e0;
+  --gold:#e8c36f;
+  --rose:#e86f9e;
+  --green:#7fdca0;
+  --serif:"Hiragino Mincho ProN","Yu Mincho","YuMincho",Georgia,"Times New Roman",serif;
+  --sans:"Hiragino Kaku Gothic ProN","Yu Gothic","Segoe UI",system-ui,sans-serif;
+  --mono:"SFMono-Regular",Menlo,Consolas,"Courier New",monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:
+    radial-gradient(1200px 700px at 78% -8%, rgba(139,111,232,.16), transparent 60%),
+    radial-gradient(900px 600px at 8% 12%, rgba(79,208,224,.10), transparent 55%),
+    var(--void);
+  color:var(--pearl);
+  font-family:var(--sans);
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+.wrap{max-width:1040px;margin:0 auto;padding:54px 24px 90px}
+
+/* header */
+.kicker{font-family:var(--mono);font-size:11px;letter-spacing:.42em;color:var(--faint);text-transform:uppercase;margin:0 0 16px}
+.title{
+  font-family:var(--serif);font-weight:400;letter-spacing:.04em;
+  font-size:clamp(34px,6vw,58px);line-height:1.08;margin:0;
+  background:linear-gradient(110deg,var(--pearl) 8%,var(--violet) 42%,var(--cyan) 70%,var(--gold) 96%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.titleSub{font-family:var(--mono);font-size:12px;letter-spacing:.62em;color:var(--mute);margin:14px 0 0;padding-left:.6em}
+
+/* signature canvas */
+.sigWrap{position:relative;margin:34px 0 6px;border:1px solid var(--line);border-radius:14px;
+  background:linear-gradient(180deg,rgba(24,28,58,.55),rgba(8,10,22,.2));overflow:hidden}
+#sig{display:block;width:100%;height:170px}
+.sigCap{position:absolute;left:16px;bottom:12px;font-family:var(--mono);font-size:9.5px;
+  letter-spacing:.24em;color:var(--faint);text-transform:uppercase}
+
+/* intro */
+.lead{font-size:16px;color:var(--pearl);margin:30px 0 0;max-width:74ch}
+.lead .accent{color:var(--cyan)}
+.muted{color:var(--mute);font-size:14.5px;margin:14px 0 0;max-width:74ch}
+
+/* tier legend */
+.legend{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:30px 0 0}
+.tierCard{border:1px solid var(--line);border-radius:12px;padding:16px 16px 18px;background:rgba(17,20,43,.5)}
+.tierCard .badge{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.16em;
+  padding:3px 9px;border-radius:6px;margin:0 0 10px}
+.tierCard .ttl{font-family:var(--serif);font-size:17px;letter-spacing:.05em;margin:0 0 4px}
+.tierCard .cnt{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.12em}
+.tierCard p{font-size:13px;color:var(--mute);margin:8px 0 0}
+.b-calc{color:var(--cyan);border:1px solid rgba(79,208,224,.4);background:rgba(79,208,224,.08)}
+.b-est{color:var(--gold);border:1px solid rgba(232,195,111,.4);background:rgba(232,195,111,.08)}
+.b-sym{color:var(--violet);border:1px solid rgba(139,111,232,.4);background:rgba(139,111,232,.08)}
+
+/* controls */
+.controls{position:sticky;top:0;z-index:5;margin:46px 0 0;padding:16px 0 14px;
+  background:linear-gradient(180deg,var(--void) 64%,rgba(8,10,22,0));
+  display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.fbtn{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--mute);background:transparent;border:1px solid var(--line);border-radius:999px;
+  padding:8px 15px;cursor:pointer;transition:all .18s}
+.fbtn:hover{border-color:var(--line2);color:var(--pearl)}
+.fbtn.on{color:var(--void);font-weight:700;border-color:transparent;
+  background:linear-gradient(100deg,var(--cyan),var(--violet) 60%,var(--gold))}
+.search{flex:1;min-width:180px}
+.search input{width:100%;background:rgba(17,20,43,.7);border:1px solid var(--line);border-radius:999px;
+  color:var(--pearl);font-family:var(--sans);font-size:14px;padding:9px 16px;outline:none}
+.search input:focus{border-color:var(--violet)}
+.count{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--faint);white-space:nowrap}
+
+/* category */
+.cat{margin:44px 0 0}
+.cat h3{font-family:var(--serif);font-weight:400;font-size:22px;letter-spacing:.06em;margin:0;
+  display:flex;align-items:baseline;gap:14px}
+.cat h3 .rn{font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:var(--gold);
+  border:1px solid var(--line2);border-radius:6px;padding:2px 9px;flex:none}
+.cat .csub{color:var(--faint);font-size:13px;margin:7px 0 0;font-family:var(--sans)}
+.cat .rule{height:1px;background:linear-gradient(90deg,var(--line2),transparent);margin:14px 0 18px}
+
+/* grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(252px,1fr));gap:14px}
+.card{border:1px solid var(--line);border-radius:12px;padding:16px 16px 17px;
+  background:linear-gradient(180deg,rgba(24,28,58,.42),rgba(17,20,43,.28));
+  position:relative;transition:border-color .18s,transform .18s}
+.card:hover{border-color:var(--line2);transform:translateY(-2px)}
+.card .top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 9px}
+.card .no{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.1em}
+.tg{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.14em;
+  padding:2px 8px;border-radius:5px}
+.tg.calc{color:var(--cyan);border:1px solid rgba(79,208,224,.4);background:rgba(79,208,224,.08)}
+.tg.est{color:var(--gold);border:1px solid rgba(232,195,111,.4);background:rgba(232,195,111,.08)}
+.tg.sym{color:var(--violet);border:1px solid rgba(139,111,232,.4);background:rgba(139,111,232,.08)}
+.card .nm{font-family:var(--serif);font-size:17px;letter-spacing:.04em;line-height:1.35;margin:0 0 7px}
+.card .es{font-size:12.5px;color:var(--mute);line-height:1.65;margin:0}
+.cat.hide,.card.hide{display:none}
+.empty{display:none;color:var(--faint);font-family:var(--mono);font-size:12px;letter-spacing:.1em;
+  text-align:center;padding:40px 0;margin:30px 0 0;border:1px dashed var(--line);border-radius:12px}
+
+/* footer */
+.foot{margin:60px 0 0;padding:26px 0 0;border-top:1px solid var(--line);
+  display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+.foot .note{font-size:12.5px;color:var(--faint);max-width:60ch}
+.cta{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--void);font-weight:700;text-decoration:none;padding:11px 22px;border-radius:999px;
+  background:linear-gradient(100deg,var(--cyan),var(--violet) 55%,var(--gold))}
+.cta:active{transform:translateY(1px)}
+
+@media (max-width:640px){
+  .legend{grid-template-columns:1fr}
+  .wrap{padding:40px 18px 70px}
+}
+@media (prefers-reduced-motion:reduce){
+  .card,.fbtn{transition:none}
+}
+
+/* ---------- shared hamburger nav ---------- */
+.navBtn{position:fixed;top:18px;right:18px;z-index:60;width:46px;height:46px;border-radius:12px;
+  border:1px solid var(--line);background:rgba(17,20,43,.62);cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:border-color .2s}
+.navBtn:hover{border-color:var(--line2)}
+.navBtn span{display:block;width:20px;height:1.5px;background:var(--pearl);border-radius:2px;transition:transform .26s,opacity .2s}
+.navBtn.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.navBtn.open span:nth-child(2){opacity:0}
+.navBtn.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.navOv{position:fixed;inset:0;z-index:55;opacity:0;pointer-events:none;
+  background:radial-gradient(900px 700px at 80% 8%,rgba(139,111,232,.18),transparent 60%),rgba(8,10,22,.92);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  transition:opacity .3s;display:flex;align-items:center;justify-content:center}
+.navOv.show{opacity:1;pointer-events:auto}
+.navInner{text-align:center;padding:24px}
+.navInner .eye{font-family:var(--mono);font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--faint);margin:0 0 30px}
+.navInner a{display:block;font-family:var(--serif);font-size:clamp(28px,6vw,44px);letter-spacing:.04em;
+  color:var(--pearl);margin:20px 0;line-height:1.15;
+  transition:color .2s,transform .25s,opacity .25s;opacity:0;transform:translateY(14px)}
+.navOv.show .navInner a{opacity:1;transform:none}
+.navOv.show .navInner a:nth-child(2){transition-delay:.05s}
+.navOv.show .navInner a:nth-child(3){transition-delay:.1s}
+.navOv.show .navInner a:nth-child(4){transition-delay:.15s}
+.navInner a .s{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--faint);text-transform:uppercase;margin:8px 0 0}
+.navInner a:hover{color:var(--cyan)}
+.navInner a[aria-current=page]{background:linear-gradient(100deg,var(--cyan),var(--violet) 55%,var(--gold));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+@media (prefers-reduced-motion:reduce){.navBtn span,.navOv,.navInner a{transition:none}.navInner a{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<button class="navBtn" id="navBtn" aria-label="メニュー" aria-expanded="false" aria-controls="navOv"><span></span><span></span><span></span></button>
+<nav class="navOv" id="navOv" aria-hidden="true"><div class="navInner">
+  <p class="eye">My Core Resonance</p>
+  <a href="index.html">占機<span class="s">Oracle / 70 Systems</span></a>
+  <a href="about.html" aria-current="page">七十占術について<span class="s">About</span></a>
+  <a href="fractal.html">Fractal Identity<span class="s">Birthday as Mathematics</span></a>
+</div></nav>
+
+<div class="wrap">
+
+  <p class="kicker">About / Seventy Systems</p>
+  <h1 class="title">MY CORE RESONANCE</h1>
+  <p class="titleSub">M C R</p>
+
+  <div class="sigWrap">
+    <canvas id="sig" width="1000" height="340"></canvas>
+    <span class="sigCap">Core Resonance / standing wave</span>
+  </div>
+
+  <p class="lead">MCRは、古今東西の<span class="accent">七十の占術</span>を一つの座に束ね、あなたの氏名と生年月日から「核の共鳴」を立ち上げる単一の占機です。東洋の命術から西洋占星、数秘、ルーン、オガム、土占、そして現代の統合体系まで、十一の系譜を横断します。</p>
+  <p class="muted">ここで大切にしているのは、誇張しないことです。七十すべてを同じ顔で並べるのではなく、それぞれを三つの層に分けて明示します。実際に計算しているもの、天体暦なしで近似しているもの、そして象徴として読むもの。どこが本物の算出で、どこが象徴かを隠さない。それがこの占機の設計思想です。</p>
+
+  <div class="legend" id="legend"></div>
+
+  <div class="controls">
+    <div class="filters" id="filters">
+      <button class="fbtn on" data-f="all">すべて 70</button>
+      <button class="fbtn" data-f="calc">計 21</button>
+      <button class="fbtn" data-f="est">推 13</button>
+      <button class="fbtn" data-f="sym">象 36</button>
+    </div>
+    <div class="search"><input id="q" type="text" placeholder="占術名・キーワードで絞り込み" autocomplete="off"></div>
+    <span class="count" id="count"></span>
+  </div>
+
+  <div id="cats"></div>
+  <div class="empty" id="empty">該当する占術はありません</div>
+
+  <div class="foot">
+    <p class="note">象徴として読む層も、人物固有のシードから決定論的に生成されます。同じ入力なら同じ結果が返り、占機としての一貫性を保ちます。</p>
+    <a class="cta" href="index.html">占機をひらく</a>
+  </div>
+
+</div>
+
+<script>
+// ---- seventy systems data ----
+var CATS=[{"rn":"\u2160","title":"\u6771\u6d0b\u547d\u8853","sub":"\u751f\u5e74\u6708\u65e5\u6642\u306e\u5e72\u652f\u3068\u661f\u304b\u3089\u5bbf\u547d\u306e\u9aa8\u683c\u3092\u7acb\u3066\u308b","sys":[{"n":1,"nm":"\u5b50\u5e73\u63a8\u547d\uff08\u56db\u67f1\u63a8\u547d\uff09","tag":"calc","es":"\u751f\u5e74\u6708\u65e5\u6642\u306e\u5e72\u652f\u56db\u67f1\u304b\u3089\u4e94\u884c\u306e\u504f\u308a\u3068\u5de1\u308a\u3092\u8aad\u3080\u6771\u6d0b\u547d\u8853\u306e\u57fa\u5e79"},{"n":2,"nm":"\u7b97\u547d\u5b66","tag":"sym","es":"\u5e72\u652f\u66a6\u3068\u9670\u967d\u4e94\u884c\u3067\u5bbf\u547d\u306e\u661f\u3068\u5341\u5927\u4e3b\u661f\u3092\u7acb\u3066\u308b\u547d\u5b66"},{"n":3,"nm":"\u7d2b\u5fae\u6597\u6570","tag":"sym","es":"\u751f\u6642\u304b\u3089\u547d\u76e4\u3092\u8d77\u3053\u3057\u5341\u56db\u4e3b\u661f\u3092\u5341\u4e8c\u5bae\u306b\u914d\u3059\u308b\u661f\u547d\u8853"},{"n":4,"nm":"\u4e5d\u661f\u6c17\u5b66","tag":"calc","es":"\u751f\u5e74\u306e\u672c\u547d\u661f\u3068\u4e94\u884c\u65b9\u4f4d\u3067\u904b\u6c17\u3068\u76f8\u6027\u3001\u5409\u65b9\u4f4d\u3092\u6e2c\u308b"},{"n":5,"nm":"\u5bbf\u66dc\u5360\u661f\u8853","tag":"est","es":"\u6708\u306e\u904b\u884c\u306b\u57fa\u3065\u304f\u4e8c\u5341\u4e03\u5bbf\u3067\u6027\u8cea\u3068\u76f8\u6027\u3001\u65e5\u53d6\u308a\u3092\u8aad\u3080\u5bc6\u6559\u7531\u6765\u306e\u5360\u8853"},{"n":6,"nm":"\u4e03\u653f\u56db\u4f59","tag":"sym","es":"\u4e03\u653f\uff08\u65e5\u6708\u4e94\u661f\uff09\u3068\u56db\u4f59\u3092\u7528\u3044\u308b\u4e2d\u56fd\u4f1d\u7d71\u306e\u661f\u547d\u8853"},{"n":7,"nm":"\u9244\u677f\u795e\u6570","tag":"sym","es":"\u90b5\u96cd\u306e\u7cfb\u8b5c\u306b\u9023\u306a\u308b\u523b\u6570\u304b\u3089\u904b\u547d\u306e\u6761\u6587\u3092\u5f15\u304f\u79d8\u4f1d\u306e\u6570\u8853"},{"n":8,"nm":"\u7687\u6975\u7d4c\u4e16","tag":"sym","es":"\u90b5\u96cd\u304c\u6613\u3068\u6570\u3067\u6b74\u53f2\u3068\u6642\u904b\u306e\u5927\u5468\u671f\u3092\u8aac\u3044\u305f\u7d4c\u4e16\u306e\u66f8"},{"n":9,"nm":"\u516d\u58ec\u547d\u76e4\u6cd5","tag":"sym","es":"\u516d\u58ec\u306e\u76e4\u3092\u547d\u8853\u306b\u5fdc\u7528\u3057\u5341\u4e8c\u5929\u5c06\u3067\u904b\u52e2\u3092\u8aad\u3080"},{"n":10,"nm":"\u4e09\u4e16\u76f8\u6cd5","tag":"sym","es":"\u524d\u4e16\u30fb\u73fe\u4e16\u30fb\u6765\u4e16\u306e\u4e09\u4e16\u3092\u898b\u7acb\u3066\u308b\u65e5\u672c\u306e\u5360\u6cd5"}]},{"rn":"\u2161","title":"\u4e2d\u56fd\u8853\u6570\uff08\u6642\u7a7a\u30fb\u65b9\u4f4d\u7cfb\uff09","sub":"\u6642\u3068\u65b9\u4f4d\u3001\u571f\u5730\u306e\u6c17\u3092\u76e4\u306b\u7acb\u3066\u3066\u8aad\u3080","sys":[{"n":11,"nm":"\u516b\u9580\u9041\u7532\uff08\u5947\u9580\u9041\u7532\uff09","tag":"sym","es":"\u6642\u7a7a\u3068\u65b9\u4f4d\u306e\u76e4\u3092\u7acb\u3066\u516b\u9580\u30fb\u4e5d\u661f\u30fb\u516b\u795e\u3067\u6700\u826f\u306e\u6642\u3068\u65b9\u4f4d\u3092\u9078\u3076"},{"n":12,"nm":"\u592a\u4e59\u795e\u6570","tag":"sym","es":"\u592a\u4e59\u306e\u4e5d\u5bae\u5de1\u884c\u3067\u5929\u4e0b\u306e\u5927\u52e2\u3068\u500b\u306e\u904b\u3092\u6e2c\u308b\u4e09\u5f0f\u306e\u4e00"},{"n":13,"nm":"\u98a8\u89d2\u5b9d\u5178","tag":"sym","es":"\u98a8\u306e\u5411\u304d\u3068\u97f3\u3001\u81ea\u7136\u306e\u5fb4\u5019\u304b\u3089\u5409\u51f6\u3092\u5360\u3046\u53e4\u4ee3\u306e\u5019\u6c17\u8853"},{"n":14,"nm":"\u91d1\u51fd\u7389\u93e1","tag":"sym","es":"\u5947\u9580\u7cfb\u306e\u629e\u65e5\u30fb\u5360\u4e8b\u306b\u7528\u3044\u3089\u308c\u308b\u79d8\u93e1\u66f8"},{"n":15,"nm":"\u7384\u7a7a\u98db\u661f","tag":"sym","es":"\u5143\u904b\u3068\u5ea7\u5411\u304b\u3089\u98db\u661f\u3092\u914d\u3057\u4f4f\u5c45\u306e\u6642\u904b\u306e\u5409\u51f6\u3092\u8aad\u3080\u98a8\u6c34"},{"n":16,"nm":"\u4e09\u5143\u4e5d\u904b","tag":"sym","es":"\u4e8c\u5341\u5e74\u3054\u3068\u306e\u904b\u3092\u4e09\u5143\u4e5d\u904b\u3067\u533a\u5207\u308a\u6642\u4ee3\u306e\u6c17\u3092\u6e2c\u308b"},{"n":17,"nm":"\u516b\u5b85\u6d3e","tag":"calc","es":"\u6771\u56db\u5b85\u30fb\u897f\u56db\u5b85\u3068\u672c\u547d\u5366\u3067\u4f4f\u4eba\u3068\u5bb6\u306e\u65b9\u4f4d\u76f8\u6027\u3092\u898b\u308b\u98a8\u6c34"},{"n":18,"nm":"\u4e09\u5408\u6d3e\u98a8\u6c34","tag":"sym","es":"\u9f8d\u30fb\u6c34\u30fb\u7802\u306e\u4e09\u5408\u3068\u5dd2\u982d\u3067\u571f\u5730\u306e\u6c17\u306e\u6d41\u308c\u3092\u8aad\u3080\u5f62\u52e2\u6d3e"},{"n":19,"nm":"\u967d\u5b85\u98a8\u6c34","tag":"sym","es":"\u751f\u8005\u306e\u4f4f\u5c45\u306e\u6c17\u306e\u5de1\u308a\u3068\u914d\u7f6e\u3092\u6574\u3048\u308b\u967d\u5b85\u306e\u7406"},{"n":20,"nm":"\u9670\u5b85\u98a8\u6c34","tag":"sym","es":"\u5893\u6240\u306e\u5730\u6c17\u3068\u9f8d\u8108\u3092\u8aad\u307f\u5b50\u5b6b\u3078\u306e\u5f71\u97ff\u3092\u6e2c\u308b\u9670\u5b85\u306e\u7406"}]},{"rn":"\u2162","title":"\u6613\u5b66\u7cfb","sub":"\u516b\u5366\u3068\u516d\u5341\u56db\u5366\u3067\u5909\u5316\u306e\u5146\u3057\u3092\u8aad\u3080","sys":[{"n":21,"nm":"\u6613\u5360\uff08\u516b\u5366\uff09","tag":"calc","es":"\u516b\u5366\u3068\u516d\u5341\u56db\u5366\u3067\u4e8b\u306e\u6a5f\u5fae\u3068\u5909\u5316\u306e\u5146\u3057\u3092\u8aad\u3080\u6613\u306e\u57fa\u672c"},{"n":22,"nm":"\u6885\u82b1\u5fc3\u6613","tag":"calc","es":"\u6570\u3084\u5fb4\u5019\u304b\u3089\u5373\u5ea7\u306b\u5366\u3092\u7acb\u3066\u4f53\u7528\u306e\u751f\u525b\u3067\u65ad\u305a\u308b\u90b5\u96cd\u306e\u6613"},{"n":23,"nm":"\u7d0d\u7532\u6613","tag":"calc","es":"\u5366\u306b\u5e72\u652f\u3068\u516d\u89aa\u3092\u7d0d\u3081\u3088\u308a\u7cbe\u5bc6\u306b\u5360\u65ad\u3059\u308b\u6280\u6cd5"},{"n":24,"nm":"\u65ad\u6613","tag":"calc","es":"\u4e94\u884c\u306e\u751f\u525b\u3068\u7528\u795e\u3067\u5409\u51f6\u306e\u6210\u5426\u3092\u306f\u3063\u304d\u308a\u65ad\u305a\u308b\u5b9f\u5360\u306e\u6613"},{"n":25,"nm":"\u516d\u723b\u5360\u8853","tag":"calc","es":"\u516d\u723b\u306b\u516d\u89aa\u30fb\u4e16\u5fdc\u3092\u914d\u3057\u5177\u4f53\u7684\u306a\u554f\u3044\u306b\u7b54\u3048\u308b\u5366\u5360"}]},{"rn":"\u2163","title":"\u897f\u6d0b\u5360\u661f\u8853","sub":"\u51fa\u751f\u306e\u5929\u4f53\u914d\u7f6e\u304b\u3089\u6027\u8cea\u3068\u4eba\u751f\u306e\u50be\u5411\u3092\u8aad\u3080","sys":[{"n":26,"nm":"\u30db\u30ed\u30b9\u30b3\u30fc\u30d7\uff08\u30cd\u30a4\u30bf\u30eb\uff09","tag":"calc","es":"\u51fa\u751f\u6642\u306e\u5929\u4f53\u914d\u7f6e\u304b\u3089\u6027\u8cea\u3068\u4eba\u751f\u306e\u50be\u5411\u3092\u8aad\u3080\u897f\u6d0b\u5360\u661f\u306e\u57fa\u76e4"},{"n":27,"nm":"\u30d8\u30ec\u30cb\u30ba\u30e0\u5360\u661f\u8853","tag":"sym","es":"\u30ed\u30c3\u30c8\u30fb\u30bb\u30af\u30c8\u30fb\u4e3b\u661f\u7cfb\u3092\u91cd\u3093\u3058\u308b\u53e4\u5178\u671f\u30ae\u30ea\u30b7\u30a2\u306e\u5360\u661f"},{"n":28,"nm":"\u4e2d\u4e16\u5360\u661f\u8853","tag":"sym","es":"\u30a2\u30e9\u30d3\u30a2\u7531\u6765\u306e\u6280\u6cd5\u3092\u7d71\u5408\u3057\u305f\u4e2d\u4e16\u30e8\u30fc\u30ed\u30c3\u30d1\u306e\u5360\u661f\u4f1d\u7d71"},{"n":29,"nm":"\u5fc3\u7406\u5360\u661f\u8853","tag":"sym","es":"\u30e6\u30f3\u30b0\u5fc3\u7406\u5b66\u3092\u53d6\u308a\u8fbc\u307f\u5185\u9762\u306e\u6210\u9577\u3068\u3057\u3066\u661f\u3092\u8aad\u3080\u73fe\u4ee3\u6d3e"},{"n":30,"nm":"\u9032\u5316\u5360\u661f\u8853","tag":"sym","es":"\u30ce\u30fc\u30c9\u3068\u51a5\u738b\u661f\u306b\u9b42\u306e\u9032\u5316\u306e\u8ecc\u8de1\u3092\u898b\u308b\u73fe\u4ee3\u5360\u661f"},{"n":31,"nm":"\u6052\u661f\u5360\u661f\u8853","tag":"sym","es":"\u9ec4\u9053\u5341\u4e8c\u661f\u5ea7\u3067\u306a\u304f\u5b9f\u969b\u306e\u6052\u661f\u4f4d\u7f6e\u3092\u57fa\u6e96\u306b\u8aad\u3080"},{"n":32,"nm":"\u533b\u7642\u5360\u661f\u8853","tag":"sym","es":"\u8eab\u4f53\u30fb\u4f53\u8cea\u30fb\u5065\u5eb7\u306e\u50be\u5411\u3092\u5929\u4f53\u3068\u5341\u4e8c\u5bae\u306e\u5bfe\u5fdc\u3067\u8aad\u3080"},{"n":33,"nm":"\u9078\u5b9a\u5360\u661f\u8853","tag":"sym","es":"\u884c\u52d5\u306e\u958b\u59cb\u306b\u6700\u826f\u306e\u6642\u3092\u9078\u3076\u629e\u6642\u306e\u5360\u661f\uff08\u30a8\u30ec\u30af\u30b7\u30e7\u30f3\uff09"},{"n":34,"nm":"\u76f8\u6027\u5360\u661f\u8853\uff08\u30b7\u30ca\u30b9\u30c8\u30ea\u30fc\uff09","tag":"sym","es":"\u4e8c\u3064\u306e\u30cd\u30a4\u30bf\u30eb\u3092\u91cd\u306d\u95a2\u4fc2\u306e\u529b\u5b66\u3092\u8aad\u3080"},{"n":35,"nm":"\u30b3\u30b9\u30e2\u30d0\u30a4\u30aa\u30ed\u30b8\u30fc","tag":"sym","es":"\u30cf\u30f3\u30d6\u30eb\u30af\u5b66\u6d3e\u7cfb\u306e\u30df\u30c3\u30c9\u30dd\u30a4\u30f3\u30c8\u91cd\u8996\u306e\u7cbe\u5bc6\u5360\u661f"}]},{"rn":"\u2164","title":"\u30a4\u30f3\u30c9\u5360\u661f\u8853","sub":"\u6052\u661f\u9ec4\u9053\u3068\u6708\u306e\u5bbf\u3001\u30c0\u30b7\u30e3\u30fc\u306e\u5de1\u308a\u3067\u8aad\u3080","sys":[{"n":36,"nm":"\u30b8\u30e7\u30fc\u30c6\u30a3\u30c3\u30b7\u30e5","tag":"sym","es":"\u6052\u661f\u9ec4\u9053\u3068\u30c0\u30b7\u30e3\u30fc\u3092\u7528\u3044\u308b\u30a4\u30f3\u30c9\u5360\u661f\u306e\u672c\u6d41"},{"n":37,"nm":"\u30ca\u30af\u30b7\u30e3\u30c8\u30e9\u5360\u661f\u8853","tag":"est","es":"\u6708\u306e\u4e8c\u5341\u4e03\u5bbf\u3067\u6027\u8cea\u3068\u904b\u52e2\u306e\u6a5f\u5fae\u3092\u8aad\u3080\u30a4\u30f3\u30c9\u306e\u6708\u5360\u661f"},{"n":38,"nm":"\u30b8\u30e3\u30a4\u30df\u30cb\u5360\u661f\u8853","tag":"sym","es":"\u30ab\u30e9\u30ab\uff08\u661f\u4f4d\uff09\u3068\u30e9\u30fc\u30b7\u30fb\u30a2\u30b9\u30da\u30af\u30c8\u3092\u7528\u3044\u308b\u72ec\u81ea\u4f53\u7cfb"},{"n":39,"nm":"KP\u5360\u661f\u8853","tag":"sym","es":"\u30b5\u30d6\u30ed\u30fc\u30c9\u3067\u4e8b\u8c61\u3092\u7cbe\u5bc6\u306b\u5224\u5b9a\u3059\u308b\u30af\u30ea\u30b7\u30e5\u30ca\u30e0\u30eb\u30c6\u30a3\u65b9\u5f0f"},{"n":40,"nm":"\u30ca\u30c7\u30a3\u5360\u661f\u8853","tag":"sym","es":"\u690d\u5b50\u8449\u6587\u66f8\u306b\u8a18\u3055\u308c\u305f\u500b\u5225\u306e\u904b\u547d\u8a18\u9332\u3092\u8aad\u3080\u3068\u3055\u308c\u308b\u79d8\u4f1d"}]},{"rn":"\u2165","title":"\u6570\u79d8\u8853","sub":"\u540d\u3068\u751f\u307e\u308c\u306e\u6570\u306e\u632f\u52d5\u304b\u3089\u6838\u3092\u8aad\u3080","sys":[{"n":41,"nm":"\u30ab\u30d0\u30e9\u6570\u79d8\u8853","tag":"calc","es":"\u751f\u547d\u306e\u6a39\u3068\u4e8c\u5341\u4e8c\u306e\u30d1\u30b9\u3067\u9b42\u306e\u9053\u7b4b\u3092\u8aad\u3080\u30e6\u30c0\u30e4\u795e\u79d8\u306e\u6570\u79d8"},{"n":42,"nm":"\u30d4\u30bf\u30b4\u30e9\u30b9\u6570\u79d8\u8853","tag":"calc","es":"1\u304b\u30899\u306e\u5faa\u74b0\u3067\u540d\u524d\u3068\u751f\u5e74\u3092\u8aad\u3080\u897f\u6d0b\u6570\u79d8\u306e\u6a19\u6e96"},{"n":43,"nm":"\u30ab\u30eb\u30c7\u30a2\u6570\u79d8\u8853","tag":"calc","es":"\u53e4\u4ee3\u30ab\u30eb\u30c7\u30a2\u306e1\u304b\u30898\u306e\u5bfe\u5fdc\u3067\u540d\u306e\u632f\u52d5\u3092\u8aad\u3080"},{"n":44,"nm":"\u30d8\u30d6\u30e9\u30a4\u6570\u79d8\u8853","tag":"est","es":"\u30d8\u30d6\u30e9\u30a4\u6587\u5b57\u306e\u6570\u4fa1\u3067\u8a00\u8449\u3068\u540d\u306e\u610f\u5473\u3092\u8aad\u3080"},{"n":45,"nm":"\u30b2\u30de\u30c8\u30ea\u30a2","tag":"calc","es":"\u8a9e\u306e\u6587\u5b57\u6570\u4fa1\u306e\u7dcf\u548c\u3067\u610f\u5473\u306e\u7167\u5fdc\u3092\u898b\u308b\u89e3\u91c8\u8853"},{"n":46,"nm":"\u30bf\u30f3\u30c8\u30e9\u6570\u79d8\u8853","tag":"sym","es":"\u8eab\u4f53\u30fb\u30c1\u30e3\u30af\u30e9\u3068\u6570\u306e\u5bfe\u5fdc\u3067\u751f\u547d\u306e\u6d41\u308c\u3092\u8aad\u3080"},{"n":47,"nm":"\u30de\u30b9\u30bf\u30fc\u30ca\u30f3\u30d0\u30fc\u89e3\u6790","tag":"calc","es":"11\u30fb22\u30fb33\u306e\u9ad8\u6b21\u306e\u632f\u52d5\u3092\u5c02\u9580\u306b\u8aad\u307f\u89e3\u304f"},{"n":48,"nm":"\u30bd\u30a6\u30eb\u30ca\u30f3\u30d0\u30fc\u89e3\u6790","tag":"calc","es":"\u6bcd\u97f3\u304b\u3089\u5c0e\u304f\u9b42\u306e\u6b32\u6c42\u3001\u5185\u306a\u308b\u52d5\u6a5f\u3092\u8aad\u3080"}]},{"rn":"\u2166","title":"\u59d3\u540d\u30fb\u540d\u524d\u7cfb","sub":"\u540d\u306e\u753b\u6570\u30fb\u97f3\u30fb\u6570\u7406\u304b\u3089\u904b\u306e\u69cb\u9020\u3092\u8aad\u3080","sys":[{"n":49,"nm":"\u59d3\u540d\u5224\u65ad","tag":"est","es":"\u59d3\u540d\u306e\u69cb\u6210\u304b\u3089\u4e94\u904b\u3092\u7acb\u3066\u4eba\u751f\u306e\u50be\u5411\u3092\u8aad\u3080"},{"n":50,"nm":"\u4e94\u683c\u59d3\u540d\u5b66","tag":"est","es":"\u5929\u683c\u30fb\u4eba\u683c\u30fb\u5730\u683c\u30fb\u5916\u683c\u30fb\u7dcf\u683c\u306e\u4e94\u683c\u3067\u8aad\u3080\u4f53\u7cfb"},{"n":51,"nm":"\u718a\u5d0e\u5f0f\u59d3\u540d\u5224\u65ad","tag":"est","es":"\u718a\u5d0e\u5065\u7fc1\u304c\u5927\u6210\u3057\u305f\u65e5\u672c\u306e\u753b\u6570\u59d3\u540d\u5224\u65ad"},{"n":52,"nm":"\u5b57\u753b\u5360\u3044","tag":"est","es":"\u5404\u6587\u5b57\u306e\u753b\u6570\u306e\u5409\u51f6\u3067\u540d\u3092\u8aad\u3080\u6280\u6cd5"},{"n":53,"nm":"\u8a00\u970a\u59d3\u540d\u5b66","tag":"sym","es":"\u540d\u306e\u97f3\u306e\u8a00\u970a\u306e\u50cd\u304d\u304b\u3089\u904b\u52e2\u3068\u672c\u8cea\u3092\u8aad\u3080"},{"n":54,"nm":"\u97f3\u970a\u59d3\u540d\u5b66","tag":"sym","es":"\u4e94\u5341\u97f3\u306e\u97f3\u306e\u97ff\u304d\u306e\u970a\u6027\u3067\u540d\u3092\u8aad\u3080"},{"n":55,"nm":"\u6570\u7406\u59d3\u540d\u5b66","tag":"est","es":"\u753b\u6570\u306e\u6570\u7406\u914d\u5217\u3067\u904b\u547d\u306e\u69cb\u9020\u3092\u8aad\u3080"}]},{"rn":"\u2167","title":"\u5317\u6b27\u7cfb","sub":"\u30eb\u30fc\u30f3\u6587\u5b57\u3092\u5f15\u3044\u3066\u8c61\u5fb4\u3067\u554f\u3044\u306b\u7b54\u3048\u308b","sys":[{"n":56,"nm":"\u30eb\u30fc\u30f3\u5360\u8853","tag":"calc","es":"\u53e4\u30ce\u30eb\u30c9\u306e\u30eb\u30fc\u30f3\u6587\u5b57\u3092\u5f15\u304d\u8c61\u5fb4\u3067\u554f\u3044\u306b\u7b54\u3048\u308b"},{"n":57,"nm":"\u30a2\u30f3\u30b0\u30ed\u30b5\u30af\u30bd\u30f3\u30fb\u30eb\u30fc\u30f3","tag":"calc","es":"\u30d5\u30b5\u30eb\u30af\u3092\u7528\u3044\u308b\u53e4\u82f1\u8a9e\u570f\u306e\u30eb\u30fc\u30f3"},{"n":58,"nm":"\u30a8\u30eb\u30c0\u30fc\u30fb\u30d5\u30b5\u30eb\u30af","tag":"calc","es":"\u6700\u53e4\u306e\u4e8c\u5341\u56db\u6587\u5b57\u30eb\u30fc\u30f3\u4f53\u7cfb"}]},{"rn":"\u2168","title":"\u30b1\u30eb\u30c8\u7cfb","sub":"\u6a39\u6728\u3068\u81ea\u7136\u306e\u8c61\u5fb4\u3067\u6027\u8cea\u3092\u8aad\u3080","sys":[{"n":59,"nm":"\u30aa\u30ac\u30e0\u5360\u8853","tag":"calc","es":"\u30b1\u30eb\u30c8\u306e\u6a39\u6728\u6587\u5b57\u30aa\u30ac\u30e0\u3067\u8c61\u5fb4\u3092\u8aad\u3080"},{"n":60,"nm":"\u30c9\u30eb\u30a4\u30c9\u5360\u661f\u8853","tag":"est","es":"\u30c9\u30eb\u30a4\u30c9\u306e\u81ea\u7136\u89b3\u306b\u57fa\u3065\u304f\u5b63\u7bc0\u3068\u6a39\u306e\u5360\u661f"},{"n":61,"nm":"\u30b1\u30eb\u30c8\u6a39\u6728\u5360\u661f\u8853","tag":"est","es":"\u751f\u307e\u308c\u305f\u6642\u671f\u3092\u6a39\u6728\u306b\u5bfe\u5fdc\u3055\u305b\u3066\u6027\u8cea\u3092\u8aad\u3080"}]},{"rn":"\u2169","title":"\u4e2d\u6771\u30fb\u30a2\u30d5\u30ea\u30ab\u7cfb","sub":"\u5927\u5730\u30fb\u8056\u5178\u30fb\u30ed\u30c3\u30c8\u304b\u3089\u8aad\u3080","sys":[{"n":62,"nm":"\u30b8\u30aa\u30de\u30f3\u30b7\u30fc","tag":"calc","es":"\u5927\u5730\u306b\u6253\u3064\u70b9\u304b\u3089\u5341\u516d\u306e\u56f3\u5f62\u3092\u7acb\u3066\u5409\u51f6\u3092\u8aad\u3080\u571f\u5360"},{"n":63,"nm":"\u30a4\u30d5\u30a1\u5360\u8853","tag":"sym","es":"\u30e8\u30eb\u30d0\u306e\u8056\u5178\u30aa\u30c9\u30a5\u3092\u5f15\u304f\u30a2\u30d5\u30ea\u30ab\u306e\u795e\u8056\u306a\u5360\u8853"},{"n":64,"nm":"\u30a2\u30e9\u30d3\u30a2\u5360\u661f\u8853","tag":"sym","es":"\u30ed\u30c3\u30c8\u3068\u30a2\u30e9\u30d3\u30c3\u30af\u30fb\u30d1\u30fc\u30c4\u3092\u91cd\u3093\u3058\u308b\u4e2d\u6771\u306e\u5360\u661f\u4f1d\u7d71"}]},{"rn":"\u216a","title":"\u73fe\u4ee3\u7d71\u5408\u7cfb","sub":"\u8907\u6570\u306e\u4f1d\u7d71\u3092\u675f\u306d\u305f\u73fe\u4ee3\u306e\u4f53\u7cfb","sys":[{"n":65,"nm":"Human Design","tag":"sym","es":"\u5360\u661f\u30fb\u6613\u30fb\u30ab\u30d0\u30e9\u30fb\u30c1\u30e3\u30af\u30e9\u3092\u7d71\u5408\u3057\u305f\u73fe\u4ee3\u306e\u30dc\u30c7\u30a3\u30b0\u30e9\u30d5"},{"n":66,"nm":"Gene Keys","tag":"sym","es":"\u516d\u5341\u56db\u306e\u907a\u4f1d\u5b50\u306e\u9375\u3067\u5f71\u30fb\u8cdc\u7269\u30fb\u795e\u6027\u306e\u9053\u7b4b\u3092\u8aad\u3080"},{"n":67,"nm":"Destiny Matrix","tag":"calc","es":"\u751f\u5e74\u6708\u65e5\u3092\u4e8c\u5341\u4e8c\u30a2\u30eb\u30ab\u30ca\u306b\u9084\u5143\u3059\u308b\u30a8\u30cd\u30eb\u30ae\u30fc\u56f3"},{"n":68,"nm":"Astrocartography","tag":"est","es":"\u5929\u4f53\u306e\u30e9\u30a4\u30f3\u3092\u4e16\u754c\u5730\u56f3\u306b\u6295\u5f71\u3057\u5834\u6240\u306e\u4f5c\u7528\u3092\u8aad\u3080"},{"n":69,"nm":"Local Space Astrology","tag":"est","es":"\u51fa\u751f\u5730\u3092\u4e2d\u5fc3\u306b\u65b9\u4f4d\u7dda\u3067\u7a7a\u9593\u306e\u529b\u5b66\u3092\u8aad\u3080"},{"n":70,"nm":"Relocation Astrology","tag":"est","es":"\u79fb\u4f4f\u5148\u306e\u30c1\u30e3\u30fc\u30c8\u306b\u5f15\u304d\u76f4\u3057\u3066\u571f\u5730\u3068\u306e\u76f8\u6027\u3092\u8aad\u3080"}]}];
+
+var TAGINFO={
+  calc:{j:"\u8a08",en:"calc",ttl:"\u8a08\u7b97\u3057\u3066\u3044\u308b",cnt:21,desc:"\u6c0f\u540d\u3068\u751f\u5e74\u6708\u65e5\u304b\u3089\u5b9f\u969b\u306b\u7b97\u51fa\u3057\u3066\u3044\u308b\u5c64\u3002\u56db\u67f1\u306e\u5e72\u652f\u3001\u4e5d\u661f\u306e\u672c\u547d\u661f\u3001\u6613\u306e\u5366\u3001\u30eb\u30fc\u30f3\u3001\u6570\u79d8\u306e\u30e9\u30a4\u30d5\u30d1\u30b9\u306a\u3069\u3002"},
+  est:{j:"\u63a8",en:"est",ttl:"\u8fd1\u4f3c\u3057\u3066\u3044\u308b",cnt:13,desc:"\u5929\u4f53\u66a6\u306a\u3057\u3067\u8fd1\u4f3c\u3057\u3066\u3044\u308b\u5c64\u3002\u5bbf\u66dc\u3084\u30ca\u30af\u30b7\u30e3\u30c8\u30e9\u3001\u753b\u6570\u30d9\u30fc\u30b9\u306e\u59d3\u540d\u5224\u65ad\u306a\u3069\u3001\u539f\u7406\u306f\u8e0f\u3080\u304c\u7cbe\u5bc6\u3055\u306b\u9650\u754c\u304c\u3042\u308b\u3082\u306e\u3002"},
+  sym:{j:"\u8c61",en:"sym",ttl:"\u8c61\u5fb4\u3068\u3057\u3066\u8aad\u3080",cnt:36,desc:"\u6c0f\u540d\u3068\u751f\u5e74\u6708\u65e5\u306e\u30b7\u30fc\u30c9\u304b\u3089\u6c7a\u5b9a\u8ad6\u7684\u306b\u751f\u6210\u3059\u308b\u8c61\u5fb4\u8aad\u307f\u306e\u5c64\u3002\u540c\u3058\u5165\u529b\u306a\u3089\u540c\u3058\u7d50\u679c\u304c\u8fd4\u308b\u3002"}
+};
+
+// ---- render tier legend ----
+(function(){
+  var L=document.getElementById('legend');
+  ['calc','est','sym'].forEach(function(k){
+    var t=TAGINFO[k];
+    var d=document.createElement('div');
+    d.className='tierCard';
+    d.innerHTML='<span class="badge b-'+k+'">'+t.j+' / '+t.en+'</span>'+
+      '<div class="ttl">'+t.ttl+'</div>'+
+      '<div class="cnt">'+t.cnt+' systems</div>'+
+      '<p>'+t.desc+'</p>';
+    L.appendChild(d);
+  });
+})();
+
+// ---- render catalog ----
+var catsEl=document.getElementById('cats');
+CATS.forEach(function(cat,ci){
+  var sec=document.createElement('section');
+  sec.className='cat';
+  sec.setAttribute('data-ci',ci);
+  var grid='<div class="grid">';
+  cat.sys.forEach(function(s){
+    var t=TAGINFO[s.tag];
+    grid+='<article class="card" data-tag="'+s.tag+'" data-text="'+
+      (s.nm+' '+s.es+' '+t.j+' '+t.en).toLowerCase()+'">'+
+      '<div class="top"><span class="no">No.'+(s.n<10?'0'+s.n:s.n)+'</span>'+
+      '<span class="tg '+s.tag+'">'+t.j+' '+t.en+'</span></div>'+
+      '<div class="nm">'+s.nm+'</div>'+
+      '<p class="es">'+s.es+'</p></article>';
+  });
+  grid+='</div>';
+  sec.innerHTML='<h3><span class="rn">'+cat.rn+'</span>'+cat.title+'</h3>'+
+    '<div class="csub">'+cat.sub+'</div><div class="rule"></div>'+grid;
+  catsEl.appendChild(sec);
+});
+
+// ---- filter + search ----
+var curF='all', curQ='';
+var countEl=document.getElementById('count');
+var emptyEl=document.getElementById('empty');
+
+function apply(){
+  var shown=0;
+  var cats=catsEl.querySelectorAll('.cat');
+  for(var i=0;i<cats.length;i++){
+    var cards=cats[i].querySelectorAll('.card');
+    var vis=0;
+    for(var j=0;j<cards.length;j++){
+      var c=cards[j];
+      var okT=(curF==='all'||c.getAttribute('data-tag')===curF);
+      var okQ=(curQ===''||c.getAttribute('data-text').indexOf(curQ)>=0);
+      if(okT&&okQ){c.classList.remove('hide');vis++;shown++;}
+      else{c.classList.add('hide');}
+    }
+    if(vis===0)cats[i].classList.add('hide');else cats[i].classList.remove('hide');
+  }
+  countEl.textContent=shown+' / 70 systems';
+  emptyEl.style.display=(shown===0)?'block':'none';
+}
+
+var fbtns=document.querySelectorAll('.fbtn');
+for(var i=0;i<fbtns.length;i++){
+  fbtns[i].addEventListener('click',function(){
+    for(var k=0;k<fbtns.length;k++)fbtns[k].classList.remove('on');
+    this.classList.add('on');
+    curF=this.getAttribute('data-f');
+    apply();
+  });
+}
+document.getElementById('q').addEventListener('input',function(){
+  curQ=this.value.trim().toLowerCase();
+  apply();
+});
+apply();
+
+// ---- signature harmonograph (decorative standing wave) ----
+(function(){
+  var cv=document.getElementById('sig');
+  if(!cv)return;
+  var ctx=cv.getContext('2d');
+  var W=cv.width,H=cv.height;
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  // parameters loosely echo the app core
+  var a1=3,a2=2,a3=4,a4=5;
+  var p1=0,p2=1.2,p3=2.4,p4=0.6;
+  var d1=0.0016,d2=0.0014,d3=0.0011,d4=0.0013;
+  var cx=W/2,cy=H/2,R=Math.min(W,H)*0.40;
+  var cols=['#8b6fe8','#4fd0e0','#e8c36f'];
+  function draw(t){
+    ctx.clearRect(0,0,W,H);
+    for(var c=0;c<3;c++){
+      ctx.beginPath();
+      var ph=t*0.0006+c*0.7;
+      for(var i=0;i<=900;i++){
+        var u=i/900*Math.PI*2;
+        var x=cx+R*(Math.sin(a1*u+p1+ph)*Math.exp(-d1*i)+Math.sin(a3*u+p3)*Math.exp(-d3*i))*0.5;
+        var y=cy+R*(Math.sin(a2*u+p2+ph*0.8)*Math.exp(-d2*i)+Math.sin(a4*u+p4)*Math.exp(-d4*i))*0.5;
+        if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+      }
+      ctx.strokeStyle=cols[c];
+      ctx.globalAlpha=0.5-c*0.1;
+      ctx.lineWidth=1;
+      ctx.stroke();
+    }
+    ctx.globalAlpha=1;
+  }
+  if(reduce){draw(0);return;}
+  var start=null;
+  function loop(ts){
+    if(start===null)start=ts;
+    draw(ts-start);
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+})();
+</script>
+
+<script>
+(function(){var b=document.getElementById("navBtn"),o=document.getElementById("navOv");if(!b||!o)return;
+function set(s){b.classList.toggle("open",s);o.classList.toggle("show",s);b.setAttribute("aria-expanded",s?"true":"false");o.setAttribute("aria-hidden",s?"false":"true");document.body.style.overflow=s?"hidden":"";}
+b.addEventListener("click",function(){set(!o.classList.contains("show"));});
+o.addEventListener("click",function(e){if(e.target===o)set(false);});
+o.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){set(false);});});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")set(false);});})();
+</script>
+</body>
+</html>

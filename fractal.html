@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fractal Identity / MY CORE RESONANCE</title>
+<meta name="description" content="生年月日を複素数へ変換し、数学から一意のフラクタルを生成する。占いではなく、数式から生まれるアート。">
+<style>
+:root{
+  --void:#080a16;
+  --abyss:#11142b;
+  --abyss2:#181c3a;
+  --ink:#0c1024;
+  --line:#2c3160;
+  --line2:#3a4180;
+  --pearl:#ece9f7;
+  --mute:#9a9ec8;
+  --faint:#6a6f9c;
+  --violet:#8b6fe8;
+  --cyan:#4fd0e0;
+  --gold:#e8c36f;
+  --rose:#e86f9e;
+  --green:#7fdca0;
+  --serif:"Hiragino Mincho ProN","Yu Mincho","YuMincho",Georgia,"Times New Roman",serif;
+  --sans:"Hiragino Kaku Gothic ProN","Yu Gothic","Segoe UI",system-ui,sans-serif;
+  --mono:"SFMono-Regular",Menlo,Consolas,"Courier New",monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;background:
+    radial-gradient(1100px 700px at 80% -6%,rgba(139,111,232,.16),transparent 60%),
+    radial-gradient(900px 600px at 6% 10%,rgba(79,208,224,.10),transparent 55%),
+    var(--void);
+  color:var(--pearl);font-family:var(--sans);line-height:1.7;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* ---------- shared hamburger nav ---------- */
+.navBtn{position:fixed;top:18px;right:18px;z-index:60;width:46px;height:46px;border-radius:12px;
+  border:1px solid var(--line);background:rgba(17,20,43,.62);cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:border-color .2s}
+.navBtn:hover{border-color:var(--line2)}
+.navBtn span{display:block;width:20px;height:1.5px;background:var(--pearl);border-radius:2px;transition:transform .26s,opacity .2s}
+.navBtn.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.navBtn.open span:nth-child(2){opacity:0}
+.navBtn.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.navOv{position:fixed;inset:0;z-index:55;opacity:0;pointer-events:none;
+  background:radial-gradient(900px 700px at 80% 8%,rgba(139,111,232,.18),transparent 60%),rgba(8,10,22,.92);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  transition:opacity .3s;display:flex;align-items:center;justify-content:center}
+.navOv.show{opacity:1;pointer-events:auto}
+.navInner{text-align:center;padding:24px}
+.navInner .eye{font-family:var(--mono);font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--faint);margin:0 0 30px}
+.navInner a{display:block;font-family:var(--serif);font-size:clamp(28px,6vw,44px);letter-spacing:.04em;
+  color:var(--pearl);margin:20px 0;line-height:1.15;
+  transition:color .2s,transform .25s,opacity .25s;opacity:0;transform:translateY(14px)}
+.navOv.show .navInner a{opacity:1;transform:none}
+.navOv.show .navInner a:nth-child(2){transition-delay:.05s}
+.navOv.show .navInner a:nth-child(3){transition-delay:.1s}
+.navOv.show .navInner a:nth-child(4){transition-delay:.15s}
+.navInner a .s{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--faint);text-transform:uppercase;margin:8px 0 0}
+.navInner a:hover{color:var(--cyan)}
+.navInner a[aria-current=page]{background:linear-gradient(100deg,var(--cyan),var(--violet) 55%,var(--gold));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:92svh;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;overflow:hidden;padding:0 22px}
+#heroGl{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(120% 92% at 50% 40%,transparent 28%,rgba(8,10,22,.6) 70%,var(--void) 100%)}
+.hero .inner{position:relative;z-index:2;max-width:880px}
+.hero .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.4em;color:var(--gold);
+  text-transform:uppercase;margin:0 0 24px;opacity:0;animation:rise .9s .15s forwards}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(46px,10vw,104px);line-height:1.0;
+  letter-spacing:.02em;margin:0;opacity:0;animation:rise 1s .28s forwards;
+  background:linear-gradient(115deg,var(--pearl) 10%,var(--violet) 44%,var(--cyan) 72%,var(--gold) 98%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.sub{font-size:clamp(15px,2.3vw,20px);color:var(--mute);margin:26px auto 0;max-width:34ch;font-weight:400;
+  opacity:0;animation:rise 1s .42s forwards}
+.hero .gen{margin-top:38px;opacity:0;animation:rise 1s .56s forwards}
+@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.scrollcue{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:2;
+  font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:var(--faint);text-transform:uppercase;
+  display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;animation:rise 1s 1s forwards}
+.scrollcue .bar{width:1px;height:36px;background:linear-gradient(var(--gold),transparent);animation:cue 2.4s ease-in-out infinite}
+@keyframes cue{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--sans);font-size:15px;font-weight:500;
+  padding:14px 30px;border-radius:999px;cursor:pointer;border:1px solid transparent;
+  transition:transform .2s,box-shadow .3s;color:var(--void)}
+.btn.primary{background:linear-gradient(100deg,var(--cyan),var(--violet) 58%,var(--gold));
+  box-shadow:0 14px 40px -14px rgba(139,111,232,.8);font-weight:700;letter-spacing:.02em}
+.btn.primary:hover{transform:translateY(-2px);box-shadow:0 20px 52px -14px rgba(139,111,232,.95)}
+.btn .dot{width:7px;height:7px;border-radius:50%;background:var(--void);opacity:.5}
+.btn:active{transform:translateY(0)}
+
+/* ---------- sections ---------- */
+.section{max-width:1080px;margin:0 auto;padding:clamp(74px,12vh,140px) clamp(20px,5vw,40px)}
+.sechead{margin:0 0 46px}
+.sechead .lab{font-family:var(--mono);font-size:12px;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--gold);display:flex;align-items:center;gap:14px;margin:0 0 18px}
+.sechead .lab::before{content:"";width:26px;height:1px;background:var(--gold)}
+.sechead h2{font-family:var(--serif);font-weight:400;font-size:clamp(28px,4.6vw,46px);letter-spacing:.04em;margin:0;line-height:1.12}
+.sechead p.dek{color:var(--mute);font-size:15.5px;margin:16px 0 0;max-width:56ch}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .hero .kicker,.hero h1,.hero p.sub,.hero .gen,.scrollcue{animation:none;opacity:1}
+  .navBtn span,.navOv,.navInner a{transition:none}.navInner a{opacity:1;transform:none}}
+
+/* ---------- glass card ---------- */
+.glass{background:linear-gradient(180deg,rgba(24,28,58,.5),rgba(17,20,43,.32));
+  border:1px solid var(--line);border-radius:18px;
+  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+  box-shadow:0 30px 80px -44px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.03)}
+
+/* ---------- form ---------- */
+.form{padding:clamp(26px,4vw,40px)}
+.frow{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-end}
+.fgroup{flex:1;min-width:240px}
+.fgroup .flab{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute);margin:0 0 12px}
+.fgroup .flab .opt{color:var(--faint);margin-left:8px}
+.segset{display:flex;gap:10px}
+.seg{position:relative;flex:1}
+.seg input{width:100%;background:var(--ink);border:1px solid var(--line);border-radius:12px;color:var(--pearl);
+  font-family:var(--mono);font-size:20px;text-align:center;letter-spacing:.08em;padding:16px 8px;outline:none;
+  transition:border-color .2s,box-shadow .2s}
+.seg input::placeholder{color:var(--faint);letter-spacing:.12em}
+.seg input:focus{border-color:var(--violet);box-shadow:0 0 0 3px rgba(139,111,232,.2)}
+.seg .cap{position:absolute;left:0;right:0;bottom:-22px;text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--faint)}
+.placewrap input{width:100%;background:var(--ink);border:1px solid var(--line);border-radius:12px;color:var(--pearl);
+  font-family:var(--sans);font-size:16px;padding:15px 18px;outline:none;transition:border-color .2s,box-shadow .2s}
+.placewrap input:focus{border-color:var(--violet);box-shadow:0 0 0 3px rgba(139,111,232,.2)}
+.formfoot{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;margin-top:42px}
+.formfoot .err{font-family:var(--mono);font-size:12px;color:var(--rose);min-height:16px}
+
+/* ---------- complex mapping ---------- */
+.mapgrid{display:grid;grid-template-columns:1fr auto 1fr;gap:24px;align-items:center}
+.mapbox{padding:28px}
+.mapbox .k{font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--mute);margin:0 0 14px}
+.mapbox .v{font-family:var(--mono);font-size:clamp(20px,3.2vw,32px);letter-spacing:.02em;line-height:1.25;word-break:break-all}
+.mapbox .v .im{color:var(--gold)}
+.mapbox .v .op{color:var(--violet)}
+.arrow{font-family:var(--mono);font-size:24px;color:var(--faint);text-align:center}
+.mapsub{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
+.mapstat{padding:20px}
+.mapstat .k{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute);margin:0 0 9px}
+.mapstat .v{font-family:var(--mono);font-size:17px;color:var(--pearl);word-break:break-all}
+
+/* ---------- generator ---------- */
+.genwrap{display:grid;grid-template-columns:1fr 320px;gap:26px;align-items:start}
+.canvas-shell{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line2);
+  aspect-ratio:1/1;background:#000;box-shadow:0 40px 90px -42px rgba(139,111,232,.5)}
+#genGl{position:absolute;inset:0;width:100%;height:100%;display:block}
+.canvas-badge{position:absolute;left:14px;top:14px;z-index:2;font-family:var(--mono);font-size:10px;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--mute);background:rgba(8,10,22,.62);
+  border:1px solid var(--line);border-radius:8px;padding:6px 10px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.controls{display:flex;flex-direction:column;gap:22px}
+.ctl .clab{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute);
+  margin:0 0 12px;display:flex;justify-content:space-between;align-items:center}
+.ctl .clab .val{color:var(--gold)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--sans);font-size:13px;color:var(--mute);background:var(--ink);border:1px solid var(--line);
+  border-radius:10px;padding:9px 13px;cursor:pointer;transition:all .18s}
+.chip:hover{border-color:var(--line2);color:var(--pearl)}
+.chip.on{color:var(--void);font-weight:700;border-color:transparent;background:linear-gradient(100deg,var(--cyan),var(--violet))}
+.swatches{display:flex;gap:9px;flex-wrap:wrap}
+.sw{width:40px;height:40px;border-radius:11px;cursor:pointer;border:2px solid transparent;
+  transition:transform .18s,border-color .18s;position:relative}
+.sw:hover{transform:translateY(-2px)}
+.sw.on{border-color:var(--gold)}
+.sw .nm{position:absolute;left:50%;bottom:-20px;transform:translateX(-50%);font-family:var(--mono);font-size:9px;
+  letter-spacing:.1em;color:var(--faint);white-space:nowrap;opacity:0;transition:opacity .2s}
+.sw:hover .nm,.sw.on .nm{opacity:1}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:3px;border-radius:3px;
+  background:linear-gradient(90deg,var(--violet),var(--gold));outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--pearl);
+  border:none;box-shadow:0 0 14px rgba(232,195,106,.8);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--pearl);border:none;
+  box-shadow:0 0 14px rgba(232,195,106,.8);cursor:pointer}
+.toggle{display:inline-flex;align-items:center;gap:12px;cursor:pointer;user-select:none}
+.toggle .track{width:46px;height:26px;border-radius:999px;background:var(--ink);border:1px solid var(--line);position:relative;transition:background .25s,border-color .25s}
+.toggle .knob{position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:var(--mute);transition:transform .25s,background .25s}
+.toggle.on .track{background:linear-gradient(100deg,var(--cyan),var(--violet));border-color:transparent}
+.toggle.on .knob{transform:translateX(20px);background:var(--pearl)}
+.toggle .t{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--mute)}
+
+/* ---------- identity ---------- */
+.idgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.idcard{padding:24px 22px;position:relative;overflow:hidden}
+.idcard::before{content:"";position:absolute;inset:0;opacity:.5;pointer-events:none;
+  background:radial-gradient(120% 100% at 0% 0%,rgba(139,111,232,.16),transparent 60%)}
+.idcard .k{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--mute);margin:0 0 14px;position:relative}
+.idcard .v{font-family:var(--mono);font-size:18px;color:var(--pearl);word-break:break-all;position:relative;line-height:1.35}
+.idcard .v .accent{color:var(--gold)}
+.idcard.seed .v{color:var(--gold);letter-spacing:.06em}
+
+/* ---------- download / share ---------- */
+.actiongrid{display:flex;flex-wrap:wrap;gap:14px}
+.action{flex:1;min-width:150px;padding:24px;display:flex;flex-direction:column;gap:6px;cursor:pointer;transition:transform .2s,border-color .2s}
+.action:hover{transform:translateY(-3px);border-color:var(--line2)}
+.action .t{font-family:var(--serif);font-size:18px;letter-spacing:.03em}
+.action .d{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--faint);text-transform:uppercase}
+.share-row{display:flex;flex-wrap:wrap;gap:12px}
+.sbtn{display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:999px;cursor:pointer;font-size:14px;
+  font-weight:500;background:var(--ink);border:1px solid var(--line);color:var(--pearl);transition:all .2s}
+.sbtn:hover{border-color:var(--gold);transform:translateY(-2px)}
+.locked{opacity:.4;pointer-events:none;filter:grayscale(.4)}
+.note{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--faint);margin-top:18px}
+
+/* ---------- footer ---------- */
+.foot{border-top:1px solid var(--line);margin:60px auto 0;padding:40px clamp(20px,5vw,40px);max-width:1080px;
+  display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center}
+.foot .c{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--faint);text-transform:uppercase}
+.foot a.c:hover{color:var(--cyan)}
+
+.toast{position:fixed;left:50%;bottom:34px;transform:translateX(-50%) translateY(20px);z-index:80;
+  background:rgba(17,20,43,.96);border:1px solid var(--line2);border-radius:12px;padding:13px 22px;
+  font-family:var(--mono);font-size:13px;color:var(--pearl);opacity:0;pointer-events:none;
+  transition:opacity .3s,transform .3s;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media (max-width:900px){.genwrap{grid-template-columns:1fr}.idgrid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){
+  .mapgrid{grid-template-columns:1fr;gap:14px}.arrow{transform:rotate(90deg)}
+  .mapsub{grid-template-columns:1fr}.idgrid{grid-template-columns:1fr}.frow{gap:34px}}
+</style>
+</head>
+<body>
+
+<!-- shared hamburger nav -->
+<button class="navBtn" id="navBtn" aria-label="メニュー" aria-expanded="false" aria-controls="navOv"><span></span><span></span><span></span></button>
+<nav class="navOv" id="navOv" aria-hidden="true"><div class="navInner">
+  <p class="eye">My Core Resonance</p>
+  <a href="index.html">占機<span class="s">Oracle / 70 Systems</span></a>
+  <a href="about.html">七十占術について<span class="s">About</span></a>
+  <a href="fractal.html" aria-current="page">Fractal Identity<span class="s">Birthday as Mathematics</span></a>
+</div></nav>
+
+<!-- hero -->
+<header class="hero" id="top">
+  <canvas id="heroGl"></canvas>
+  <div class="inner">
+    <p class="kicker">Your Birthday, Visualized Through Mathematics</p>
+    <h1>Fractal Identity</h1>
+    <p class="sub">あなたの誕生日が、唯一無二の数学的宇宙になる。</p>
+    <div class="gen"><a class="btn primary" href="#birth"><span class="dot"></span>Generate</a></div>
+  </div>
+  <div class="scrollcue">Scroll<span class="bar"></span></div>
+</header>
+
+<!-- 01 birth data -->
+<section class="section" id="birth">
+  <div class="sechead reveal">
+    <p class="lab">01 / Birth Data</p>
+    <h2>始まりの一点を入力する。</h2>
+    <p class="dek">生年月日を複素数へ変換する。時刻と場所は任意で、将来の位相と座標のレイヤーに使う。</p>
+  </div>
+  <div class="glass form reveal">
+    <div class="frow">
+      <div class="fgroup">
+        <p class="flab">Birthday</p>
+        <div class="segset">
+          <div class="seg"><input id="iY" class="mono" inputmode="numeric" maxlength="4" placeholder="YYYY"><span class="cap">YEAR</span></div>
+          <div class="seg"><input id="iM" class="mono" inputmode="numeric" maxlength="2" placeholder="MM"><span class="cap">MONTH</span></div>
+          <div class="seg"><input id="iD" class="mono" inputmode="numeric" maxlength="2" placeholder="DD"><span class="cap">DAY</span></div>
+        </div>
+      </div>
+      <div class="fgroup">
+        <p class="flab">Birth Time<span class="opt">Optional</span></p>
+        <div class="segset">
+          <div class="seg"><input id="iH" class="mono" inputmode="numeric" maxlength="2" placeholder="HH"><span class="cap">HOUR</span></div>
+          <div class="seg"><input id="iMin" class="mono" inputmode="numeric" maxlength="2" placeholder="MM"><span class="cap">MIN</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="frow" style="margin-top:38px">
+      <div class="fgroup placewrap">
+        <p class="flab">Birth Place<span class="opt">Optional</span></p>
+        <input id="iPlace" placeholder="City, Country">
+      </div>
+    </div>
+    <div class="formfoot">
+      <span class="err mono" id="err"></span>
+      <button class="btn primary" id="genBtn"><span class="dot"></span>Generate Fractal</button>
+    </div>
+  </div>
+</section>
+
+<!-- 02 complex mapping -->
+<section class="section" id="mapping">
+  <div class="sechead reveal">
+    <p class="lab">02 / Complex Mapping</p>
+    <h2>日付から複素平面へ。</h2>
+    <p class="dek">誕生日の8桁が実軸になる。月日と時刻から導く位相が虚軸になる。</p>
+  </div>
+  <div class="mapgrid reveal">
+    <div class="glass mapbox"><p class="k">Birthday</p><div class="v" id="mapDate">--------</div></div>
+    <div class="arrow">&#8594;</div>
+    <div class="glass mapbox"><p class="k">Complex Number &nbsp; z</p>
+      <div class="v"><span id="mapRe">--------</span> <span class="op">+</span> <span class="im"><span id="mapIm">----</span>i</span></div></div>
+  </div>
+  <div class="mapsub reveal">
+    <div class="glass mapstat"><p class="k">Magnitude &nbsp; |z|</p><div class="v" id="mapMag">--</div></div>
+    <div class="glass mapstat"><p class="k">Argument &nbsp; arg z</p><div class="v" id="mapArg">--</div></div>
+    <div class="glass mapstat"><p class="k">Normalized Value</p><div class="v" id="mapNorm">--</div></div>
+  </div>
+</section>
+
+<!-- 03 generator -->
+<section class="section" id="generator">
+  <div class="sechead reveal">
+    <p class="lab">03 / Fractal Generator</p>
+    <h2>あなたの宇宙を、GPUで描く。</h2>
+    <p class="dek">シードがアルゴリズム・定数・カメラ・パレット・ライティングを決める。各コントロールで自分の核の周辺を探索できる。</p>
+  </div>
+  <div class="genwrap reveal">
+    <div class="canvas-shell">
+      <canvas id="genGl"></canvas>
+      <div class="canvas-badge" id="genBadge">Awaiting seed</div>
+    </div>
+    <div class="controls">
+      <div class="ctl"><p class="clab">Algorithm</p><div class="chips" id="algoChips"></div></div>
+      <div class="ctl"><p class="clab">Color</p><div class="swatches" id="palSwatches"></div></div>
+      <div class="ctl"><p class="clab">Iteration <span class="val" id="iterVal">500</span></p><div class="chips" id="iterChips"></div></div>
+      <div class="ctl"><p class="clab">Zoom <span class="val" id="zoomVal">1.0&times;</span></p><input type="range" id="zoom" min="0" max="1000" value="0"></div>
+      <div class="ctl"><p class="clab">Animation</p>
+        <div class="toggle" id="animTog"><span class="track"><span class="knob"></span></span><span class="t" id="animT">OFF</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 identity -->
+<section class="section" id="identity">
+  <div class="sechead reveal">
+    <p class="lab">04 / Mathematical Identity</p>
+    <h2>像の背後にある数。</h2>
+  </div>
+  <div class="idgrid reveal">
+    <div class="glass idcard"><p class="k">Complex Number</p><div class="v" id="idZ">--</div></div>
+    <div class="glass idcard"><p class="k">Magnitude</p><div class="v" id="idMag">--</div></div>
+    <div class="glass idcard"><p class="k">Argument</p><div class="v" id="idArg">--</div></div>
+    <div class="glass idcard seed"><p class="k">Generated Seed</p><div class="v" id="idSeed">--</div></div>
+  </div>
+</section>
+
+<!-- 05 download -->
+<section class="section" id="download">
+  <div class="sechead reveal"><p class="lab">05 / Download</p><h2>宇宙を持ち帰る。</h2></div>
+  <div class="actiongrid reveal locked" id="dlGrid">
+    <div class="glass action" data-dl="png"><span class="t">PNG</span><span class="d">Current view</span></div>
+    <div class="glass action" data-dl="wall"><span class="t">Wallpaper</span><span class="d">2560 &times; 1440</span></div>
+    <div class="glass action" data-dl="poster"><span class="t">Poster</span><span class="d">2000 &times; 2800 titled</span></div>
+    <div class="glass action" data-dl="svg"><span class="t">SVG</span><span class="d">Vector frame / print</span></div>
+  </div>
+  <p class="note">レンダーはシェーダーからフル解像度で出力する。ポスターとSVGには複素数とシードをメタ情報として埋め込む。</p>
+</section>
+
+<!-- 06 share -->
+<section class="section" id="share">
+  <div class="sechead reveal"><p class="lab">06 / Share</p><h2>あなたの数を世界へ。</h2></div>
+  <div class="share-row reveal locked" id="shareGrid">
+    <div class="sbtn" data-sh="x">Share on X</div>
+    <div class="sbtn" data-sh="threads">Threads</div>
+    <div class="sbtn" data-sh="instagram">Instagram</div>
+    <div class="sbtn" data-sh="copy">Copy Link</div>
+  </div>
+  <p class="note" id="shareNote">フラクタルを生成すると共有が開く。</p>
+</section>
+
+<div class="foot">
+  <a class="c" href="index.html">MY CORE RESONANCE</a>
+  <span class="c">Mathematics, not fortune</span>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+/* =================================================================
+   Fractal Identity - generative fractal engine (WebGL2 / GLSL ES 3)
+   Architecture: fractal algorithms and palettes are registries.
+   Adding a new algorithm = push one entry to FRACTALS; the fragment
+   shader is assembled from the registry at init.
+   ================================================================= */
+
+/* ---------- SHA-256 (pure JS, offline-safe deterministic seed) ---------- */
+function sha256hex(ascii){
+  function rotr(n,x){return (x>>>n)|(x<<(32-n));}
+  var K=[0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,
+    0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,
+    0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,
+    0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,
+    0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,
+    0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,
+    0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,
+    0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
+  var H=[0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];
+  var bytes=[];for(var i=0;i<ascii.length;i++){var c=ascii.charCodeAt(i);
+    if(c<128)bytes.push(c);else if(c<2048){bytes.push(192|(c>>6),128|(c&63));}
+    else{bytes.push(224|(c>>12),128|((c>>6)&63),128|(c&63));}}
+  var l=bytes.length;bytes.push(0x80);while((bytes.length%64)!==56)bytes.push(0);
+  var bl=l*8;for(var j=7;j>=0;j--)bytes.push((bl/Math.pow(2,8*j))&0xff);
+  for(var off=0;off<bytes.length;off+=64){
+    var w=new Array(64);
+    for(var t=0;t<16;t++)w[t]=(bytes[off+t*4]<<24)|(bytes[off+t*4+1]<<16)|(bytes[off+t*4+2]<<8)|(bytes[off+t*4+3]);
+    for(var t2=16;t2<64;t2++){
+      var s0=rotr(7,w[t2-15])^rotr(18,w[t2-15])^(w[t2-15]>>>3);
+      var s1=rotr(17,w[t2-2])^rotr(19,w[t2-2])^(w[t2-2]>>>10);
+      w[t2]=(w[t2-16]+s0+w[t2-7]+s1)|0;
+    }
+    var a=H[0],b=H[1],c=H[2],d=H[3],e=H[4],f=H[5],g=H[6],h=H[7];
+    for(var t3=0;t3<64;t3++){
+      var S1=rotr(6,e)^rotr(11,e)^rotr(25,e);
+      var ch=(e&f)^((~e)&g);
+      var t1=(h+S1+ch+K[t3]+w[t3])|0;
+      var S0=rotr(2,a)^rotr(13,a)^rotr(22,a);
+      var maj=(a&b)^(a&c)^(b&c);
+      var t2b=(S0+maj)|0;
+      h=g;g=f;f=e;e=(d+t1)|0;d=c;c=b;b=a;a=(t1+t2b)|0;
+    }
+    H[0]=(H[0]+a)|0;H[1]=(H[1]+b)|0;H[2]=(H[2]+c)|0;H[3]=(H[3]+d)|0;
+    H[4]=(H[4]+e)|0;H[5]=(H[5]+f)|0;H[6]=(H[6]+g)|0;H[7]=(H[7]+h)|0;
+  }
+  var out="";for(var k2=0;k2<8;k2++){var hv=(H[k2]>>>0).toString(16);out+=("00000000"+hv).slice(-8);}
+  return out;
+}
+
+/* ---------- complex mapping ---------- */
+function dayOfYear(y,m,d){
+  var days=[31,28,31,30,31,30,31,31,30,31,30,31];
+  var leap=((y%4===0&&y%100!==0)||y%400===0);if(leap)days[1]=29;
+  var n=d;for(var i=0;i<m-1;i++)n+=days[i];return n;
+}
+function mapComplex(y,m,d,hh,mm,hasTime){
+  var real=y*10000+m*100+d;
+  var doy=dayOfYear(y,m,d);
+  var imag=(m*100+d)+doy+(y%100);
+  if(hasTime)imag+=(hh*60+mm);
+  return {real:real,imag:imag,mag:Math.sqrt(real*real+imag*imag),arg:Math.atan2(imag,real)};
+}
+function hexBytes(hex){var b=[];for(var i=0;i<hex.length;i+=2)b.push(parseInt(hex.substr(i,2),16));return b;}
+
+/* ---------- algorithm + palette registries (plugin points) ---------- */
+/* each algorithm contributes one GLSL function:
+   float NAME(vec2 c, vec2 jc, int maxIter, out float trap)
+   returns smooth iteration count, or -1.0 for interior points.   */
+var FRACTALS=[
+  {id:"mandelbrot",name:"Mandelbrot",fn:"f_mandelbrot",glsl:
+   "float f_mandelbrot(vec2 c, vec2 jc, int maxIter, out float trap){\n"+
+   "  vec2 z=vec2(0.0); trap=1e9;\n"+
+   "  for(int k=0;k<maxIter;k++){\n"+
+   "    z=vec2(z.x*z.x-z.y*z.y,2.0*z.x*z.y)+c;\n"+
+   "    trap=min(trap,abs(length(z)-1.0));\n"+
+   "    if(dot(z,z)>256.0){return float(k)+1.0-log2(log2(dot(z,z))*0.5);}\n"+
+   "  }\n  return -1.0;\n}"},
+  {id:"julia",name:"Julia",fn:"f_julia",glsl:
+   "float f_julia(vec2 c, vec2 jc, int maxIter, out float trap){\n"+
+   "  vec2 z=c; trap=1e9;\n"+
+   "  for(int k=0;k<maxIter;k++){\n"+
+   "    z=vec2(z.x*z.x-z.y*z.y,2.0*z.x*z.y)+jc;\n"+
+   "    trap=min(trap,abs(length(z)-1.0));\n"+
+   "    if(dot(z,z)>256.0){return float(k)+1.0-log2(log2(dot(z,z))*0.5);}\n"+
+   "  }\n  return -1.0;\n}"},
+  {id:"ship",name:"Burning Ship",fn:"f_ship",glsl:
+   "float f_ship(vec2 c, vec2 jc, int maxIter, out float trap){\n"+
+   "  vec2 z=vec2(0.0); trap=1e9;\n"+
+   "  for(int k=0;k<maxIter;k++){\n"+
+   "    vec2 a=abs(z);\n"+
+   "    z=vec2(a.x*a.x-a.y*a.y,2.0*a.x*a.y)+c;\n"+
+   "    trap=min(trap,abs(length(z)-1.0));\n"+
+   "    if(dot(z,z)>256.0){return float(k)+1.0-log2(log2(dot(z,z))*0.5);}\n"+
+   "  }\n  return -1.0;\n}"},
+  {id:"nova",name:"Nova",fn:"f_nova",glsl:
+   "vec2 cdiv(vec2 a,vec2 b){float d=dot(b,b);return vec2(a.x*b.x+a.y*b.y,a.y*b.x-a.x*b.y)/d;}\n"+
+   "float f_nova(vec2 c, vec2 jc, int maxIter, out float trap){\n"+
+   "  vec2 z=vec2(1.0,0.0); trap=1e9;\n"+
+   "  vec2 R=vec2(uNovaRe,uNovaIm);\n"+
+   "  for(int k=0;k<maxIter;k++){\n"+
+   "    vec2 z2=vec2(z.x*z.x-z.y*z.y,2.0*z.x*z.y);\n"+
+   "    vec2 z3=vec2(z2.x*z.x-z2.y*z.y,z2.x*z.y+z2.y*z.x);\n"+
+   "    vec2 f=z3-vec2(1.0,0.0);\n"+
+   "    vec2 fp=3.0*z2;\n"+
+   "    vec2 zn=z-vec2(R.x*cdiv(f,fp).x-R.y*cdiv(f,fp).y,R.x*cdiv(f,fp).y+R.y*cdiv(f,fp).x)+c;\n"+
+   "    trap=min(trap,length(zn-z));\n"+
+   "    if(dot(zn-z,zn-z)<1e-6){return float(k)+1.0;}\n"+
+   "    z=zn;\n"+
+   "  }\n  return -1.0;\n}"},
+  {id:"phoenix",name:"Phoenix",fn:"f_phoenix",glsl:
+   "float f_phoenix(vec2 c, vec2 jc, int maxIter, out float trap){\n"+
+   "  vec2 z=c; vec2 zp=vec2(0.0); trap=1e9;\n"+
+   "  for(int k=0;k<maxIter;k++){\n"+
+   "    vec2 z2=vec2(z.x*z.x-z.y*z.y,2.0*z.x*z.y);\n"+
+   "    vec2 zn=z2+vec2(jc.x,0.0)+uPhoenixP*zp;\n"+
+   "    zp=z; z=zn;\n"+
+   "    trap=min(trap,abs(length(z)-1.0));\n"+
+   "    if(dot(z,z)>256.0){return float(k)+1.0-log2(log2(dot(z,z))*0.5);}\n"+
+   "  }\n  return -1.0;\n}"}
+];
+
+/* palettes: vec3 PALNAME(float t) using cosine palettes */
+var PALETTES=[
+  {id:"cosmic",name:"Cosmic",fn:"p_cosmic",css:["#0a0a2a","#5f2eff","#e9c46a"],glsl:
+   "vec3 p_cosmic(float t){return 0.5+0.5*cos(6.28318*(vec3(1.0,1.0,1.0)*t+vec3(0.0,0.15,0.62)))*vec3(0.9,0.85,1.0)+vec3(0.02,0.0,0.08);}"},
+  {id:"aurora",name:"Aurora",fn:"p_aurora",css:["#021b14","#2ee6a6","#8d6bff"],glsl:
+   "vec3 p_aurora(float t){return 0.5+0.5*cos(6.28318*(vec3(1.0,1.0,1.0)*t+vec3(0.3,0.5,0.2)))*vec3(0.6,1.0,0.85);}"},
+  {id:"ocean",name:"Ocean",fn:"p_ocean",css:["#001a33","#0077b6","#caf0f8"],glsl:
+   "vec3 p_ocean(float t){return 0.5+0.5*cos(6.28318*(vec3(1.0,1.0,1.0)*t+vec3(0.6,0.45,0.2)))*vec3(0.5,0.75,1.0);}"},
+  {id:"inferno",name:"Inferno",fn:"p_inferno",css:["#0a0000","#e63916","#ffd166"],glsl:
+   "vec3 p_inferno(float t){return clamp(vec3(1.5,1.2,1.0)*pow(vec3(t),vec3(0.6,1.3,2.6)),0.0,1.0)*1.05;}"},
+  {id:"mono",name:"Mono",fn:"p_mono",css:["#0a0a0c","#7a7a82","#e9c46a"],glsl:
+   "vec3 p_mono(float t){float g=pow(t,0.85);return vec3(g)*vec3(0.96,0.97,1.0)+vec3(0.10,0.07,0.0)*pow(t,3.0);}"}
+];
+
+/* ---------- shader assembly from registries ---------- */
+var VERT="#version 300 es\nin vec2 aPos;\nvoid main(){gl_Position=vec4(aPos,0.0,1.0);}";
+
+function buildFragment(){
+  var uni=
+   "#version 300 es\nprecision highp float;\nout vec4 fragColor;\n"+
+   "uniform vec2 uRes;uniform int uAlgo;uniform int uMaxIter;\n"+
+   "uniform vec2 uCenter;uniform float uScale;uniform float uRot;\n"+
+   "uniform vec2 uJulia;uniform int uPalette;uniform float uShift;\n"+
+   "uniform float uColorScale;uniform float uWarp;uniform float uGlow;\n"+
+   "uniform float uTime;uniform float uNovaRe;uniform float uNovaIm;uniform float uPhoenixP;\n";
+  var algoGlsl="";for(var i=0;i<FRACTALS.length;i++)algoGlsl+=FRACTALS[i].glsl+"\n";
+  var palGlsl="";for(var p=0;p<PALETTES.length;p++)palGlsl+=PALETTES[p].glsl+"\n";
+  // dispatchers generated from registry order
+  var fdisp="float fractalEscape(vec2 c,vec2 jc,int maxIter,out float trap){\n  float r=-1.0;trap=1e9;\n";
+  for(var a=0;a<FRACTALS.length;a++){
+    fdisp+="  if(uAlgo=="+a+"){r="+FRACTALS[a].fn+"(c,jc,maxIter,trap);}\n";
+  }
+  fdisp+="  return r;\n}\n";
+  var pdisp="vec3 paletteColor(float t){\n";
+  for(var b=0;b<PALETTES.length;b++){
+    pdisp+="  if(uPalette=="+b+")return "+PALETTES[b].fn+"(t);\n";
+  }
+  pdisp+="  return vec3(t);\n}\n";
+  var mainGlsl=
+   "void main(){\n"+
+   "  vec2 frag=(gl_FragCoord.xy-0.5*uRes)/uRes.y;\n"+
+   "  float cs=cos(uRot),sn=sin(uRot);\n"+
+   "  vec2 pr=vec2(frag.x*cs-frag.y*sn,frag.x*sn+frag.y*cs);\n"+
+   "  pr+=uWarp*0.12*vec2(sin(pr.y*6.0+uTime*0.3),cos(pr.x*6.0+uTime*0.2));\n"+
+   "  vec2 c=uCenter+pr*uScale;\n"+
+   "  float trap;float m=fractalEscape(c,uJulia,uMaxIter,trap);\n"+
+   "  vec3 col;\n"+
+   "  if(m<0.0){\n"+
+   "    col=mix(vec3(0.01,0.012,0.03),vec3(0.10,0.06,0.18),clamp(1.0-trap,0.0,1.0));\n"+
+   "    col+=uGlow*0.25*vec3(0.9,0.75,0.35)*pow(clamp(1.0-trap*1.4,0.0,1.0),6.0);\n"+
+   "  } else {\n"+
+   "    float t=fract(m*0.018*uColorScale+uShift+uTime*0.015);\n"+
+   "    col=paletteColor(t);\n"+
+   "    float trGlow=pow(clamp(1.0-trap,0.0,1.0),10.0);\n"+
+   "    col+=uGlow*0.7*vec3(1.0,0.82,0.36)*trGlow;\n"+
+   "    col*=0.55+0.55*clamp(m/float(uMaxIter)*6.0,0.0,1.0);\n"+
+   "  }\n"+
+   "  float vig=1.0-0.32*dot(frag,frag);\n"+
+   "  col*=clamp(vig,0.0,1.0);\n"+
+   "  col=pow(max(col,0.0),vec3(0.85));\n"+
+   "  fragColor=vec4(col,1.0);\n"+
+   "}\n";
+  return uni+algoGlsl+palGlsl+fdisp+pdisp+mainGlsl;
+}
+
+/* ---------- minimal WebGL2 renderer ---------- */
+function Renderer(canvas){
+  var gl=canvas.getContext("webgl2",{antialias:false,preserveDrawingBuffer:true,powerPreference:"high-performance"});
+  this.ok=!!gl;this.gl=gl;this.canvas=canvas;if(!gl)return;
+  function sh(type,src){var s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);
+    if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){console.error(gl.getShaderInfoLog(s));console.error(src);}return s;}
+  var prog=gl.createProgram();
+  gl.attachShader(prog,sh(gl.VERTEX_SHADER,VERT));
+  gl.attachShader(prog,sh(gl.FRAGMENT_SHADER,buildFragment()));
+  gl.bindAttribLocation(prog,0,"aPos");gl.linkProgram(prog);
+  if(!gl.getProgramParameter(prog,gl.LINK_STATUS))console.error(gl.getProgramInfoLog(prog));
+  this.prog=prog;gl.useProgram(prog);
+  var buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+  gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);
+  var names=["uRes","uAlgo","uMaxIter","uCenter","uScale","uRot","uJulia","uPalette","uShift",
+    "uColorScale","uWarp","uGlow","uTime","uNovaRe","uNovaIm","uPhoenixP"];
+  this.u={};for(var i=0;i<names.length;i++)this.u[names[i]]=gl.getUniformLocation(prog,names[i]);
+}
+Renderer.prototype.size=function(w,h){var gl=this.gl;if(this.canvas.width!==w||this.canvas.height!==h){
+  this.canvas.width=w;this.canvas.height=h;}gl.viewport(0,0,w,h);};
+Renderer.prototype.draw=function(P){var gl=this.gl,u=this.u;
+  gl.uniform2f(u.uRes,this.canvas.width,this.canvas.height);
+  gl.uniform1i(u.uAlgo,P.algo);gl.uniform1i(u.uMaxIter,P.maxIter);
+  gl.uniform2f(u.uCenter,P.cx,P.cy);gl.uniform1f(u.uScale,P.scale);
+  gl.uniform1f(u.uRot,P.rot);gl.uniform2f(u.uJulia,P.jx,P.jy);
+  gl.uniform1i(u.uPalette,P.palette);gl.uniform1f(u.uShift,P.shift);
+  gl.uniform1f(u.uColorScale,P.colorScale);gl.uniform1f(u.uWarp,P.warp);
+  gl.uniform1f(u.uGlow,P.glow);gl.uniform1f(u.uTime,P.time);
+  gl.uniform1f(u.uNovaRe,P.novaRe);gl.uniform1f(u.uNovaIm,P.novaIm);gl.uniform1f(u.uPhoenixP,P.phoenixP);
+  gl.drawArrays(gl.TRIANGLES,0,3);
+};
+
+/* ---------- param derivation from hash ---------- */
+function deriveParams(hex){
+  var b=hexBytes(hex);
+  function u(i){return b[i%32]/255;}
+  function s(i){return (b[i%32]/255)*2-1;}
+  var mandelSpots=[[-0.743643887037151,0.13182590420533],[-0.748,0.1],[-0.235125,0.827215],
+    [-1.25066,0.02012],[0.001643721971153,-0.822467633298876],[-0.7269,0.1889],[-0.10109636,0.95628651]];
+  var shipSpots=[[-1.7497,0.0],[-1.7757,0.0467],[-0.50227,-0.86256],[-1.86,0.0]];
+  var sm=mandelSpots[b[0]%mandelSpots.length], ss=shipSpots[b[1]%shipSpots.length];
+  var depth=4.0+u(4)*7.0;
+  return {
+    algo:b[31]%5,
+    jx:(-0.8+u(2)*1.6), jy:(-0.8+u(3)*1.6),
+    mandelCx:sm[0],mandelCy:sm[1], shipCx:ss[0],shipCy:ss[1],
+    depth:depth, rot:u(5)*Math.PI*2, palette:b[6]%5, shift:u(7),
+    colorScale:0.6+u(8)*2.2, novaRe:0.6+u(9)*0.8, novaIm:s(10)*0.35,
+    phoenixP:-0.5+u(11)*0.9, warp:u(12)*0.6, glow:0.45+u(13)*0.55
+  };
+}
+/* default camera per algorithm */
+function homeCamera(algo,d){
+  if(algo===0)return {cx:d.mandelCx,cy:d.mandelCy,base:2.6};
+  if(algo===2)return {cx:d.shipCx,cy:d.shipCy,base:2.2};
+  return {cx:0.0,cy:0.0,base:2.8}; // julia / nova / phoenix centered
+}
+
+/* =================================================================
+   App state + UI
+   ================================================================= */
+var state={
+  derived:null, complex:null, seedHex:null,
+  algo:0, palette:0, maxIter:500, zoom:1.0, anim:false, time:0,
+  ready:false
+};
+var ITERS=[100,500,1000,5000];
+
+var genR=new Renderer(document.getElementById("genGl"));
+var heroR=new Renderer(document.getElementById("heroGl"));
+
+function genParams(forTime){
+  var d=state.derived;var cam=homeCamera(state.algo,d);
+  var scale=cam.base/state.zoom;
+  return {
+    algo:state.algo,maxIter:state.maxIter,
+    cx:cam.cx,cy:cam.cy,scale:scale,rot:d.rot,
+    jx:d.jx,jy:d.jy,palette:state.palette,shift:d.shift,
+    colorScale:d.colorScale,warp:d.warp,glow:d.glow,
+    time:forTime,novaRe:d.novaRe,novaIm:d.novaIm,phoenixP:d.phoenixP
+  };
+}
+
+function sizeCanvas(r){
+  if(!r.ok)return;
+  var dpr=Math.min(window.devicePixelRatio||1,1.5);
+  var rect=r.canvas.getBoundingClientRect();
+  var w=Math.max(2,Math.round(rect.width*dpr)),h=Math.max(2,Math.round(rect.height*dpr));
+  r.size(w,h);
+}
+
+function renderGen(){
+  if(!genR.ok||!state.ready)return;
+  sizeCanvas(genR);
+  genR.draw(genParams(state.anim?state.time:0));
+}
+
+/* hero ambient fractal (independent gentle seed) */
+var heroP=null, heroVisible=true;
+function heroSeed(){
+  var d=deriveParams(sha256hex("fractal-identity-ambient-hero"));
+  d.algo=1; // julia ambient
+  heroP={algo:1,maxIter:240,cx:0,cy:0,scale:2.8,rot:0.5,jx:-0.512511498387847167,jy:0.521295573094847167,
+    palette:0,shift:0.0,colorScale:1.2,warp:0.15,glow:0.6,time:0,novaRe:1,novaIm:0,phoenixP:0};
+}
+heroSeed();
+function renderHero(t){
+  if(!heroR.ok)return;
+  sizeCanvas(heroR);
+  heroP.time=t;
+  // slow drift zoom + julia orbit
+  var z=1.0+0.35*Math.sin(t*0.03);
+  heroP.scale=2.8/ (1.0+0.6*(0.5+0.5*Math.sin(t*0.02)));
+  heroP.jx=-0.512511498387847+0.18*Math.cos(t*0.05);
+  heroP.jy=0.521295573094847+0.18*Math.sin(t*0.04);
+  heroP.rot=0.5+t*0.01;
+  heroR.draw(heroP);
+}
+
+/* unified animation loop */
+var startT=null, reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+function loop(ts){
+  if(startT===null)startT=ts;
+  var t=(ts-startT)/1000;
+  if(heroVisible && !reduce) renderHero(t);
+  if(state.anim && state.ready && !reduce){state.time=t;renderGen();}
+  requestAnimationFrame(loop);
+}
+if(!reduce){requestAnimationFrame(loop);}
+else { // draw once
+  if(heroR.ok){sizeCanvas(heroR);heroP.time=0;heroR.draw(heroP);}
+}
+
+/* pause hero when offscreen */
+if("IntersectionObserver" in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){heroVisible=e.isIntersecting;});},{threshold:0.02});
+  io.observe(document.getElementById("top"));
+}
+
+/* ---------- build controls ---------- */
+(function buildControls(){
+  var ac=document.getElementById("algoChips");
+  FRACTALS.forEach(function(f,i){
+    var el=document.createElement("button");el.className="chip"+(i===0?" on":"");
+    el.textContent=f.name;el.setAttribute("data-i",i);
+    el.addEventListener("click",function(){
+      state.algo=i;document.querySelectorAll("#algoChips .chip").forEach(function(c){c.classList.remove("on");});
+      el.classList.add("on");updateBadge();renderGen();
+    });ac.appendChild(el);
+  });
+  var ps=document.getElementById("palSwatches");
+  PALETTES.forEach(function(p,i){
+    var el=document.createElement("div");el.className="sw"+(i===0?" on":"");
+    el.style.background="linear-gradient(135deg,"+p.css[0]+","+p.css[1]+" 55%,"+p.css[2]+")";
+    el.innerHTML='<span class="nm">'+p.name+'</span>';
+    el.addEventListener("click",function(){
+      state.palette=i;document.querySelectorAll("#palSwatches .sw").forEach(function(c){c.classList.remove("on");});
+      el.classList.add("on");renderGen();
+    });ps.appendChild(el);
+  });
+  var ic=document.getElementById("iterChips");
+  ITERS.forEach(function(v,i){
+    var el=document.createElement("button");el.className="chip"+(v===500?" on":"");
+    el.textContent=v;el.addEventListener("click",function(){
+      state.maxIter=v;document.getElementById("iterVal").textContent=v;
+      document.querySelectorAll("#iterChips .chip").forEach(function(c){c.classList.remove("on");});
+      el.classList.add("on");renderGen();
+    });ic.appendChild(el);
+  });
+  var zm=document.getElementById("zoom");
+  zm.addEventListener("input",function(){
+    // exponential zoom mapping 0..1000 -> 1x .. ~1e4x
+    var f=zm.value/1000;state.zoom=Math.pow(10,f*4);
+    document.getElementById("zoomVal").innerHTML=(state.zoom>=100?Math.round(state.zoom):state.zoom.toFixed(1))+"&times;";
+    renderGen();
+  });
+  var at=document.getElementById("animTog");
+  at.addEventListener("click",function(){
+    state.anim=!state.anim;at.classList.toggle("on",state.anim);
+    document.getElementById("animT").textContent=state.anim?"ON":"OFF";
+    if(state.anim&&reduce){toast("Animation is disabled by reduced-motion");}
+    renderGen();
+  });
+})();
+function updateBadge(){
+  document.getElementById("genBadge").textContent=
+    state.ready?(FRACTALS[state.algo].name+" / "+PALETTES[state.palette].name):"Awaiting seed";
+}
+
+/* ---------- generate ---------- */
+function readInt(id){var v=document.getElementById(id).value.replace(/\D/g,"");return v===""?null:parseInt(v,10);}
+function generate(){
+  var y=readInt("iY"),m=readInt("iM"),d=readInt("iD");
+  var hh=readInt("iH"),mm=readInt("iMin");
+  var err=document.getElementById("err");err.textContent="";
+  if(y===null||m===null||d===null){err.textContent="Enter year, month and day.";return;}
+  if(y<1||y>9999||m<1||m>12||d<1||d>31){err.textContent="Check the date values.";return;}
+  var hasTime=(hh!==null&&mm!==null);
+  if((hh!==null&&mm===null)||(hh===null&&mm!==null)){err.textContent="Enter both hour and minute, or leave time empty.";return;}
+  if(hasTime&&(hh>23||mm>59)){err.textContent="Time must be 00:00 - 23:59.";return;}
+  var place=document.getElementById("iPlace").value.trim();
+
+  var cm=mapComplex(y,m,d,hh||0,mm||0,hasTime);
+  var seedStr=y+"-"+pad(m)+"-"+pad(d)+"|"+cm.real+"|"+cm.imag+"|"+(hasTime?(pad(hh)+pad(mm)):"")+"|"+place;
+  var hex=sha256hex(seedStr);
+  var d2=deriveParams(hex);
+
+  state.complex=cm;state.seedHex=hex;state.derived=d2;
+  state.algo=d2.algo;state.palette=d2.palette;state.ready=true;
+
+  // sync controls to derived selection
+  document.querySelectorAll("#algoChips .chip").forEach(function(c,i){c.classList.toggle("on",i===state.algo);});
+  document.querySelectorAll("#palSwatches .sw").forEach(function(c,i){c.classList.toggle("on",i===state.palette);});
+
+  fillMapping(y,m,d,cm);
+  fillIdentity(cm,hex);
+  updateBadge();
+  document.getElementById("dlGrid").classList.remove("locked");
+  document.getElementById("shareGrid").classList.remove("locked");
+  document.getElementById("shareNote").textContent="Your link carries your birthday so the same fractal regenerates.";
+  renderGen();
+  document.getElementById("generator").scrollIntoView({behavior:reduce?"auto":"smooth"});
+}
+function pad(n){return ("0"+n).slice(-2);}
+
+function fillMapping(y,m,d,cm){
+  document.getElementById("mapDate").textContent=y+"-"+pad(m)+"-"+pad(d);
+  document.getElementById("mapRe").textContent=cm.real;
+  document.getElementById("mapIm").textContent=cm.imag;
+  document.getElementById("mapMag").textContent=cm.mag.toFixed(3);
+  document.getElementById("mapArg").textContent=cm.arg.toExponential(4)+" rad";
+  var norm=cm.real/Math.pow(10,8);
+  document.getElementById("mapNorm").textContent=norm.toFixed(8);
+}
+function fillIdentity(cm,hex){
+  document.getElementById("idZ").innerHTML=cm.real+' <span class="accent">+ '+cm.imag+'i</span>';
+  document.getElementById("idMag").textContent=cm.mag.toFixed(3);
+  document.getElementById("idArg").textContent=cm.arg.toExponential(4)+" rad";
+  document.getElementById("idSeed").textContent=hex.slice(0,8).toUpperCase();
+}
+document.getElementById("genBtn").addEventListener("click",generate);
+["iY","iM","iD","iH","iMin"].forEach(function(id){
+  document.getElementById(id).addEventListener("keydown",function(e){if(e.key==="Enter")generate();});
+});
+
+/* ---------- high-res export ---------- */
+function renderToCanvas(w,h){
+  // offscreen WebGL2 render at target resolution
+  var cv=document.createElement("canvas");cv.width=w;cv.height=h;
+  var r=new Renderer(cv);if(!r.ok)return null;
+  var P=genParams(state.anim?state.time:0);
+  r.size(w,h);r.draw(P);
+  return cv;
+}
+function download(url,name){var a=document.createElement("a");a.href=url;a.download=name;
+  document.body.appendChild(a);a.click();document.body.removeChild(a);}
+function stamp(){return state.complex.real+"_"+state.complex.imag;}
+
+function exportPNG(w,h,suffix){
+  var cv=renderToCanvas(w,h);if(!cv){toast("Render failed");return;}
+  cv.toBlob(function(bl){var url=URL.createObjectURL(bl);
+    download(url,"fractal-identity_"+stamp()+suffix+".png");
+    setTimeout(function(){URL.revokeObjectURL(url);},4000);toast("Saved "+w+"x"+h+" PNG");},"image/png");
+}
+function exportPoster(){
+  var W=2000,H=2800;
+  var art=renderToCanvas(2000,2000);if(!art){toast("Render failed");return;}
+  var cv=document.createElement("canvas");cv.width=W;cv.height=H;var ctx=cv.getContext("2d");
+  ctx.fillStyle="#05070a";ctx.fillRect(0,0,W,H);
+  ctx.drawImage(art,0,0,2000,2000);
+  // gradient fade into footer
+  var g=ctx.createLinearGradient(0,1700,0,2100);g.addColorStop(0,"rgba(5,7,10,0)");g.addColorStop(1,"#05070a");
+  ctx.fillStyle=g;ctx.fillRect(0,1700,W,420);
+  ctx.fillStyle="#f2f5fa";ctx.textBaseline="alphabetic";
+  ctx.font="600 92px -apple-system,Segoe UI,Helvetica,Arial,sans-serif";
+  ctx.fillText("Fractal Identity",120,2360);
+  ctx.fillStyle="#e9c46a";
+  ctx.font="500 44px SFMono-Regular,Menlo,Consolas,monospace";
+  ctx.fillText("z = "+state.complex.real+" + "+state.complex.imag+"i",120,2440);
+  ctx.fillStyle="#9aa6bd";
+  ctx.font="400 34px SFMono-Regular,Menlo,Consolas,monospace";
+  ctx.fillText("|z| "+state.complex.mag.toFixed(3)+"    seed "+state.seedHex.slice(0,8).toUpperCase()
+    +"    "+FRACTALS[state.algo].name,120,2510);
+  cv.toBlob(function(bl){var url=URL.createObjectURL(bl);
+    download(url,"fractal-identity_"+stamp()+"_poster.png");
+    setTimeout(function(){URL.revokeObjectURL(url);},4000);toast("Saved poster");},"image/png");
+}
+function exportSVG(){
+  var side=1600;var art=renderToCanvas(side,side);if(!art){toast("Render failed");return;}
+  var dataURL=art.toDataURL("image/png");
+  var z="z = "+state.complex.real+" + "+state.complex.imag+"i";
+  var meta="|z| "+state.complex.mag.toFixed(3)+"  seed "+state.seedHex.slice(0,8).toUpperCase();
+  var svg='<?xml version="1.0" encoding="UTF-8"?>\n'+
+    '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1600" height="1840" viewBox="0 0 1600 1840">\n'+
+    '<rect width="1600" height="1840" fill="#05070a"/>\n'+
+    '<image x="0" y="0" width="1600" height="1600" xlink:href="'+dataURL+'"/>\n'+
+    '<text x="80" y="1710" fill="#f2f5fa" font-family="Helvetica,Arial,sans-serif" font-size="56" font-weight="600">Fractal Identity</text>\n'+
+    '<text x="80" y="1764" fill="#e9c46a" font-family="monospace" font-size="32">'+z+'</text>\n'+
+    '<text x="80" y="1806" fill="#9aa6bd" font-family="monospace" font-size="26">'+meta+'</text>\n'+
+    '</svg>';
+  var bl=new Blob([svg],{type:"image/svg+xml"});var url=URL.createObjectURL(bl);
+  download(url,"fractal-identity_"+stamp()+".svg");
+  setTimeout(function(){URL.revokeObjectURL(url);},4000);toast("Saved SVG");
+}
+document.querySelectorAll("[data-dl]").forEach(function(el){
+  el.addEventListener("click",function(){
+    if(!state.ready)return;
+    var k=el.getAttribute("data-dl");
+    if(k==="png")exportPNG(genR.canvas.width,genR.canvas.height,"");
+    else if(k==="wall")exportPNG(2560,1440,"_wallpaper");
+    else if(k==="poster")exportPoster();
+    else if(k==="svg")exportSVG();
+  });
+});
+
+/* ---------- share ---------- */
+function shareURL(){
+  var c=state.complex;var u=new URL(location.href);u.hash="";
+  u.searchParams.set("d",state.dateStr||"");
+  return u.toString();
+}
+function buildShareLink(){
+  if(!state.complex)return location.href.split("?")[0];
+  var base=location.href.split("?")[0].split("#")[0];
+  return base+"?d="+encodeURIComponent(state.dateStr);
+}
+document.querySelectorAll("[data-sh]").forEach(function(el){
+  el.addEventListener("click",function(){
+    if(!state.ready)return;
+    var k=el.getAttribute("data-sh");
+    var link=buildShareLink();
+    var txt="My birthday as a unique fractal. z = "+state.complex.real+" + "+state.complex.imag+"i  #FractalIdentity";
+    if(k==="x")window.open("https://twitter.com/intent/tweet?text="+encodeURIComponent(txt)+"&url="+encodeURIComponent(link),"_blank");
+    else if(k==="threads")window.open("https://www.threads.net/intent/post?text="+encodeURIComponent(txt+" "+link),"_blank");
+    else if(k==="instagram"){copy(txt+" "+link);toast("Caption copied. Attach your PNG in Instagram.");}
+    else if(k==="copy"){copy(link);toast("Link copied");}
+  });
+});
+function copy(t){
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t)["catch"](function(){fallbackCopy(t);});}
+  else fallbackCopy(t);
+}
+function fallbackCopy(t){var ta=document.createElement("textarea");ta.value=t;ta.style.position="fixed";
+  ta.style.opacity="0";document.body.appendChild(ta);ta.select();try{document.execCommand("copy");}catch(e){}
+  document.body.removeChild(ta);}
+
+/* store date string on generate for share */
+var _gen=generate;
+generate=function(){
+  var y=readInt("iY"),m=readInt("iM"),d=readInt("iD");
+  if(y!==null&&m!==null&&d!==null)state.dateStr=y+"-"+pad(m)+"-"+pad(d);
+  _gen();
+};
+document.getElementById("genBtn").removeEventListener("click",_gen);
+document.getElementById("genBtn").addEventListener("click",generate);
+
+/* prefill from share link */
+(function prefill(){
+  var p=new URLSearchParams(location.search);var ds=p.get("d");
+  if(ds&&/^\d{4}-\d{2}-\d{2}$/.test(ds)){
+    var parts=ds.split("-");
+    document.getElementById("iY").value=parts[0];
+    document.getElementById("iM").value=parts[1];
+    document.getElementById("iD").value=parts[2];
+    setTimeout(generate,300);
+  }
+})();
+
+/* ---------- toast ---------- */
+var toastT=null;
+function toast(msg){var el=document.getElementById("toast");el.textContent=msg;el.classList.add("show");
+  if(toastT)clearTimeout(toastT);toastT=setTimeout(function(){el.classList.remove("show");},2600);}
+
+/* ---------- shared hamburger nav ---------- */
+(function(){var b=document.getElementById("navBtn"),o=document.getElementById("navOv");if(!b||!o)return;
+function set(s){b.classList.toggle("open",s);o.classList.toggle("show",s);
+b.setAttribute("aria-expanded",s?"true":"false");o.setAttribute("aria-hidden",s?"false":"true");
+document.body.style.overflow=s?"hidden":"";}
+b.addEventListener("click",function(){set(!o.classList.contains("show"));});
+o.addEventListener("click",function(e){if(e.target===o)set(false);});
+o.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){set(false);});});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")set(false);});})();
+
+/* ---------- reveals ---------- */
+if("IntersectionObserver" in window){
+  var ro=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");ro.unobserve(e.target);}});},{threshold:0.12});
+  document.querySelectorAll(".reveal").forEach(function(el){ro.observe(el);});
+} else { document.querySelectorAll(".reveal").forEach(function(el){el.classList.add("in");}); }
+
+/* ---------- resize ---------- */
+var rT=null;
+window.addEventListener("resize",function(){if(rT)clearTimeout(rT);rT=setTimeout(function(){if(state.ready)renderGen();},150);});
+
+/* ---------- WebGL2 fallback ---------- */
+if(!genR.ok||!heroR.ok){var bad=document.getElementById("genBadge");if(bad)bad.textContent="WebGL2 not available";toast("This browser does not support WebGL2");}
+</script>
+</body>
+</html>
