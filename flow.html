@@ -132,10 +132,11 @@ a{color:inherit;text-decoration:none}
 .botbar .flow input::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--cyan);cursor:pointer;box-shadow:0 0 8px var(--cyan)}
 .botbar .flow input::-moz-range-thumb{width:14px;height:14px;border:none;border-radius:50%;background:var(--cyan)}
 .botbar .live{color:var(--green)}
-.toggles{display:flex;gap:22px;justify-content:center;margin:0;flex-wrap:wrap}
-.tgroup{display:flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.14em;color:var(--faint)}
-.tgroup button{width:30px;height:26px;border:1px solid var(--line2);border-radius:5px;background:#0a0d1e;
-  color:var(--mute);font-size:11px;cursor:pointer}
+.toggles{display:flex;flex-direction:column;gap:10px;margin:0;
+  border:1px solid var(--line);border-radius:4px;background:#080b17;padding:11px 12px}
+.tgroup{display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:.14em;color:var(--faint)}
+.tgroup button{width:26px;height:24px;border:1px solid var(--line2);border-radius:5px;background:#0a0d1e;
+  color:var(--mute);font-size:10px;cursor:pointer}
 .tgroup button.on{border-color:var(--cyan);color:var(--pearl);background:#0d1730}
 
 /* ---------- params drawer ---------- */
@@ -173,6 +174,7 @@ a{color:inherit;text-decoration:none}
   .viewport{aspect-ratio:1/1;min-height:280px;top:4px}
   .viewport.mini{min-height:0;aspect-ratio:16/5}
   .side{order:2;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .side .toggles{grid-column:1/-1;flex-direction:row;flex-wrap:wrap;justify-content:space-between}
   .hdr .sig{min-width:130px}.hdr .sig canvas{width:130px}
 }
 </style>
@@ -240,15 +242,6 @@ a{color:inherit;text-decoration:none}
       <span>NODES <b id="nodesN">2500</b></span>
       <div class="flow"><span>FLOW</span><input type="range" id="rFlow" min="0" max="100" value="55"><b id="flowN">55</b><span class="live">LIVE</span></div>
       <span>VISITS <b id="visits">000001</b></span>
-    </div>
-
-    <div class="toggles">
-      <div class="tgroup">DIP
-        <button data-dip="X">X</button><button data-dip="Y" class="on">Y</button><button data-dip="Z">Z</button>
-      </div>
-      <div class="tgroup">BND
-        <button data-bnd="X">X</button><button data-bnd="Y">Y</button><button data-bnd="Z" class="on">Z</button>
-      </div>
     </div>
 
     <details class="params" open>
@@ -351,6 +344,14 @@ a{color:inherit;text-decoration:none}
       <div class="kv"><span>BANDS</span><b id="kBand">V</b></div>
       <div class="kv"><span>SPEED</span><b id="kSpeed">0.55</b></div>
       <div class="kv"><span>ROT</span><b id="kRot">0.19</b></div>
+    </div>
+    <div class="toggles">
+      <div class="tgroup">DIP
+        <button data-dip="X">X</button><button data-dip="Y" class="on">Y</button><button data-dip="Z">Z</button>
+      </div>
+      <div class="tgroup">BND
+        <button data-bnd="X">X</button><button data-bnd="Y">Y</button><button data-bnd="Z" class="on">Z</button>
+      </div>
     </div>
   </div>
 </div>
