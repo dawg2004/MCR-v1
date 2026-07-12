@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+/* MCR Design Tokens (see docs/DESIGN_SYSTEM.md, ADR-004 Glass UI) */
+:root {
+  /* Master palette */
+  --mcr-bg: #050816;
+  --mcr-primary: #4f7bff;
+  --mcr-purple: #8c5cff;
+  --mcr-cyan: #3de5e8;
+  --mcr-gold: #d7b25a;
+  --mcr-white: #f8fafc;
+
+  /* Legacy-derived neutrals (from MCR v0 pages) */
+  --mcr-abyss: #11142b;
+  --mcr-abyss-2: #181c3a;
+  --mcr-line: #2c3160;
+  --mcr-line-2: #3a4180;
+  --mcr-mute: #9a9ec8;
+  --mcr-faint: #6a6f9c;
+
+  /* Grid / shape */
+  --mcr-radius: 20px;
+  --mcr-blur: 20px;
+
+  --background: var(--mcr-bg);
+  --foreground: var(--mcr-white);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--mcr-primary);
+  --color-purple: var(--mcr-purple);
+  --color-cyan: var(--mcr-cyan);
+  --color-gold: var(--mcr-gold);
+  --color-abyss: var(--mcr-abyss);
+  --color-abyss-2: var(--mcr-abyss-2);
+  --color-line: var(--mcr-line);
+  --color-line-2: var(--mcr-line-2);
+  --color-mute: var(--mcr-mute);
+  --color-faint: var(--mcr-faint);
+  --radius-mcr: var(--mcr-radius);
+  --font-sans: var(--font-inter), var(--font-noto-sans-jp), "SF Pro Display", system-ui, sans-serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+/* Glass UI base (ADR-004) */
+.glass {
+  background: color-mix(in srgb, var(--mcr-abyss) 55%, transparent);
+  border: 1px solid color-mix(in srgb, var(--mcr-line-2) 60%, transparent);
+  border-radius: var(--mcr-radius);
+  backdrop-filter: blur(var(--mcr-blur));
+  -webkit-backdrop-filter: blur(var(--mcr-blur));
+}
