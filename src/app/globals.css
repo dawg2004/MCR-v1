@@ -40,7 +40,7 @@
   --color-mute: var(--mcr-mute);
   --color-faint: var(--mcr-faint);
   --radius-mcr: var(--mcr-radius);
-  --font-sans: var(--font-inter), var(--font-noto-sans-jp), "SF Pro Display", system-ui, sans-serif;
+  --font-sans: "SF Pro Display", -apple-system, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", Inter, system-ui, sans-serif;
 }
 
 body {
