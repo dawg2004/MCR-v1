@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MY CORE RESONANCE / MCR</title>
+<style>
+:root{
+  --void:#080a16;
+  --abyss:#11142b;
+  --abyss2:#181c3a;
+  --line:#2c3160;
+  --line2:#3a4180;
+  --pearl:#ece9f7;
+  --mute:#9a9ec8;
+  --faint:#6a6f9c;
+  --violet:#8b6fe8;
+  --cyan:#4fd0e0;
+  --gold:#e8c36f;
+  --rose:#e86f9e;
+  --green:#7fdca0;
+  --serif:"Hiragino Mincho ProN","Yu Mincho","YuMincho",Georgia,"Times New Roman",serif;
+  --sans:"Hiragino Kaku Gothic ProN","Yu Gothic","Segoe UI",system-ui,sans-serif;
+  --mono:"SFMono-Regular",Menlo,Consolas,"Courier New",monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:
+    radial-gradient(1200px 700px at 78% -8%, rgba(139,111,232,.16), transparent 60%),
+    radial-gradient(900px 600px at 8% 12%, rgba(79,208,224,.10), transparent 55%),
+    var(--void);
+  color:var(--pearl);
+  font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.7;
+  overflow-x:hidden;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+a{color:var(--cyan)}
+
+/* hero */
+.hero{position:relative;padding:64px 0 30px;text-align:center}
+.coreCanvas{
+  display:block;width:300px;height:300px;margin:0 auto 6px;
+  border-radius:50%;
+}
+.kicker{font-family:var(--mono);font-size:11px;letter-spacing:.42em;color:var(--faint);text-transform:uppercase;margin:0 0 14px}
+.title{
+  font-family:var(--serif);font-weight:400;letter-spacing:.06em;
+  font-size:clamp(40px,9vw,86px);line-height:.98;margin:0;
+  background:linear-gradient(110deg,var(--pearl) 8%,var(--violet) 42%,var(--cyan) 70%,var(--gold) 96%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.titleSub{font-family:var(--mono);font-size:13px;letter-spacing:.7em;color:var(--mute);margin:10px 0 0;padding-left:.7em}
+.lede{max-width:660px;margin:20px auto 0;color:var(--mute);font-size:15px}
+.lede b{color:var(--pearl);font-weight:400}
+
+/* input */
+.panel{
+  background:linear-gradient(180deg,rgba(24,28,58,.72),rgba(17,20,43,.72));
+  border:1px solid var(--line);border-radius:18px;
+  padding:24px 22px;margin:34px 0 0;
+  backdrop-filter:blur(8px);
+}
+.panel h2{font-family:var(--serif);font-weight:400;font-size:18px;letter-spacing:.08em;margin:0 0 4px}
+.panel .note{color:var(--faint);font-size:12px;margin:0 0 18px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.field label{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--mute);text-transform:uppercase;margin:0 0 6px}
+.field input,.field select{
+  width:100%;background:var(--void);border:1px solid var(--line);border-radius:10px;
+  color:var(--pearl);font-family:var(--sans);font-size:15px;padding:11px 12px;outline:none;
+}
+.field input:focus,.field select:focus{border-color:var(--violet);box-shadow:0 0 0 3px rgba(139,111,232,.18)}
+.field .hint{font-family:var(--mono);font-size:10px;color:var(--faint);margin:6px 0 0}
+.full{grid-column:1 / -1}
+.go{
+  grid-column:1 / -1;margin-top:6px;cursor:pointer;
+  border:none;border-radius:12px;padding:15px 20px;
+  font-family:var(--mono);font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--void);font-weight:700;
+  background:linear-gradient(100deg,var(--cyan),var(--violet) 55%,var(--gold));
+}
+.go:active{transform:translateY(1px)}
+.go:disabled{opacity:.5;cursor:default}
+
+/* synthesis */
+.synth{margin:34px 0 0;display:none}
+.synth.show{display:block}
+.synthHead{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:18px}
+.synthHead .eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.32em;color:var(--faint);text-transform:uppercase}
+.synthHead .who{font-family:var(--serif);font-size:24px;letter-spacing:.04em}
+.coreGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.coreCell{background:var(--abyss);border:1px solid var(--line);border-radius:13px;padding:15px 15px 13px;position:relative;overflow:hidden}
+.coreCell::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--violet)}
+.coreCell .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;color:var(--mute);text-transform:uppercase}
+.coreCell .v{font-family:var(--serif);font-size:30px;line-height:1.1;margin:4px 0 2px}
+.coreCell .s{font-size:12px;color:var(--faint)}
+.resonKey{margin:16px 0 0;background:linear-gradient(120deg,rgba(139,111,232,.12),rgba(79,208,224,.08));border:1px solid var(--line2);border-radius:14px;padding:16px 18px}
+.resonKey .k{font-family:var(--mono);font-size:10px;letter-spacing:.28em;color:var(--mute);text-transform:uppercase;margin:0 0 6px}
+.resonKey .body{font-size:14.5px;color:var(--pearl)}
+.resonKey .freq{font-family:var(--mono);color:var(--cyan)}
+
+/* category nav */
+.catsHead{margin:46px 0 8px;font-family:var(--mono);font-size:11px;letter-spacing:.32em;color:var(--faint);text-transform:uppercase}
+.cat{margin:26px 0 0;border-top:1px solid var(--line);padding-top:20px}
+.cat h3{font-family:var(--serif);font-weight:400;font-size:21px;letter-spacing:.06em;margin:0 0 2px;display:flex;align-items:baseline;gap:12px}
+.cat h3 .rn{font-family:var(--mono);font-size:13px;color:var(--violet);letter-spacing:.1em}
+.cat .csub{color:var(--faint);font-size:12px;margin:0 0 16px}
+.sys{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.card{
+  background:var(--abyss);border:1px solid var(--line);border-radius:14px;overflow:hidden;
+  transition:border-color .2s;
+}
+.card.open{border-color:var(--line2)}
+.cardTop{display:flex;align-items:flex-start;gap:11px;padding:15px 16px;cursor:pointer}
+.num{font-family:var(--mono);font-size:11px;color:var(--faint);min-width:26px;padding-top:3px;letter-spacing:.05em}
+.cardMeta{flex:1;min-width:0}
+.cardMeta .nm{font-family:var(--serif);font-size:16.5px;letter-spacing:.03em;margin:0 0 3px}
+.cardMeta .es{color:var(--mute);font-size:12.5px;line-height:1.55}
+.tag{flex-shrink:0;font-family:var(--mono);font-size:9px;letter-spacing:.12em;padding:3px 7px;border-radius:20px;margin-top:2px;border:1px solid var(--line2)}
+.tag.calc{color:var(--cyan);border-color:rgba(79,208,224,.4)}
+.tag.est{color:var(--gold);border-color:rgba(232,195,111,.4)}
+.tag.sym{color:var(--rose);border-color:rgba(232,111,158,.4)}
+.read{display:none;padding:0 16px 17px 53px}
+.card.open .read{display:block}
+.read .line{height:1px;background:var(--line);margin:0 0 14px}
+.read .val{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.chip{font-family:var(--mono);font-size:11px;letter-spacing:.04em;background:var(--void);border:1px solid var(--line2);border-radius:8px;padding:5px 9px;color:var(--pearl)}
+.chip b{color:var(--cyan);font-weight:400}
+.read p{margin:0 0 10px;font-size:14px;color:var(--pearl)}
+.read p.g{color:var(--mute);font-size:13px}
+.read .src{font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:.04em;margin-top:6px}
+
+.empty{color:var(--faint);text-align:center;padding:60px 0;font-size:14px}
+footer{margin:60px 0 50px;text-align:center;color:var(--faint);font-size:11.5px;font-family:var(--mono);letter-spacing:.08em}
+.legend{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin:18px 0 0;font-family:var(--mono);font-size:10.5px;color:var(--mute)}
+.legend span b{font-weight:400}
+.legend .calc{color:var(--cyan)} .legend .est{color:var(--gold)} .legend .sym{color:var(--rose)}
+
+@media(max-width:720px){
+  .grid{grid-template-columns:1fr}
+  .sys{grid-template-columns:1fr}
+  .coreCanvas{width:240px;height:240px}
+  .read{padding-left:16px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+
+/* ---------- shared hamburger nav ---------- */
+.navBtn{position:fixed;top:18px;right:18px;z-index:60;width:46px;height:46px;border-radius:12px;
+  border:1px solid var(--line);background:rgba(17,20,43,.62);cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:border-color .2s}
+.navBtn:hover{border-color:var(--line2)}
+.navBtn span{display:block;width:20px;height:1.5px;background:var(--pearl);border-radius:2px;transition:transform .26s,opacity .2s}
+.navBtn.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.navBtn.open span:nth-child(2){opacity:0}
+.navBtn.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.navOv{position:fixed;inset:0;z-index:55;opacity:0;pointer-events:none;
+  background:radial-gradient(900px 700px at 80% 8%,rgba(139,111,232,.18),transparent 60%),rgba(8,10,22,.92);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  transition:opacity .3s;display:flex;align-items:center;justify-content:center}
+.navOv.show{opacity:1;pointer-events:auto}
+.navInner{text-align:center;padding:24px}
+.navInner .eye{font-family:var(--mono);font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--faint);margin:0 0 30px}
+.navInner a{display:block;font-family:var(--serif);font-size:clamp(28px,6vw,44px);letter-spacing:.04em;
+  color:var(--pearl);margin:20px 0;line-height:1.15;
+  transition:color .2s,transform .25s,opacity .25s;opacity:0;transform:translateY(14px)}
+.navOv.show .navInner a{opacity:1;transform:none}
+.navOv.show .navInner a:nth-child(2){transition-delay:.05s}
+.navOv.show .navInner a:nth-child(3){transition-delay:.1s}
+.navOv.show .navInner a:nth-child(4){transition-delay:.15s}
+.navOv.show .navInner a:nth-child(5){transition-delay:.2s}
+.navInner a .s{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--faint);text-transform:uppercase;margin:8px 0 0}
+.navInner a:hover{color:var(--cyan)}
+.navInner a[aria-current=page]{background:linear-gradient(100deg,var(--cyan),var(--violet) 55%,var(--gold));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+@media (prefers-reduced-motion:reduce){.navBtn span,.navOv,.navInner a{transition:none}.navInner a{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<button class="navBtn" id="navBtn" aria-label="メニュー" aria-expanded="false" aria-controls="navOv"><span></span><span></span><span></span></button>
+<nav class="navOv" id="navOv" aria-hidden="true"><div class="navInner">
+  <p class="eye">My Core Resonance</p>
+  <a href="index.html" aria-current="page">占機<span class="s">Oracle / 70 Systems</span></a>
+  <a href="about.html">七十占術について<span class="s">About</span></a>
+  <a href="fractal.html">Fractal Identity<span class="s">Birthday as Mathematics</span></a>
+  <a href="flow.html">Surface Flow<span class="s">Parametric Field</span></a>
+</div></nav>
+
+<div class="wrap">
+
+  <header class="hero">
+    <canvas class="coreCanvas" id="core" width="600" height="600" aria-hidden="true"></canvas>
+    <p class="kicker">Seventy Systems / One Signature</p>
+    <h1 class="title">MY CORE<br>RESONANCE</h1>
+    <p class="titleSub">M C R</p>
+    <p class="lede">東洋命術から現代統合系まで<b>70の占術</b>を一つの座標に束ね、あなたの核に流れる固有の振動を一枚の図形として描き出す。生年月日と名前を起点に、計算できるものは実数で、暦が要るものは推定と象徴で読む。</p>
+  </header>
+
+  <section class="panel" id="inputPanel">
+    <h2>共鳴座標を立てる</h2>
+    <p class="note">名前と生年月日が起点。出生時刻と出生地は西洋・インド占星系の精度を上げるために使う。空欄でも全系統は動く。</p>
+    <div class="grid">
+      <div class="field full">
+        <label>名前 / Name</label>
+        <input id="iName" type="text" placeholder="ローマ字推奨（例 TARO YAMADA）/ かな漢字も可" autocomplete="off">
+        <p class="hint">数秘・姓名系で使用。ローマ字だと数価が厳密に出る</p>
+      </div>
+      <div class="field">
+        <label>生年月日 / YYYYMMDD</label>
+        <input id="iBirth" type="text" inputmode="numeric" placeholder="YYYYMMDD" maxlength="8" autocomplete="off">
+        <p class="hint">8桁数値</p>
+      </div>
+      <div class="field">
+        <label>性別 / Sex</label>
+        <select id="iSex">
+          <option value="m">男性</option>
+          <option value="f">女性</option>
+          <option value="x">指定しない</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>出生時刻 / Time</label>
+        <input id="iTime" type="time" autocomplete="off">
+        <p class="hint">紫微・時柱・西洋占星の精度に影響</p>
+      </div>
+      <div class="field">
+        <label>出生地 / Place</label>
+        <input id="iPlace" type="text" placeholder="例 Tokyo" autocomplete="off">
+        <p class="hint">アストロカートグラフィ系で参照（任意）</p>
+      </div>
+      <button class="go" id="goBtn">共鳴を読み解く</button>
+    </div>
+  </section>
+
+  <section class="synth" id="synth">
+    <div class="synthHead">
+      <span class="eyebrow">Core Resonance</span>
+      <span class="who" id="synthWho">あなたの核</span>
+    </div>
+    <div class="coreGrid" id="coreGrid"></div>
+    <div class="resonKey" id="resonKey"></div>
+  </section>
+
+  <p class="catsHead" id="catsHead" style="display:none">Seventy Systems</p>
+  <div id="cats">
+    <div class="empty" id="emptyMsg">上のフォームに入力して「共鳴を読み解く」を押すと、70占術すべての読みがここに展開される。</div>
+  </div>
+
+  <div class="legend" id="legend" style="display:none">
+    <span class="calc"><b>計</b> 実算出</span>
+    <span class="est"><b>推</b> 推定（暦近似）</span>
+    <span class="sym"><b>象</b> 象徴抽出（固有シード）</span>
+  </div>
+  <footer>MY CORE RESONANCE — 70 divination systems unified. 計算値と象徴値を区別して提示する設計。占術は内省の道具であり、医療・法務・投資の助言ではない。</footer>
+
+</div>
+
+<script>
+"use strict";
+/* ============================================================
+   MY CORE RESONANCE (MCR)
+   Single-file divination engine covering 70 systems.
+   - "calc": fully computed from name/date (numerology family,
+     nine-star honmei, year ganzhi, destiny matrix, sun sign,
+     bazhai trigram, I Ching / rune / geomancy draws).
+   - "est": ephemeris-free approximation (lunar mansion, vedic
+     nakshatra, hebrew gematria, seimei by char-count, etc).
+   - "sym": deterministic symbolic reading seeded by the person.
+   No external network or CDN dependency. ASCII comments only.
+   ============================================================ */
+
+/* ---------- deterministic PRNG (mulberry32) ---------- */
+function hashStr(s){
+  var h=2166136261>>>0;
+  for(var i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619); }
+  return h>>>0;
+}
+function rngFrom(seed){
+  var a=seed>>>0;
+  return function(){
+    a|=0; a=a+0x6D2B79F5|0;
+    var t=Math.imul(a^a>>>15,1|a);
+    t=t+Math.imul(t^t>>>7,61|t)^t;
+    return ((t^t>>>14)>>>0)/4294967296;
+  };
+}
+function pick(arr,r){ return arr[Math.floor(r()*arr.length)]; }
+function pickN(arr,r,n){
+  var c=arr.slice(),out=[];
+  for(var i=0;i<n&&c.length;i++){ out.push(c.splice(Math.floor(r()*c.length),1)[0]); }
+  return out;
+}
+
+/* ---------- numerology ---------- */
+var PYTH={A:1,B:2,C:3,D:4,E:5,F:6,G:7,H:8,I:9,J:1,K:2,L:3,M:4,N:5,O:6,P:7,Q:8,R:9,S:1,T:2,U:3,V:4,W:5,X:6,Y:7,Z:8};
+var CHALD={A:1,B:2,C:3,D:4,E:5,F:8,G:3,H:5,I:1,J:1,K:2,L:3,M:4,N:5,O:7,P:8,Q:1,R:2,S:3,T:4,U:6,V:6,W:6,X:5,Y:1,Z:7};
+var VOWELS="AEIOU";
+function reduceNum(n,keepMaster){
+  while(n>9){
+    if(keepMaster&&(n===11||n===22||n===33)) return n;
+    var s=0,t=n; while(t>0){ s+=t%10; t=Math.floor(t/10); } n=s;
+  }
+  return n;
+}
+function lettersOnly(name){ return (name||"").toUpperCase().replace(/[^A-Z]/g,""); }
+function nameSum(name,map,onlyVowel,onlyCons){
+  var s=0,L=lettersOnly(name);
+  for(var i=0;i<L.length;i++){
+    var ch=L[i],isV=VOWELS.indexOf(ch)>=0;
+    if(onlyVowel&&!isV) continue;
+    if(onlyCons&&isV) continue;
+    s+=map[ch]||0;
+  }
+  return s;
+}
+function lifePath(y,m,d){ return reduceNum(reduceNum(y,false)+reduceNum(m,false)+reduceNum(d,false),true); }
+
+/* ---------- nine star (honmei) ---------- */
+function digitSum1to9(n){ while(n>9){ var s=0,t=n; while(t>0){s+=t%10;t=Math.floor(t/10);} n=s; } return n; }
+function honmeiStar(year){
+  var d=digitSum1to9(year);
+  var h=11-d; if(h>9) h-=9; if(h<1) h+=9;
+  return h;
+}
+var STAR_NAMES=["","一白水星","二黒土星","三碧木星","四緑木星","五黄土星","六白金星","七赤金星","八白金星","九紫火星"];
+var STAR_COLORS=["","#cfe3ff","#a98f63","#6fd08e","#8fd6a0","#d6b84f","#cfd3e6","#e88f8f","#d8c79a","#b07fe8"];
+
+/* ---------- monthly star ---------- */
+function getsumeiStar(honmei,month){
+  // approximate using civil month; node groups by honmei family
+  var fam; if([1,4,7].indexOf(honmei)>=0) fam=0; else if([2,5,8].indexOf(honmei)>=0) fam=1; else fam=2;
+  var starts=[8,2,5]; // Feb start star for each family (approx, sessetsu simplified)
+  var mIndex=(month+10)%12; // shift so Feb=0
+  var st=starts[fam]-mIndex;
+  while(st<1) st+=9; while(st>9) st-=9;
+  return st;
+}
+
+/* ---------- ganzhi ---------- */
+var STEMS=["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
+var BRANCHES=["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
+var STEM_ELEM=["木","木","火","火","土","土","金","金","水","水"];
+function jdn(y,m,d){
+  var a=Math.floor((14-m)/12), yy=y+4800-a, mm=m+12*a-3;
+  return d+Math.floor((153*mm+2)/5)+365*yy+Math.floor(yy/4)-Math.floor(yy/100)+Math.floor(yy/400)-32045;
+}
+function yearGanzhi(y){ var i=((y-4)%60+60)%60; return {stem:i%10,branch:i%12}; }
+function dayGanzhi(y,m,d){ var J=jdn(y,m,d); var st=((J+9)%10+10)%10, br=((J+1)%12+12)%12; return {stem:st,branch:br,jdn:J}; }
+function hourBranch(hh){ if(hh<0) return -1; return Math.floor(((hh+1)%24)/2); }
+
+/* ---------- sun sign (tropical) ---------- */
+var ZOD=[
+ {n:"牡羊座",e:"Aries",el:"火",from:[3,21]},{n:"牡牛座",e:"Taurus",el:"地",from:[4,20]},
+ {n:"双子座",e:"Gemini",el:"風",from:[5,21]},{n:"蟹座",e:"Cancer",el:"水",from:[6,21]},
+ {n:"獅子座",e:"Leo",el:"火",from:[7,23]},{n:"乙女座",e:"Virgo",el:"地",from:[8,23]},
+ {n:"天秤座",e:"Libra",el:"風",from:[9,23]},{n:"蠍座",e:"Scorpio",el:"水",from:[10,23]},
+ {n:"射手座",e:"Sagittarius",el:"火",from:[11,22]},{n:"山羊座",e:"Capricorn",el:"地",from:[12,22]},
+ {n:"水瓶座",e:"Aquarius",el:"風",from:[1,20]},{n:"魚座",e:"Pisces",el:"水",from:[2,19]}
+];
+function sunSign(m,d){
+  function S(name){ for(var i=0;i<ZOD.length;i++) if(ZOD[i].n===name) return ZOD[i]; return ZOD[0]; }
+  if((m===1&&d>=20)||(m===2&&d<=18)) return S("水瓶座");
+  if((m===2&&d>=19)||(m===3&&d<=20)) return S("魚座");
+  if((m===3&&d>=21)||(m===4&&d<=19)) return S("牡羊座");
+  if((m===4&&d>=20)||(m===5&&d<=20)) return S("牡牛座");
+  if((m===5&&d>=21)||(m===6&&d<=20)) return S("双子座");
+  if((m===6&&d>=21)||(m===7&&d<=22)) return S("蟹座");
+  if((m===7&&d>=23)||(m===8&&d<=22)) return S("獅子座");
+  if((m===8&&d>=23)||(m===9&&d<=22)) return S("乙女座");
+  if((m===9&&d>=23)||(m===10&&d<=22)) return S("天秤座");
+  if((m===10&&d>=23)||(m===11&&d<=21)) return S("蠍座");
+  if((m===11&&d>=22)||(m===12&&d<=21)) return S("射手座");
+  return S("山羊座");
+}
+function sunSignIndex(z){ for(var i=0;i<ZOD.length;i++) if(ZOD[i]===z) return i; return 0; }
+
+/* ---------- destiny matrix (22 arcana) ---------- */
+var ARCANA=["","魔術師","女教皇","女帝","皇帝","教皇","恋人","戦車","力","隠者","運命の輪",
+ "正義","吊られた男","死神","節制","悪魔","塔","星","月","太陽","審判","世界","愚者"];
+function red22(n){ while(n>22) n=Math.floor(n/10)+n%10; return n; }
+function red22sumDigits(n){ var s=0; while(n>0){s+=n%10;n=Math.floor(n/10);} return red22(s); }
+function destinyMatrix(y,m,d){
+  var A=red22(d), B=red22(m), C=red22sumDigits(y);
+  var D=red22(A+B+C), E=red22(A+B+C+D);
+  return {A:A,B:B,C:C,D:D,E:E};
+}
+
+/* ---------- bazhai (eight mansion) ming gua ---------- */
+function mingGua(year,sex){
+  var d=digitSum1to9(year);
+  var g;
+  if(sex==="f"){ g=(4+d); g=digitSum1to9(g); if(year>=2000){ /* keep */ } }
+  // standard: male = 11 - digitSum (>=2000 use 9-...); female = digitSum + 4
+  var male=11-d; if(male>9) male-=9; if(male<1) male+=9;
+  var female=d+4; female=digitSum1to9(female);
+  var num=(sex==="f")?female:male;
+  if(num===5) num=(sex==="f")?8:2;
+  var GUA={1:["坎","北","東四命"],2:["坤","南西","西四命"],3:["震","東","東四命"],4:["巽","南東","東四命"],
+           6:["乾","北西","西四命"],7:["兌","西","西四命"],8:["艮","北東","西四命"],9:["離","南","東四命"]};
+  return {num:num,gua:GUA[num]};
+}
+
+/* ---------- I Ching (King Wen) ---------- */
+var KINGWEN=[
+ [1,43,14,34,9,5,26,11],
+ [10,58,38,54,61,60,41,19],
+ [13,49,30,55,37,63,22,36],
+ [25,17,21,51,42,3,27,24],
+ [44,28,50,32,57,48,18,46],
+ [6,47,64,40,59,29,4,7],
+ [33,31,56,62,53,39,52,15],
+ [12,45,35,16,20,8,23,2]
+];
+var HEXNAME=["","乾為天","坤為地","水雷屯","山水蒙","水天需","天水訟","地水師","水地比","風天小畜","天澤履",
+"地天泰","天地否","天火同人","火天大有","地山謙","雷地豫","澤雷随","山風蠱","地澤臨","風地観",
+"火雷噬嗑","山火賁","山地剝","地雷復","天雷无妄","山天大畜","山雷頤","澤風大過","坎為水","離為火",
+"澤山咸","雷風恒","天山遯","雷天大壮","火地晋","地火明夷","風火家人","火澤睽","水山蹇","雷水解",
+"山澤損","風雷益","澤天夬","天風姤","澤地萃","地風升","澤水困","水風井","澤火革","火風鼎",
+"震為雷","艮為山","風山漸","雷澤帰妹","雷火豊","火山旅","巽為風","兌為澤","風水渙","水澤節",
+"風澤中孚","雷山小過","水火既済","火水未済"];
+var TRIGNAME=["乾","兌","離","震","巽","坎","艮","坤"];
+function castHexagram(r){
+  // trigram index by 3 seeded yin/yang lines, lower first
+  function trig(){ var b=0; for(var i=0;i<3;i++){ b=(b<<1)|(r()<0.5?0:1); } 
+    // map 3-bit (top..bottom) to bagua order via lookup
+    var MAP={7:0,3:1,5:2,1:3,6:4,2:5,4:6,0:7};
+    return MAP[b];
+  }
+  var lo=trig(), up=trig();
+  var n=KINGWEN[up][lo];
+  var moving=Math.floor(r()*6)+1;
+  return {num:n,name:HEXNAME[n],lo:TRIGNAME[lo],up:TRIGNAME[up],moving:moving};
+}
+
+/* ---------- runes (elder futhark 24) ---------- */
+var RUNES=[
+ ["Fehu","ᚠ","富・流れる豊かさ"],["Uruz","ᚢ","原初の力・野生の活力"],["Thurisaz","ᚦ","門・破壊と突破"],
+ ["Ansuz","ᚨ","神託・言葉と知らせ"],["Raidho","ᚱ","旅・正しい道行き"],["Kenaz","ᚲ","灯火・洞察と技"],
+ ["Gebo","ᚷ","贈与・対等な交換"],["Wunjo","ᚹ","歓喜・調和の成就"],["Hagalaz","ᚺ","雹・避けられぬ変容"],
+ ["Nauthiz","ᚾ","必要・制約からの学び"],["Isa","ᛁ","氷・静止と集中"],["Jera","ᛃ","収穫・時満ちる実り"],
+ ["Eihwaz","ᛇ","世界樹・守りと忍耐"],["Perthro","ᛈ","運命の盃・秘めた可能性"],["Algiz","ᛉ","守護・高みへの接続"],
+ ["Sowilo","ᛊ","太陽・全体性と勝利"],["Tiwaz","ᛏ","正義・誇りある決断"],["Berkano","ᛒ","白樺・生成と育み"],
+ ["Ehwaz","ᛖ","馬・信頼ある前進"],["Mannaz","ᛗ","人・自己と関係性"],["Laguz","ᛚ","水・直観の流れ"],
+ ["Ingwaz","ᛜ","種子・内に蓄える力"],["Dagaz","ᛞ","夜明け・覚醒の転回"],["Othala","ᛟ","継承・根と帰属"]
+];
+function drawRunes(r,n){ return pickN(RUNES,r,n); }
+
+/* ---------- ogham (20 few) ---------- */
+var OGHAM=[
+ ["Beith","白樺","始まり・浄化"],["Luis","ナナカマド","守護・直観"],["Fearn","ハンノキ","導き・盾"],
+ ["Saille","柳","流れ・月の感受"],["Nuin","トネリコ","結び・世界の軸"],["Uath","サンザシ","試練・浄め"],
+ ["Duir","樫","力・扉を開く"],["Tinne","柊","均衡・正義"],["Coll","榛","知恵・霊感"],
+ ["Quert","林檎","選択・美と愛"],["Muin","葡萄","予言・解放"],["Gort","蔦","成長・絡まり"],
+ ["nGetal","葦","治癒・調律"],["Straif","スピノサスモモ","抑制・宿命"],["Ruis","ニワトコ","変容・終わりと再生"],
+ ["Ailm","樅","展望・高い視座"],["Onn","ハリエニシダ","収集・希望"],["Ur","ヒース","治癒・大地"],
+ ["Eadhadh","ヤマナラシ","忍耐・恐れを越える"],["Iodhadh","イチイ","永遠・先祖との連なり"]
+];
+
+/* ---------- geomancy ---------- */
+var GEO=[
+ ["Via","道","変化・前進する旅路"],["Cauda Draconis","龍尾","終結・手放しと出口"],
+ ["Caput Draconis","龍頭","開始・新しい入口"],["Fortuna Major","大いなる幸運","内なる力での成功"],
+ ["Fortuna Minor","小さき幸運","外の助けでの早い成果"],["Acquisitio","獲得","利得・受け取る"],
+ ["Laetitia","喜悦","上昇・喜びと健康"],["Tristitia","悲嘆","沈下・忍耐の時"],
+ ["Puella","乙女","調和・美と受容"],["Puer","少年","行動・短気な熱"],
+ ["Amissio","喪失","流出・手放すべきもの"],["Albus","白","静けさ・清明な知"],
+ ["Populus","群衆","集合・受動の場"],["Carcer","牢獄","拘束・境界と遅延"],
+ ["Coniunctio","結合","出会い・組み合わせ"],["Rubeus","赤","激情・荒れる衝動"]
+];
+function geoFigureName(rows){ // rows: 4 values 1(active)/2(passive) top->bottom
+  var key=rows.join("");
+  var M={ "1111":0,"2221":1,"1222":2,"1112":3,"2111":4,"1121":5,"2122":6,"1212":7,
+          "2212":8,"2122x":9,"1211":10,"2112":11,"2222":12,"1221":13,"2211":14,"1122":15 };
+  // explicit standard mapping
+  var MAP={
+   "1111":3, "2222":12, "1212":12, // placeholder; refine below
+  };
+  return key;
+}
+function castGeomancy(r){
+  function fig(){ var rows=[]; for(var i=0;i<4;i++){ rows.push((Math.floor(r()*100)%2===0)?2:1); } return rows; }
+  function add(a,b){ var o=[]; for(var i=0;i<4;i++){ o.push(((a[i]+b[i])%2===0)?2:1); } return o; }
+  function name(rows){
+    // standard 16 geomantic figures by 4-row active(1)/passive(2)
+    var T={
+     "1111":"Via","2222":"Populus","2122":"Albus","1212":"Coniunctio",
+     "2212":"Puella","1121":"Amissio","1211":"Fortuna Major","1112":"Fortuna Minor",
+     "2221":"Puer","1222":"Rubeus","2121":"Acquisitio","1221":"Laetitia",
+     "2112":"Tristitia","1122":"Carcer","2211":"Caput Draconis","2111":"Cauda Draconis"
+    };
+    var nm=T[rows.join("")]||"Via";
+    for(var i=0;i<GEO.length;i++) if(GEO[i][0]===nm) return GEO[i];
+    return GEO[0];
+  }
+  var m1=fig(),m2=fig(),m3=fig(),m4=fig();
+  var d1=[m1[0],m2[0],m3[0],m4[0]],d2=[m1[1],m2[1],m3[1],m4[1]],d3=[m1[2],m2[2],m3[2],m4[2]],d4=[m1[3],m2[3],m3[3],m4[3]];
+  var n1=add(m1,m2),n2=add(m3,m4),n3=add(d1,d2),n4=add(d3,d4);
+  var w1=add(n1,n2),w2=add(n3,n4),judge=add(w1,w2);
+  return {judge:name(judge),right:name(w1),left:name(w2)};
+}
+
+/* ---------- lunar mansion (shukuyo, approx) ---------- */
+var SHUKU=["昴宿","畢宿","觜宿","参宿","井宿","鬼宿","柳宿","星宿","張宿","翼宿","軫宿","角宿","亢宿",
+"氐宿","房宿","心宿","尾宿","箕宿","斗宿","女宿","虚宿","危宿","室宿","壁宿","奎宿","婁宿","胃宿"];
+function shukuApprox(jdnVal){ var idx=((jdnVal%27)+27)%27; return SHUKU[idx]; }
+var NAKSHATRA=["Ashwini","Bharani","Krittika","Rohini","Mrigashira","Ardra","Punarvasu","Pushya","Ashlesha",
+"Magha","Purva Phalguni","Uttara Phalguni","Hasta","Chitra","Swati","Vishakha","Anuradha","Jyeshtha",
+"Mula","Purva Ashadha","Uttara Ashadha","Shravana","Dhanishta","Shatabhisha","Purva Bhadrapada","Uttara Bhadrapada","Revati"];
+function nakApprox(jdnVal){ var idx=((jdnVal+7)%27+27)%27; return NAKSHATRA[idx]; }
+
+/* ---------- celtic tree (date based, approx) ---------- */
+var CELTREE=[
+ [12,24,1,20,"白樺 Birch","達成者・再生の意志"],[1,21,2,17,"ナナカマド Rowan","思索者・霊的な守り"],
+ [2,18,3,17,"トネリコ Ash","海の子・想像と共感"],[3,18,4,14,"ハンノキ Alder","開拓者・情熱の導き"],
+ [4,15,5,12,"柳 Willow","観察者・月の直観"],[5,13,6,9,"サンザシ Hawthorn","幻視者・両義の魅力"],
+ [6,10,7,7,"樫 Oak","守護者・揺るがぬ力"],[7,8,8,4,"柊 Holly","支配者・気高い熱"],
+ [8,5,9,1,"榛 Hazel","知者・鋭い才知"],[9,2,9,29,"葡萄 Vine","均衡者・繊細な美意識"],
+ [9,30,10,27,"蔦 Ivy","生存者・粘り強い成長"],[10,28,11,24,"葦 Reed","探究者・秘密と核心"],
+ [11,25,12,23,"ニワトコ Elder","自由人・変容と再生"]
+];
+function celticTree(m,d){
+  for(var i=0;i<CELTREE.length;i++){
+    var t=CELTREE[i], a=t[0]*100+t[1], b=t[2]*100+t[3], v=m*100+d;
+    if(a<=b){ if(v>=a&&v<=b) return t; } else { if(v>=a||v<=b) return t; }
+  }
+  return CELTREE[0];
+}
+
+/* ============================================================
+   SYMBOLIC FRAGMENT POOLS (by family)
+   ============================================================ */
+var FRAG={
+ mei:{
+   tone:["命式の中心に静かな水の相が通り","木の伸びる力が骨格をなし","火の明度が表に立ち","土の安定が芯を支え","金の鋭さが輪郭を引き締め","巡る気が螺旋を描き","蔵された気が内に厚く溜まり"],
+   theme:["人との縁の結び方","役割を引き受けるときの覚悟","蓄積を形に変える局面","場を整え統べる立場","継承と次代への橋渡し"],
+   guide:["急がず節目を待つほど芯が太くなる","与える前に器を整えると流れが返ってくる","名乗りを上げる時を見極めれば道が開く","退く勇気が次の伸びを生む","沈黙の時間が判断を澄ませる"]
+ },
+ hou:{
+   tone:["気の入り口が東に開き","水の集まる方位に力が宿り","座と向の組み合わせが時運を呼び","龍脈の流れが緩やかに巡り","八方の門のうち生門が動き"],
+   theme:["住まいと働く場の配置","動くべき方位と時の選び方","土地そのものが帯びる記憶","身を置く空間の整え"],
+   guide:["机の向きを変えるだけで集中が戻る","吉方への小さな移動が運気を温める","入口と水回りを清めると停滞が抜ける","座る位置を一つずらして気の通りを作る"]
+ },
+ eki:{
+   tone:["卦が示すのは満ちる前の静けさ","変爻が次の局面への扉を指し","体用の生剋が問いの構造を映し","内卦が本心を、外卦が状況を語り","時の卦が今の機微を写し"],
+   theme:["進むべきか退くべきかの判断","関係の中での立ち位置","事の成否のタイミング","始めた物事の行方"],
+   guide:["焦りを置けば自ずと機が熟す","一歩引いて全体の形を見る","小さく試して反応を読む","変化を恐れず流れに乗る"]
+ },
+ sei:{
+   tone:["太陽の象意が核の温度を決め","天体の配置が内面の地図を描き","光と影の配分が個性をなし","季節の質があなたの基調をなし","星々の対話が成長の筋を示し"],
+   theme:["自己表現と創造の領域","関係性と鏡像の学び","使命と社会での輪郭","内面の成熟と統合"],
+   guide:["持って生まれた質を磨くほど道が定まる","対極の性質を取り込むと幅が出る","影に光を当てると才能に変わる","季節の巡りに合わせて動く"]
+ },
+ ved:{
+   tone:["月の宿が感受の質を決め","ダシャーの巡りが今の主題を運び","星位の配置が宿命の流れを描き","二十七宿のうちの一つが核を照らし"],
+   theme:["内なる衝動と本能の方向","時期ごとに巡る人生の章","魂が今生で磨く課題"],
+   guide:["時期の波を読めば無理がなくなる","内なる月の声に従う","巡りの章ごとに役割を切り替える"]
+ },
+ suu:{
+   tone:["数の振動が核の周波数を定め","名と生まれの数が共鳴し","母音の数が魂の欲求を映し","総和の数が今生の道筋を引き"],
+   theme:["生きる目的の方向","内に秘めた本当の願い","表に現れる才能の形"],
+   guide:["自分の数の質に正直であるほど力が出る","欲求を抑えず形にする","才能を惜しまず差し出す"]
+ },
+ name:{
+   tone:["名の画数の配列が運の骨組みをなし","音の響きが帯びる言霊が働き","文字の数理が人生の構造を映し"],
+   theme:["対外的に現れる印象","中年以降に効いてくる基盤","家庭と内なる安定"],
+   guide:["呼ばれる名を大切に使うほど力が宿る","名乗りの音を意識して発する","署名の所作に意志を込める"]
+ },
+ nordic:{
+   tone:["引かれたルーンが原初の力を指し","北の象徴が現状の核を映し","氷と火の間に答えが現れ"],
+   theme:["今まさに動いている力","越えるべき試練","近づく転回"],
+   guide:["力を信じて一歩進む","制約を学びに変える","夜明けを待ちながら備える"]
+ },
+ celtic:{
+   tone:["樹の象徴があなたの性質を映し","ケルトの自然観が核を照らし","季節の樹が気質を語り"],
+   theme:["内に育つ生命の質","関わりの中での役割","直観と大地のつながり"],
+   guide:["根を張る場所を大切にする","直観の流れに身を委ねる","季節の循環に学ぶ"]
+ },
+ mideast:{
+   tone:["大地に打たれた図形が答えを描き","聖なるオドゥが筋道を示し","ロットの配置が運命の点を結び"],
+   theme:["問いの成否","運命の岐路","守るべき道徳の核"],
+   guide:["徴候を素直に受け取る","岐路では本心に従う","古い知恵に耳を傾ける"]
+ },
+ modern:{
+   tone:["統合された図が固有の設計を映し","遺伝子の鍵が影から賜物への道を指し","場所の力学が人生の舞台を示し"],
+   theme:["生来のエネルギーの使い方","影を才能へ転じる課題","身を置く土地との相性"],
+   guide:["自分の戦略に従って決める","影に名前を与えて手放す","ふさわしい土地が運命を後押しする"]
+ }
+};
+function symRead(family,sysNum,seedBase,anchorLine){
+  var r=rngFrom((seedBase^(sysNum*2654435761))>>>0);
+  var f=FRAG[family]||FRAG.modern;
+  var s=pick(f.tone,r)+"、"+pick(f.theme,r)+"に焦点が当たる。";
+  var g=pick(f.guide,r)+"。";
+  return (anchorLine?anchorLine+" ":"")+s+g;
+}
+
+/* ============================================================
+   SYSTEM TABLE (70)
+   ============================================================ */
+var CATS=[
+ {rn:"Ⅰ",title:"東洋命術",sub:"生年月日時の干支と星から宿命の骨格を立てる",sys:[
+  {n:1,nm:"子平推命（四柱推命）",tag:"calc",kind:"fourpillars",es:"生年月日時の干支四柱から五行の偏りと巡りを読む東洋命術の基幹"},
+  {n:2,nm:"算命学",tag:"sym",kind:"mei",es:"干支暦と陰陽五行で宿命の星と十大主星を立てる命学"},
+  {n:3,nm:"紫微斗数",tag:"sym",kind:"mei",es:"生時から命盤を起こし十四主星を十二宮に配する星命術"},
+  {n:4,nm:"九星気学",tag:"calc",kind:"ninestar",es:"生年の本命星と五行方位で運気と相性、吉方位を測る"},
+  {n:5,nm:"宿曜占星術",tag:"est",kind:"shukuyo",es:"月の運行に基づく二十七宿で性質と相性、日取りを読む密教由来の占術"},
+  {n:6,nm:"七政四余",tag:"sym",kind:"sei",es:"七政（日月五星）と四余を用いる中国伝統の星命術"},
+  {n:7,nm:"鉄板神数",tag:"sym",kind:"mei",es:"邵雍の系譜に連なる刻数から運命の条文を引く秘伝の数術"},
+  {n:8,nm:"皇極経世",tag:"sym",kind:"mei",es:"邵雍が易と数で歴史と時運の大周期を説いた経世の書"},
+  {n:9,nm:"六壬命盤法",tag:"sym",kind:"mei",es:"六壬の盤を命術に応用し十二天将で運勢を読む"},
+  {n:10,nm:"三世相法",tag:"sym",kind:"mei",es:"前世・現世・来世の三世を見立てる日本の占法"}
+ ]},
+ {rn:"Ⅱ",title:"中国術数（時空・方位系）",sub:"時と方位、土地の気を盤に立てて読む",sys:[
+  {n:11,nm:"八門遁甲（奇門遁甲）",tag:"sym",kind:"hou",es:"時空と方位の盤を立て八門・九星・八神で最良の時と方位を選ぶ"},
+  {n:12,nm:"太乙神数",tag:"sym",kind:"hou",es:"太乙の九宮巡行で天下の大勢と個の運を測る三式の一"},
+  {n:13,nm:"風角宝典",tag:"sym",kind:"hou",es:"風の向きと音、自然の徴候から吉凶を占う古代の候気術"},
+  {n:14,nm:"金函玉鏡",tag:"sym",kind:"hou",es:"奇門系の択日・占事に用いられる秘鏡書"},
+  {n:15,nm:"玄空飛星",tag:"sym",kind:"hou",es:"元運と座向から飛星を配し住居の時運の吉凶を読む風水"},
+  {n:16,nm:"三元九運",tag:"sym",kind:"hou",es:"二十年ごとの運を三元九運で区切り時代の気を測る"},
+  {n:17,nm:"八宅派",tag:"calc",kind:"bazhai",es:"東四宅・西四宅と本命卦で住人と家の方位相性を見る風水"},
+  {n:18,nm:"三合派風水",tag:"sym",kind:"hou",es:"龍・水・砂の三合と巒頭で土地の気の流れを読む形勢派"},
+  {n:19,nm:"陽宅風水",tag:"sym",kind:"hou",es:"生者の住居の気の巡りと配置を整える陽宅の理"},
+  {n:20,nm:"陰宅風水",tag:"sym",kind:"hou",es:"墓所の地気と龍脈を読み子孫への影響を測る陰宅の理"}
+ ]},
+ {rn:"Ⅲ",title:"易学系",sub:"八卦と六十四卦で変化の兆しを読む",sys:[
+  {n:21,nm:"易占（八卦）",tag:"calc",kind:"iching",es:"八卦と六十四卦で事の機微と変化の兆しを読む易の基本"},
+  {n:22,nm:"梅花心易",tag:"calc",kind:"iching",es:"数や徴候から即座に卦を立て体用の生剋で断ずる邵雍の易"},
+  {n:23,nm:"納甲易",tag:"calc",kind:"iching",es:"卦に干支と六親を納めより精密に占断する技法"},
+  {n:24,nm:"断易",tag:"calc",kind:"iching",es:"五行の生剋と用神で吉凶の成否をはっきり断ずる実占の易"},
+  {n:25,nm:"六爻占術",tag:"calc",kind:"iching",es:"六爻に六親・世応を配し具体的な問いに答える卦占"}
+ ]},
+ {rn:"Ⅳ",title:"西洋占星術",sub:"出生の天体配置から性質と人生の傾向を読む",sys:[
+  {n:26,nm:"ホロスコープ（ネイタル）",tag:"calc",kind:"natal",es:"出生時の天体配置から性質と人生の傾向を読む西洋占星の基盤"},
+  {n:27,nm:"ヘレニズム占星術",tag:"sym",kind:"sei",es:"ロット・セクト・主星系を重んじる古典期ギリシアの占星"},
+  {n:28,nm:"中世占星術",tag:"sym",kind:"sei",es:"アラビア由来の技法を統合した中世ヨーロッパの占星伝統"},
+  {n:29,nm:"心理占星術",tag:"sym",kind:"sei",es:"ユング心理学を取り込み内面の成長として星を読む現代派"},
+  {n:30,nm:"進化占星術",tag:"sym",kind:"sei",es:"ノードと冥王星に魂の進化の軌跡を見る現代占星"},
+  {n:31,nm:"恒星占星術",tag:"sym",kind:"sei",es:"黄道十二星座でなく実際の恒星位置を基準に読む"},
+  {n:32,nm:"医療占星術",tag:"sym",kind:"sei",es:"身体・体質・健康の傾向を天体と十二宮の対応で読む"},
+  {n:33,nm:"選定占星術",tag:"sym",kind:"sei",es:"行動の開始に最良の時を選ぶ択時の占星（エレクション）"},
+  {n:34,nm:"相性占星術（シナストリー）",tag:"sym",kind:"sei",es:"二つのネイタルを重ね関係の力学を読む"},
+  {n:35,nm:"コスモバイオロジー",tag:"sym",kind:"sei",es:"ハンブルク学派系のミッドポイント重視の精密占星"}
+ ]},
+ {rn:"Ⅴ",title:"インド占星術",sub:"恒星黄道と月の宿、ダシャーの巡りで読む",sys:[
+  {n:36,nm:"ジョーティッシュ",tag:"sym",kind:"ved",es:"恒星黄道とダシャーを用いるインド占星の本流"},
+  {n:37,nm:"ナクシャトラ占星術",tag:"est",kind:"nakshatra",es:"月の二十七宿で性質と運勢の機微を読むインドの月占星"},
+  {n:38,nm:"ジャイミニ占星術",tag:"sym",kind:"ved",es:"カラカ（星位）とラーシ・アスペクトを用いる独自体系"},
+  {n:39,nm:"KP占星術",tag:"sym",kind:"ved",es:"サブロードで事象を精密に判定するクリシュナムルティ方式"},
+  {n:40,nm:"ナディ占星術",tag:"sym",kind:"ved",es:"椰子葉文書に記された個別の運命記録を読むとされる秘伝"}
+ ]},
+ {rn:"Ⅵ",title:"数秘術",sub:"名と生まれの数の振動から核を読む",sys:[
+  {n:41,nm:"カバラ数秘術",tag:"calc",kind:"kabbalah",es:"生命の樹と二十二のパスで魂の道筋を読むユダヤ神秘の数秘"},
+  {n:42,nm:"ピタゴラス数秘術",tag:"calc",kind:"pyth",es:"1から9の循環で名前と生年を読む西洋数秘の標準"},
+  {n:43,nm:"カルデア数秘術",tag:"calc",kind:"chaldean",es:"古代カルデアの1から8の対応で名の振動を読む"},
+  {n:44,nm:"ヘブライ数秘術",tag:"est",kind:"hebrew",es:"ヘブライ文字の数価で言葉と名の意味を読む"},
+  {n:45,nm:"ゲマトリア",tag:"calc",kind:"gematria",es:"語の文字数価の総和で意味の照応を見る解釈術"},
+  {n:46,nm:"タントラ数秘術",tag:"sym",kind:"suu",es:"身体・チャクラと数の対応で生命の流れを読む"},
+  {n:47,nm:"マスターナンバー解析",tag:"calc",kind:"master",es:"11・22・33の高次の振動を専門に読み解く"},
+  {n:48,nm:"ソウルナンバー解析",tag:"calc",kind:"soul",es:"母音から導く魂の欲求、内なる動機を読む"}
+ ]},
+ {rn:"Ⅶ",title:"姓名・名前系",sub:"名の画数・音・数理から運の構造を読む",sys:[
+  {n:49,nm:"姓名判断",tag:"est",kind:"seimei",es:"姓名の構成から五運を立て人生の傾向を読む"},
+  {n:50,nm:"五格姓名学",tag:"est",kind:"seimei",es:"天格・人格・地格・外格・総格の五格で読む体系"},
+  {n:51,nm:"熊崎式姓名判断",tag:"est",kind:"seimei",es:"熊崎健翁が大成した日本の画数姓名判断"},
+  {n:52,nm:"字画占い",tag:"est",kind:"seimei",es:"各文字の画数の吉凶で名を読む技法"},
+  {n:53,nm:"言霊姓名学",tag:"sym",kind:"name",es:"名の音の言霊の働きから運勢と本質を読む"},
+  {n:54,nm:"音霊姓名学",tag:"sym",kind:"name",es:"五十音の音の響きの霊性で名を読む"},
+  {n:55,nm:"数理姓名学",tag:"est",kind:"seimei",es:"画数の数理配列で運命の構造を読む"}
+ ]},
+ {rn:"Ⅷ",title:"北欧系",sub:"ルーン文字を引いて象徴で問いに答える",sys:[
+  {n:56,nm:"ルーン占術",tag:"calc",kind:"runes",es:"古ノルドのルーン文字を引き象徴で問いに答える"},
+  {n:57,nm:"アングロサクソン・ルーン",tag:"calc",kind:"runes",es:"フサルクを用いる古英語圏のルーン"},
+  {n:58,nm:"エルダー・フサルク",tag:"calc",kind:"runes",es:"最古の二十四文字ルーン体系"}
+ ]},
+ {rn:"Ⅸ",title:"ケルト系",sub:"樹木と自然の象徴で性質を読む",sys:[
+  {n:59,nm:"オガム占術",tag:"calc",kind:"ogham",es:"ケルトの樹木文字オガムで象徴を読む"},
+  {n:60,nm:"ドルイド占星術",tag:"est",kind:"celtic",es:"ドルイドの自然観に基づく季節と樹の占星"},
+  {n:61,nm:"ケルト樹木占星術",tag:"est",kind:"celtic",es:"生まれた時期を樹木に対応させて性質を読む"}
+ ]},
+ {rn:"Ⅹ",title:"中東・アフリカ系",sub:"大地・聖典・ロットから読む",sys:[
+  {n:62,nm:"ジオマンシー",tag:"calc",kind:"geomancy",es:"大地に打つ点から十六の図形を立て吉凶を読む土占"},
+  {n:63,nm:"イファ占術",tag:"sym",kind:"mideast",es:"ヨルバの聖典オドゥを引くアフリカの神聖な占術"},
+  {n:64,nm:"アラビア占星術",tag:"sym",kind:"mideast",es:"ロットとアラビック・パーツを重んじる中東の占星伝統"}
+ ]},
+ {rn:"Ⅺ",title:"現代統合系",sub:"複数の伝統を束ねた現代の体系",sys:[
+  {n:65,nm:"Human Design",tag:"sym",kind:"modern",es:"占星・易・カバラ・チャクラを統合した現代のボディグラフ"},
+  {n:66,nm:"Gene Keys",tag:"sym",kind:"modern",es:"六十四の遺伝子の鍵で影・賜物・神性の道筋を読む"},
+  {n:67,nm:"Destiny Matrix",tag:"calc",kind:"destiny",es:"生年月日を二十二アルカナに還元するエネルギー図"},
+  {n:68,nm:"Astrocartography",tag:"est",kind:"astrogeo",es:"天体のラインを世界地図に投影し場所の作用を読む"},
+  {n:69,nm:"Local Space Astrology",tag:"est",kind:"astrogeo",es:"出生地を中心に方位線で空間の力学を読む"},
+  {n:70,nm:"Relocation Astrology",tag:"est",kind:"astrogeo",es:"移住先のチャートに引き直して土地との相性を読む"}
+ ]}
+];
+
+/* ============================================================
+   READING BUILDERS
+   ============================================================ */
+function subrng(seed,n){ return rngFrom((seed ^ Math.imul(n,2654435761))>>>0); }
+function chip(label,val){ return '<span class="chip">'+label+' <b>'+val+'</b></span>'; }
+function esc(s){ return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+function buildReading(sys,P){
+  var chips=[],paras=[],src="";
+  var k=sys.kind;
+  if(k==="fourpillars"){
+    var yg=P.yearGz, dg=P.dayGz;
+    chips.push(chip("年柱",STEMS[yg.stem]+BRANCHES[yg.branch]));
+    chips.push(chip("日柱",STEMS[dg.stem]+BRANCHES[dg.branch]));
+    if(P.hbr>=0) chips.push(chip("時支",BRANCHES[P.hbr]));
+    chips.push(chip("日干（日主）",STEMS[dg.stem]+"・"+STEM_ELEM[dg.stem]));
+    paras.push("日主は"+STEMS[dg.stem]+"（"+STEM_ELEM[dg.stem]+"）。これがあなたという主体の五行であり、四柱全体はこの一点を取り巻く気の配置として読む。年柱"+STEMS[yg.stem]+BRANCHES[yg.branch]+"が出自と初年の場を、日柱が自己と配偶の座を示す。");
+    paras.push(symRead("mei",sys.n,P.seed,""));
+    src="年柱・日柱は標準算式で実算出。月柱・時柱は節入りの簡易境界による推定を含む。";
+  } else if(k==="ninestar"){
+    chips.push(chip("本命星",STAR_NAMES[P.honmei]));
+    chips.push(chip("月命星",STAR_NAMES[P.getsumei]));
+    paras.push("本命星は"+STAR_NAMES[P.honmei]+"。これが生涯の基調となる気の色。月命星"+STAR_NAMES[P.getsumei]+"は幼少期と内面の傾きを示す。吉方位取りはこの本命星を軸に、年盤・月盤の巡りで判断する。");
+    paras.push(symRead("mei",sys.n,P.seed,""));
+    src="本命星は立春境界を考慮して実算出。月命星は節入り簡易近似。";
+  } else if(k==="bazhai"){
+    var mg=P.gua;
+    chips.push(chip("本命卦",mg.gua[0]+"（"+mg.num+"）"));
+    chips.push(chip("吉方の基調",mg.gua[1]));
+    chips.push(chip("命の系統",mg.gua[2]));
+    paras.push("あなたの本命卦は"+mg.gua[0]+"。"+mg.gua[2]+"に属し、同系統の方位が生気・天医・延年・伏位として働きやすい。寝室の頭位と仕事机の向きをこの系統に合わせると、空間からの後押しが安定する。");
+    src="本命卦は生年（立春境界）と性別から実算出。";
+  } else if(k==="iching"){
+    var hx=castHexagram(subrng(P.seed,sys.n));
+    chips.push(chip("本卦",hx.name+"（第"+hx.num+"卦）"));
+    chips.push(chip("内卦／外卦",hx.lo+" / "+hx.up));
+    chips.push(chip("変爻",hx.moving+"爻"));
+    paras.push("立てられた卦は"+hx.name+"。下卦"+hx.lo+"が内なる動機、上卦"+hx.up+"が置かれた状況。"+hx.moving+"爻が動き、ここが次の局面への転換点になる。");
+    paras.push(symRead("eki",sys.n,P.seed,""));
+    src="生年月日・名前を種にした擲銭法シミュレーションで作卦（決定論的）。";
+  } else if(k==="natal"){
+    var z=P.sun;
+    chips.push(chip("太陽星座",z.n+"（"+z.e+"）"));
+    chips.push(chip("エレメント",z.el));
+    if(P.hasTime) chips.push(chip("出生時刻",P.timeStr)); 
+    paras.push("太陽は"+z.n+"。核となる自己表現の方向が"+z.el+"の質で彩られる。"+(P.hasTime?"出生時刻があるためアセンダントや月の精密計算に発展できるが、本アプリは天体暦を内蔵しないため太陽サインを核として提示する。":"出生時刻が未入力のため、月とアセンダントは未算出。太陽サインを核として提示する。"));
+    paras.push(symRead("sei",sys.n,P.seed,""));
+    src="太陽サインは日付から実算出。月・ASC等の精密ホロスコープは天体暦が必要なため未計算。";
+  } else if(k==="kabbalah"){
+    var sum=nameSum(P.name,PYTH,false,false)+P.y+P.m+P.d;
+    var path=((sum-1)%22)+1;
+    chips.push(chip("生命の樹パス",path+" / 22"));
+    chips.push(chip("対応アルカナ",ARCANA[path]));
+    paras.push("名と生まれの数価を二十二に還元すると、生命の樹のパス"+path+"（"+ARCANA[path]+"）が核の通路として現れる。ここがあなたの魂が降りてくる道筋であり、上昇のときに最も力を得る経路でもある。");
+    src="名（ローマ字）と生年月日の数価合計を22で還元して実算出。";
+  } else if(k==="pyth"){
+    var lp=P.lifePath, ex=reduceNum(nameSum(P.name,PYTH,false,false),true);
+    chips.push(chip("ライフパス",lp));
+    chips.push(chip("表現数",ex||"—"));
+    paras.push("ライフパスは"+lp+"。今生で歩む道の方向を示す中心の数。"+(ex?"表現数"+ex+"は外に現れる才能の形。":"名がローマ字でないため表現数は未算出。")+"この二つが噛み合うほど、生き方と能力が一本の線になる。");
+    src="ライフパスは生年月日、表現数は名の全文字（ピタゴラス式）で実算出。";
+  } else if(k==="chaldean"){
+    var cs=nameSum(P.name,CHALD,false,false);
+    var cr=cs?reduceNum(cs,false):0;
+    chips.push(chip("カルデア合計",cs||"—"));
+    chips.push(chip("還元数",cr||"—"));
+    paras.push(cs?("名の振動をカルデア式で測ると合計"+cs+"、還元数は"+cr+"。カルデアは音の振動を重視するため、呼ばれる名・通称で測ると現実への作用が見えやすい。"):"名がローマ字でないためカルデア数価を算出できない。ローマ字表記を入れると振動数が出る。");
+    src="カルデア（1から8）対応で名を実算出。";
+  } else if(k==="hebrew"){
+    var hv=nameSum(P.name,PYTH,false,false)*1; // proxy
+    chips.push(chip("近似数価",hv||"—"));
+    paras.push("ヘブライ数秘は本来ヘブライ文字の数価を用いる。ローマ字からの変換は厳密ではないため、ここでは近似として名の数価を提示する。正確を期すならヘブライ綴りが要る。");
+    src="ヘブライ文字を要するため近似値。厳密計算には原綴りが必要。";
+  } else if(k==="gematria"){
+    var gv=nameSum(P.name,PYTH,false,false);
+    chips.push(chip("ゲマトリア値",gv||"—"));
+    chips.push(chip("還元",gv?reduceNum(gv,false):"—"));
+    paras.push(gv?("名の数価総和は"+gv+"。同じ数価を持つ語が照応関係にあるとされる。数を還元した"+reduceNum(gv,false)+"が核の象意。"):"ローマ字の名を入れるとゲマトリア値が出る。");
+    src="ラテン文字の数価総和で実算出。";
+  } else if(k==="master"){
+    var mn=lifePath(P.y,P.m,P.d);
+    var isM=(mn===11||mn===22||mn===33);
+    chips.push(chip("ライフパス",mn));
+    chips.push(chip("マスター数",isM?"該当":"非該当"));
+    paras.push(isM?("あなたのライフパスは"+mn+"でマスターナンバー。"+(mn===11?"11は直観と霊感の回路。緊張を抱えやすいが、研ぎ澄ますと人を照らす光になる。":mn===22?"22は構想を現実の構造に落とす建築家の数。大きな器を扱う。":"33は無償の奉仕と癒しの数。最も稀で、自己を超えた働きに向く。")):"今生のライフパスはマスターナンバー（11・22・33）に該当しない。日々の数や個人年で一時的に高次振動が立ち上がることはある。");
+    src="生年月日からマスター数を保持したまま実算出。";
+  } else if(k==="soul"){
+    var sv=nameSum(P.name,PYTH,true,false);
+    var sr=sv?reduceNum(sv,true):0;
+    chips.push(chip("ソウルナンバー",sr||"—"));
+    paras.push(sr?("母音から導くソウルナンバーは"+sr+"。これが表向きの行動ではなく、心の奥で本当に求めているものの方向。満たされると静かな充足が生まれ、無視すると渇きが残る。"):"名がローマ字でないためソウルナンバーは未算出。母音を含むローマ字表記が要る。");
+    src="名の母音（ピタゴラス式）から実算出。";
+  } else if(k==="shukuyo"){
+    var sk=shukuApprox(P.dayGz.jdn);
+    chips.push(chip("本命宿（近似）",sk));
+    paras.push("宿曜では月の運行に基づく二十七宿のうち、あなたの本命宿は"+sk+"とみられる。宿曜は相性と日取りに強く、命・業・胎の三角や六害宿の関係で人間関係の機微を読む。");
+    paras.push(symRead("ved",sys.n,P.seed,""));
+    src="正確な本命宿は月の黄経が必要。ここはユリウス通日からの近似。";
+  } else if(k==="nakshatra"){
+    var nk=nakApprox(P.dayGz.jdn);
+    chips.push(chip("ナクシャトラ（近似）",nk));
+    paras.push("月の宿ナクシャトラは"+nk+"あたり。インド占星では出生の月の位置が感情と本能の核を決め、ここから支配星とダシャーの巡りを導く。");
+    paras.push(symRead("ved",sys.n,P.seed,""));
+    src="厳密には月の恒星黄経が必要。ここは近似値。";
+  } else if(k==="seimei"){
+    var L=lettersOnly(P.name).length, total=L? L : (P.name||"").replace(/\s/g,"").length;
+    chips.push(chip("総格（近似）",total||"—"));
+    paras.push("姓名判断は本来、漢字の正画数で天格・人格・地格・外格・総格を立てる。本アプリは画数辞書を内蔵しないため、文字数を用いた近似として総格"+(total||"—")+"を提示する。正確な鑑定には漢字ごとの旧字画数が要る。");
+    paras.push(symRead("name",sys.n,P.seed,""));
+    src="正画数辞書が必要なため文字数ベースの近似。";
+  } else if(k==="runes"){
+    var rs=drawRunes(subrng(P.seed,sys.n),3);
+    for(var i=0;i<rs.length;i++) chips.push(chip(["過去","現在","未来"][i],rs[i][0]+" "+rs[i][1]));
+    paras.push("引かれた三つのルーン。過去に"+rs[0][2]+"、現在に"+rs[1][2]+"、未来に"+rs[2][2]+"が働く。中央の"+rs[1][0]+"が今のあなたの核の力を指している。");
+    src="生年月日・名前を種にした決定論的ドロー。";
+  } else if(k==="ogham"){
+    var og=pickN(OGHAM,subrng(P.seed,sys.n),1)[0];
+    chips.push(chip("オガム",og[0]+"（"+og[1]+"）"));
+    paras.push("樹木文字オガムが示すのは"+og[1]+"の象意、"+og[2]+"。ケルトの森では一本の樹が一つの教えを担う。今のあなたにこの樹の質が呼ばれている。");
+    paras.push(symRead("celtic",sys.n,P.seed,""));
+    src="名前と生年月日を種にした決定論的ドロー。";
+  } else if(k==="celtic"){
+    var ct=celticTree(P.m,P.d);
+    chips.push(chip("樹木サイン",ct[4]));
+    paras.push("生まれた時期から導く樹は"+ct[4]+"。気質は"+ct[5]+"。ケルト樹木暦は季節の樹に人の性質を重ねる体系で、その樹の生き方があなたの自然な振る舞いを映す。");
+    src="生まれ月日からケルト樹木暦で割り当て（暦の流派により境界が異なる近似）。";
+  } else if(k==="geomancy"){
+    var g=castGeomancy(subrng(P.seed,sys.n));
+    chips.push(chip("審判",g.judge[0]+"（"+g.judge[1]+"）"));
+    chips.push(chip("右の証人",g.right[0]));
+    chips.push(chip("左の証人",g.left[0]));
+    paras.push("大地占の盤を立てると、審判の図形は"+g.judge[0]+"（"+g.judge[1]+"）。"+g.judge[2]+"。二人の証人が右に"+g.right[1]+"、左に"+g.left[1]+"として状況の左右を支える。");
+    src="四つの母から娘・姪・証人・審判を導く標準手順を決定論的に実装。";
+  } else if(k==="destiny"){
+    var dm=P.matrix;
+    chips.push(chip("中心（魂）",dm.E+" "+ARCANA[dm.E]));
+    chips.push(chip("天命（日）",dm.A+" "+ARCANA[dm.A]));
+    chips.push(chip("才能（年）",dm.C+" "+ARCANA[dm.C]));
+    chips.push(chip("快適点",dm.D+" "+ARCANA[dm.D]));
+    paras.push("中心に座るのは"+ARCANA[dm.E]+"（"+dm.E+"）。これがあなたという図全体の核、魂の質。日から導く"+ARCANA[dm.A]+"が今生の天命の入口、年から導く"+ARCANA[dm.C]+"が祖先から受けた才能の系統を示す。");
+    src="生年月日を二十二アルカナへ還元する標準算術で実算出。";
+  } else if(k==="astrogeo"){
+    var z2=P.sun;
+    chips.push(chip("太陽サイン",z2.n));
+    chips.push(chip("出生地",P.place||"未入力"));
+    paras.push("土地占星は出生時刻と緯度経度から天体ラインを地図に描く。本アプリは天体暦を内蔵しないため厳密なライン描画はできないが、太陽"+z2.n+"の質を帯びた土地（その象意に合う気候・文化の地）があなたを後押ししやすい方向として読める。");
+    paras.push(symRead("modern",sys.n,P.seed,""));
+    src="厳密なライン算出には天体暦と座標が必要。ここは方向性の象徴的提示。";
+  } else {
+    // generic symbolic families
+    var anchor="";
+    if(sys.kind==="sei") anchor="太陽は"+P.sun.n+"。";
+    else if(sys.kind==="ved") anchor="";
+    else if(sys.kind==="mei") anchor="本命星は"+STAR_NAMES[P.honmei]+"、年干支は"+STEMS[P.yearGz.stem]+BRANCHES[P.yearGz.branch]+"。";
+    else if(sys.kind==="suu") anchor="ライフパスは"+P.lifePath+"。";
+    if(sys.kind==="sei") chips.push(chip("太陽サイン",P.sun.n));
+    if(sys.kind==="mei") chips.push(chip("本命星",STAR_NAMES[P.honmei]));
+    if(sys.kind==="suu") chips.push(chip("ライフパス",P.lifePath));
+    paras.push(symRead(sys.kind,sys.n,P.seed,anchor));
+    src="この系統は厳密計算に専門データや暦を要するため、固有シードによる象徴抽出として提示。";
+  }
+  var html='<div class="line"></div>';
+  if(chips.length) html+='<div class="val">'+chips.join("")+'</div>';
+  for(var p=0;p<paras.length;p++) html+='<p'+(p>0?' class="g"':'')+'>'+paras[p]+'</p>';
+  html+='<p class="src">'+src+'</p>';
+  return html;
+}
+
+/* ============================================================
+   CORE RESONANCE SYNTHESIS + HARMONOGRAPH
+   ============================================================ */
+var SOLFEGGIO=[174,285,396,417,528,639,741,852,963];
+function buildProfile(){
+  var name=document.getElementById("iName").value.trim();
+  var birth=document.getElementById("iBirth").value.replace(/\D/g,"");
+  var sex=document.getElementById("iSex").value;
+  var timeStr=document.getElementById("iTime").value;
+  var place=document.getElementById("iPlace").value.trim();
+  if(birth.length!==8) return null;
+  var y=parseInt(birth.substr(0,4),10), m=parseInt(birth.substr(4,2),10), d=parseInt(birth.substr(6,2),10);
+  if(!(m>=1&&m<=12&&d>=1&&d<=31)) return null;
+  // risshun-adjusted year for ganzhi / nine-star
+  var ay=y; if(m===1||(m===2&&d<4)) ay=y-1;
+  var hh=-1; if(timeStr){ var pp=timeStr.split(":"); hh=parseInt(pp[0],10); }
+  var seed=hashStr(name.toUpperCase()+"|"+birth+"|"+sex+"|"+(timeStr||"")+"|"+place.toUpperCase());
+  var P={
+    name:name,y:y,m:m,d:d,sex:sex,place:place,timeStr:timeStr,hasTime:!!timeStr,hbr:hourBranch(hh),
+    seed:seed, rng:rngFrom(seed),
+    yearGz:yearGanzhi(ay), dayGz:dayGanzhi(y,m,d),
+    honmei:honmeiStar(ay), getsumei:getsumeiStar(honmeiStar(ay),m),
+    sun:sunSign(m,d), lifePath:lifePath(y,m,d),
+    matrix:destinyMatrix(y,m,d), gua:mingGua(ay,sex)
+  };
+  return P;
+}
+function renderSynth(P){
+  var who=(P.name||"あなた");
+  document.getElementById("synthWho").textContent=who+" の核";
+  var sunI=sunSignIndex(P.sun);
+  var cells=[
+    {k:"Life Path",v:P.lifePath,s:"今生で歩む道"},
+    {k:"本命星",v:P.honmei,s:STAR_NAMES[P.honmei]},
+    {k:"年干支",v:STEMS[P.yearGz.stem]+BRANCHES[P.yearGz.branch],s:"出自の気"},
+    {k:"太陽サイン",v:P.sun.n,s:P.sun.el+"のエレメント"},
+    {k:"Matrix 中心",v:P.matrix.E,s:ARCANA[P.matrix.E]},
+    {k:"本命卦",v:P.gua.gua[0],s:P.gua.gua[2]}
+  ];
+  var grid=document.getElementById("coreGrid"); grid.innerHTML="";
+  for(var i=0;i<cells.length;i++){
+    var c=cells[i], col=STAR_COLORS[P.honmei]||"#8b6fe8";
+    var el=document.createElement("div"); el.className="coreCell";
+    el.innerHTML='<div class="k">'+c.k+'</div><div class="v">'+c.v+'</div><div class="s">'+c.s+'</div>';
+    el.style.setProperty("--violet",col);
+    el.querySelector(".v").style.color=col;
+    grid.appendChild(el);
+  }
+  var freq=SOLFEGGIO[(P.lifePath-1+9)%9];
+  var rk=document.getElementById("resonKey");
+  rk.innerHTML='<div class="k">Core Resonance Key</div><div class="body">六つの実算出値が一つの図形に束ねられた。中心アルカナ'+ARCANA[P.matrix.E]+'を芯に、本命星'+STAR_NAMES[P.honmei]+'の色と太陽'+P.sun.n+'の質が共鳴している。象徴対応として、あなたの核に割り当てられる周波数は <span class="freq">'+freq+' Hz</span>（ライフパス'+P.lifePath+'のソルフェジオ対応・物理的主張ではなく象徴的指標）。上の円環はこの値群を位相と振幅に変換して描いた、あなた固有の定在波。</div>';
+  drawHarmonograph(P);
+}
+function drawHarmonograph(P){
+  var cv=document.getElementById("core"); if(!cv) return;
+  var ctx=cv.getContext("2d"); var W=cv.width,H=cv.height,cx=W/2,cy=H/2;
+  var col=STAR_COLORS[P.honmei]||"#8b6fe8";
+  var sunI=sunSignIndex(P.sun);
+  var f1=1+(P.lifePath%5)*0.5;
+  var f2=1+(sunI%6)*0.5+0.25;
+  var f3=2+(P.matrix.E%4)*0.5;
+  var ph=(P.dayGz.stem/10)*Math.PI*2;
+  var damp=0.0008+(P.matrix.A/22)*0.0016;
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+  var t0=Date.now();
+  function frame(){
+    ctx.clearRect(0,0,W,H);
+    var drift=reduce?0:(Date.now()-t0)/9000;
+    var R=W*0.40;
+    // outer ring
+    ctx.strokeStyle="rgba(120,128,180,0.18)"; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.arc(cx,cy,R+18,0,Math.PI*2); ctx.stroke();
+    // harmonograph curve
+    ctx.beginPath();
+    var grad=ctx.createLinearGradient(0,0,W,H);
+    grad.addColorStop(0,"#4fd0e0"); grad.addColorStop(0.5,col); grad.addColorStop(1,"#e8c36f");
+    ctx.strokeStyle=grad; ctx.lineWidth=1.3; ctx.globalAlpha=0.92;
+    var steps=2400;
+    for(var i=0;i<steps;i++){
+      var t=i*0.018;
+      var e1=Math.exp(-damp*i), e2=Math.exp(-damp*i*0.8);
+      var x=cx+R*e1*Math.sin(f1*t+ph+drift)*Math.cos(f3*t*0.5);
+      var yv=cy+R*e2*Math.sin(f2*t+drift)*Math.cos(f3*t*0.5+0.6);
+      if(i===0) ctx.moveTo(x,yv); else ctx.lineTo(x,yv);
+    }
+    ctx.stroke(); ctx.globalAlpha=1;
+    // center node
+    ctx.fillStyle=col; ctx.beginPath(); ctx.arc(cx,cy,3.2,0,Math.PI*2); ctx.fill();
+    if(!reduce) requestAnimationFrame(frame);
+  }
+  frame();
+}
+function drawAmbient(){
+  var cv=document.getElementById("core"); if(!cv) return;
+  var ctx=cv.getContext("2d"); var W=cv.width,H=cv.height,cx=W/2,cy=H/2;
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+  var t0=Date.now();
+  function frame(){
+    ctx.clearRect(0,0,W,H);
+    var dr=reduce?0:(Date.now()-t0)/6000;
+    var R=W*0.36;
+    ctx.strokeStyle="rgba(120,128,180,0.14)"; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.arc(cx,cy,R+22,0,Math.PI*2); ctx.stroke();
+    ctx.beginPath();
+    var grad=ctx.createLinearGradient(0,0,W,H);
+    grad.addColorStop(0,"rgba(79,208,224,0.5)"); grad.addColorStop(1,"rgba(139,111,232,0.5)");
+    ctx.strokeStyle=grad; ctx.lineWidth=1;
+    for(var i=0;i<1600;i++){
+      var t=i*0.02;
+      var x=cx+R*Math.sin(2*t+dr)*Math.cos(t*0.5);
+      var yv=cy+R*Math.sin(3*t)*Math.cos(t*0.5+0.5);
+      if(i===0) ctx.moveTo(x,yv); else ctx.lineTo(x,yv);
+    }
+    ctx.globalAlpha=0.5; ctx.stroke(); ctx.globalAlpha=1;
+    if(!reduce) requestAnimationFrame(frame);
+  }
+  frame();
+}
+
+/* ============================================================
+   RENDER + EVENTS
+   ============================================================ */
+function renderCats(P){
+  var root=document.getElementById("cats"); root.innerHTML="";
+  for(var c=0;c<CATS.length;c++){
+    var cat=CATS[c];
+    var sec=document.createElement("section"); sec.className="cat";
+    var head='<h3><span class="rn">'+cat.rn+'</span>'+cat.title+'</h3><p class="csub">'+cat.sub+'</p>';
+    var grid='<div class="sys">';
+    for(var s=0;s<cat.sys.length;s++){
+      var sys=cat.sys[s];
+      var tagTxt=sys.tag==="calc"?"計":sys.tag==="est"?"推":"象";
+      var rd=buildReading(sys,P);
+      grid+='<div class="card" data-card>'
+        +'<div class="cardTop" data-toggle>'
+        +'<span class="num">'+(sys.n<10?"0"+sys.n:sys.n)+'</span>'
+        +'<div class="cardMeta"><div class="nm">'+esc(sys.nm)+'</div><div class="es">'+esc(sys.es)+'</div></div>'
+        +'<span class="tag '+sys.tag+'">'+tagTxt+'</span>'
+        +'</div><div class="read">'+rd+'</div></div>';
+    }
+    grid+='</div>';
+    sec.innerHTML=head+grid;
+    root.appendChild(sec);
+  }
+  // toggle handlers
+  var tops=root.querySelectorAll("[data-toggle]");
+  for(var i=0;i<tops.length;i++){
+    tops[i].addEventListener("click",function(){
+      var card=this.parentNode; card.classList.toggle("open");
+    });
+  }
+}
+function run(){
+  var P=buildProfile();
+  if(!P){ alert("生年月日を8桁（YYYYMMDD）で入力してください。例 19840720"); return; }
+  document.getElementById("emptyMsg").style.display="none";
+  document.getElementById("catsHead").style.display="block";
+  document.getElementById("legend").style.display="flex";
+  document.getElementById("synth").classList.add("show");
+  renderSynth(P);
+  renderCats(P);
+  document.getElementById("synth").scrollIntoView({behavior:"smooth",block:"start"});
+}
+document.getElementById("goBtn").addEventListener("click",run);
+document.getElementById("iBirth").addEventListener("keydown",function(e){ if(e.key==="Enter") run(); });
+drawAmbient();
+</script>
+
+<script>
+(function(){var b=document.getElementById("navBtn"),o=document.getElementById("navOv");if(!b||!o)return;
+function set(s){b.classList.toggle("open",s);o.classList.toggle("show",s);b.setAttribute("aria-expanded",s?"true":"false");o.setAttribute("aria-hidden",s?"false":"true");document.body.style.overflow=s?"hidden":"";}
+b.addEventListener("click",function(){set(!o.classList.contains("show"));});
+o.addEventListener("click",function(e){if(e.target===o)set(false);});
+o.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){set(false);});});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")set(false);});})();
+</script>
+</body>
+</html>
